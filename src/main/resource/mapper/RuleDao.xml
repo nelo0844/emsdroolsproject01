@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sap.ems.dao.RuleDao">
+
+	<select id="queryById" resultType="Rule" parameterType="long">
+		select id, name, display_name, when_clause, then_clause, valid_from, valid_to, delay, priority, description, is_internal, version, model
+		from rule
+		where id = #{id};
+	</select>
+	
+	<select id="queryAll" resultType="Rule">
+		select *
+		from rule
+		limit 0, 1000;
+	</select>
+	
+	<insert id="insertRule">
+		insert into rule(name, display_name, when_clause, then_clause, valid_from, valid_to, delay, priority, description, is_internal, version, model)
+		values (#{name}, #{displayName}, #{whenClause}, #{thenClause}, #{validFrom}, #{validTo}, #{delay}, #{priority}, #{description}, #{isInternal}, #{version}, #{model});
+	</insert>
+</mapper>
