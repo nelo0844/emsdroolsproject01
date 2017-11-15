@@ -1,0 +1,32 @@
+<View
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	controllerName="sap.gm.controller.Master">
+	<Page>
+		<headerContent>
+			<Toolbar>
+				<Button text="Add" type="Accept" press="onAddRuleEvent"/>
+				<Button text="Apply" type="Accept" press="onApplyRuleEvent"/>
+			</Toolbar>
+		</headerContent>
+		<subHeader>
+			<Toolbar>
+				<SearchField
+					liveChange="onSearch"
+					width="100%" />
+			</Toolbar>
+		</subHeader>
+		<content>
+		<List id="orders" 
+				items="{globalModel>/rules}"
+				mode="SingleSelectMaster"
+				selectionChange="onSelectionChange">
+			<items>
+				<StandardListItem title="{globalModel>ruleName}" 
+					type="Active"
+					press="onSelectionChange"/>
+			</items>
+		</List>
+		</content>
+	</Page>
+</View>

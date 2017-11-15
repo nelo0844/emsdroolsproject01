@@ -1,0 +1,8 @@
+<View xmlns="sap.m">
+	<Page title="EMS Rule Design" class="GMPage">
+		<content>
+			<SplitApp id="rootControl">
+			</SplitApp>
+		</content>
+	</Page>
+</View>

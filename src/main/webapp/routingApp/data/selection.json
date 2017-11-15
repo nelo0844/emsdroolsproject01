@@ -1,0 +1,221 @@
+{  
+   "selections":[  
+      {  
+         "propertyId":0,
+         "propertyName":"Sales Order",
+         "content":[  
+            {  
+               "property":"SO ID",
+               "type":"long"
+            },
+            {  
+               "property":"Customer ID",
+               "type":"long"
+            },
+            {  
+               "property":"Referance Document Number",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Document Number",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Parent ID",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Sales Order Item",
+               "content":[  
+                  {  
+                     "property":"Item ID",
+                     "type":"int"
+                  },
+                  {  
+                     "property":"Product ID",
+                     "type":"java.lang.String"
+                  },
+                  {  
+                     "property":"Product Name",
+                     "type":"java.lang.String"
+                  },
+                  {  
+                     "property":"Valid From",
+                     "type":"java.util.Date"
+                  },
+                  {  
+                     "property":"Valid To",
+                     "type":"java.util.Date"
+                  },
+                  {  
+                     "property":"Quantity",
+                     "type":"double"
+                  },
+                  {  
+                     "property":"Document Number",
+                     "type":"java.lang.String"
+                  },
+                  {  
+                     "property":"Cardinality",
+                     "type":"java.lang.String"
+                  },
+                  {  
+                     "property":"Item Parent ID",
+                     "type":"java.lang.String"
+                  }
+               ]
+            }
+         ]
+      },
+      {  
+         "propertyId":2,
+         "propertyName":"Entitlement",
+         "content":[  
+            {  
+               "property":"Guid",
+               "type":"java.util.UUID"
+            },
+            {  
+               "property":"Reason",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Memory",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"C000000003",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Source System",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Referance Item Number",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Channel",
+               "type":"int"
+            },
+            {  
+               "property":"Valid From",
+               "type":"long"
+            },
+            {  
+               "property":"Valid To",
+               "type":"long"
+            },
+            {  
+               "property":"Storage",
+               "type":"int"
+            },
+            {  
+               "property":"created On",
+               "type":"long"
+            },
+            {  
+               "property":"changed On",
+               "type":"long"
+            },
+            {  
+               "property":"Changed By",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Created By",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Generation Method",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"UoM",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Customer ID",
+               "type":"long"
+            },
+            {  
+               "property":"Simulation Entitlement Number",
+               "type":"int"
+            },
+            {  
+               "property":"Performance And Goals",
+               "type":"boolean"
+            },
+            {  
+               "property":"Referance DocumentNumber",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Quantity",
+               "type":"float"
+            },
+            {  
+               "property":"Comments",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Referance Document Type",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Entitlement Type",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Version",
+               "type":"int"
+            },
+            {  
+               "property":"Entitlement Number",
+               "type":"long"
+            },
+            {  
+               "property":"Performance And Reward",
+               "type":"boolean"
+            },
+            {  
+               "property":"Modules",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Advanced Edition",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Entitlement Master ID",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Component",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Tenant URL",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Named Users",
+               "type":"long"
+            },
+            {  
+               "property":"Cloud Storage",
+               "type":"java.lang.String"
+            },
+            {  
+               "property":"Persistence",
+               "type":"boolean"
+            },
+            {  
+               "property":"Status",
+               "type":"java.lang.String"
+            }
+         ]
+      }
+   ]
+}

@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+
+	<Select forceSelection="true"
+		items="{selectionModel>/selections}" change="onChangeSection">
+		<core:Item key="{selectionModel>propertyId}" text="{selectionModel>propertyName}" />
+	</Select>
+
+	<List id="available" items="{selectionModel>/selectedItem/content}">
+		<items>
+			<CustomListItem>
+				<HBox class="sapUiSmallMargin">
+					<Label text="{selectionModel>property}" />
+					<core:Icon class="sapUiTinyMarginBegin" src="sap-icon://add-document"
+						size="1rem" press="onPressAddSelection" />
+				</HBox>
+			</CustomListItem>
+		</items>
+	</List>
+</core:FragmentDefinition>

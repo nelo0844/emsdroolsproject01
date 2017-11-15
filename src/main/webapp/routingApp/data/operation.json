@@ -1,0 +1,64 @@
+{
+    "long": [
+        {
+            "functionName": "equal",
+            "value":"=="
+        },
+        {
+            "functionName": "not equal to",
+            "value":"!="
+        },
+         {
+            "functionName": "less than",
+            "value":"<"
+        },
+         {
+            "functionName": "greater than",
+            "value":">"
+        },
+        {
+            "functionName": "less than or equal to",
+            "value":"<="
+        },
+        {
+            "functionName": "greater than or equal to",
+            "value":">="
+        },
+        {
+            "functionName": "is null",
+            "value":"== null"
+        },
+        {
+            "functionName": "is not null",
+            "value":"!= null"
+        },
+        {
+            "functionName": "is contained in the (comma separated) list",
+            "value":"in"
+        },
+        {
+            "functionName": "is not contained in the (comma separated) list",
+            "value":"not in"
+        }
+    ],
+    "java.lang.String": [
+        {
+            "functionName": "SO ID",
+            "type": "long"
+        },
+        {
+            "functionName": "Customer ID",
+            "type": "long"
+        }
+    ],
+    "java.util.Date": [
+        {
+            "functionName": "SO ID",
+            "type": "long"
+        },
+        {
+            "propertyName": "Customer ID",
+            "type": "long"
+        }
+    ]
+}

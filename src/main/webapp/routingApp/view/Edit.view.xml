@@ -1,0 +1,91 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m" controllerName="sap.gm.controller.Edit" xmlns:html="http://www.w3.org/1999/xhtml">
+	<HBox height="100%" class="GMRightContent">
+		<Page title="{globalModel>orderName}" navButtonPress="onNavBack"
+			showNavButton="{device>/system/phone}">
+			<content>
+				<Panel width="auto" class="GMActivePage" height="50%"
+					id="ID_WhenContent" backgroundDesign="Solid" accessibleRole="Region">
+					<headerToolbar>
+						<Toolbar height="3rem" active="true" press="onPressActiveEditPart">
+							<Title text="When" />
+						</Toolbar>
+					</headerToolbar>
+					<content>
+						<List items="{/whenPart}">
+							<items>
+								<CustomListItem>
+									<VBox class="sapUiSmallMargin">
+										<Label text="{propertyName}" />
+										<List items="{properties}">
+											<items>
+												<CustomListItem class="GMSelectionItem">
+													<Label text="{property}" />
+													<Label text=": {selectedChildProperty/property}" />
+													<Select forceSelection="true"
+														class="GMCustomeSelect sapUiTinyMarginBegin" items="{operationModel>/long}"
+														selectedKey="{operation}" change="onChangeOperationSection">
+														<core:Item key="{operationModel>value}"
+															text="{operationModel>functionName}" />
+													</Select>
+													<Input
+														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
+														placeholder="Enter Value ..." width="200px" value="{value}"
+														valueStateText="E-Mail must be a valid email address." />
+												</CustomListItem>
+											</items>
+										</List>
+									</VBox>
+								</CustomListItem>
+							</items>
+						</List>
+					</content>
+				</Panel>
+				<Panel width="auto" id="ID_ThenContent" backgroundDesign="Solid"
+					height="50%">
+					<headerToolbar>
+						<Toolbar height="3rem" active="true" press="onPressActiveEditPart">
+							<Title text="Then" />
+						</Toolbar>
+					</headerToolbar>
+					<content>
+						<List items="{/thenPart}">
+							<items>
+								<CustomListItem>
+									<VBox class="sapUiSmallMargin">
+										<Label text="{propertyName}" />
+										<List items="{properties}">
+											<items>
+												<CustomListItem class="GMSelectionItem">
+													<Label text="{property}" />
+													<Label text=": {selectedChildProperty/property}" />
+													<Input
+														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
+														placeholder="Enter Value ..." width="200px" value="{value}"
+														valueStateText="E-Mail must be a valid email address." />
+												</CustomListItem>
+											</items>
+										</List>
+									</VBox>
+								</CustomListItem>
+							</items>
+						</List>
+					</content>
+				</Panel>
+			</content>
+			<footer>
+				<Toolbar>
+					<Button text="Save" type="Accept" press="onSaveRuleEvent" />
+					<Button text="Cancel" type="Accept" press="onCancelRuleEvent" />
+					<Button text="Remove" type="Accept" press="onRemoveRuleEvent" />
+				</Toolbar>
+			</footer>
+		</Page>
+		<Page title="Available Selection" class="GMAvailablePage">
+			<content>
+				<core:Fragment fragmentName="sap.gm.fragment.available"
+					type="XML" />
+			</content>
+		</Page>
+	</HBox>
+</core:View>

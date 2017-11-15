@@ -1,0 +1,12 @@
+{
+	"rules": [
+		{
+			"ruleId": 0,
+			"ruleName": "Rule 1"
+		},
+		{
+			"ruleId": 1,
+			"ruleName": "Rule 2"
+		}
+	]
+}
