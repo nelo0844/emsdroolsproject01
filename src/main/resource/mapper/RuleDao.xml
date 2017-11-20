@@ -17,7 +17,7 @@
 	</select>
 	
 	<insert id="insertRule">
-		insert into rule(name, display_name, when_clause, then_clause, valid_from, valid_to, delay, priority, description, is_internal, version, model)
-		values (#{name}, #{displayName}, #{whenClause}, #{thenClause}, #{validFrom}, #{validTo}, #{delay}, #{priority}, #{description}, #{isInternal}, #{version}, #{model});
+		insert into rule(name, display_name, when_clause, then_clause, valid_from, valid_to, delay, priority, description, is_internal, version, model, is_enable, is_dirty, is_deployed)
+		values (#{name}, #{displayName}, #{whenClause}, #{thenClause}, #{validFrom}, #{validTo}, #{delay}, #{priority}, #{description}, #{isInternal}, #{version}, #{model}, #{isEnable}, #{isDirty}, #{isDeployed});
 	</insert>
 </mapper>

@@ -1,34 +1,27 @@
 package com.sap.ems.service;
 
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.fail;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.sap.ems.service.RuleEngine;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml","classpath:spring/spring-service.xml"})
-public class EMSServiceTest {
-	
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+public class RuleEngineTest {
 	
 	@Resource
-	private EMSService emsService; 
+	private RuleEngine ruleEngine;
 
 	@Test
-	public void testGetMappingFields() {
-		
-		List<Map> map = emsService.getMappingFields();
-			
-		logger.info("mapping={}",map);
-		
-		System.out.println(map);
+	public void testApplyRuleChanges() {
+		ruleEngine.applyRuleChanges();
 	}
 
 }

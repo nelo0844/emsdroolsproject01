@@ -21,15 +21,16 @@ public class EMSController {
 	@Autowired
 	private EMSService emsService;
 	
-	@RequestMapping(value = "/mappingfields", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public EMSResult<Map<String, Object>> getMappingFields() {
+	public EMSResult<List<Map>> getMappingFields() {
 		
-		EMSResult<Map<String, Object>> result;
+		EMSResult<List<Map>> result;
 		
-		Map<String, Object> map = emsService.getMappingFields();
+		List<Map> map = emsService.getMappingFields();
 		
-		result = new EMSResult<Map<String, Object>>(true, map);
+		result = new EMSResult<List<Map>>(true, map);
 		
 		return result;
 	};

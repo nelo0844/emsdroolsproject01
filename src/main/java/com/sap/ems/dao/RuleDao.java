@@ -38,12 +38,17 @@ public interface RuleDao {
 	 * @param isInternal
 	 * @param version
 	 * @param model
+	 * @param isEnable
+	 * @param isDirty
+	 * @param isDeployed
 	 * @return
 	 */
 	int insertRule(@Param("name") String name, @Param("displayName") String displayName,
 			@Param("whenClause") byte[] whenClause, @Param("thenClause") byte[] thenClause,
 			@Param("validFrom") Date validFrom, @Param("validTo") Date validTo, @Param("delay") String delay,
 			@Param("priority") Integer priority, @Param("description") String description,
-			@Param("isInternal") boolean isInternal, @Param("version") double version, @Param("model") byte[] model);
-	
+			@Param("isInternal") boolean isInternal, @Param("version") double version, @Param("model") byte[] model,
+			@Param("isEnable") boolean isEnable, @Param("isDirty") boolean isDirty,
+			@Param("isDeployed") boolean isDeployed);
+
 }

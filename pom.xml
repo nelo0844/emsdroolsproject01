@@ -121,6 +121,20 @@
 			<artifactId>spring-test</artifactId>
 			<version>4.1.7.RELEASE</version>
 		</dependency>
+		
+		<!-- Drools -->
+		<dependency>
+		<!-- drools compiler package is used by rule engine (drools) internally - removing it doesn't show error in eclipse but will fail on server -->
+			<groupId>org.drools</groupId>
+			<artifactId>drools-compiler</artifactId>
+			<version>6.4.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>emsdroolsproject01</finalName>

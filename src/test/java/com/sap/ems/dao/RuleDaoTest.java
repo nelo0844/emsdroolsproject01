@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.sap.ems.entity.Rule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring/spring-dao.xml"})
+@ContextConfiguration({"classpath:spring/spring-dao.xml","classpath:spring/spring-service.xml"})
 public class RuleDaoTest {
 	
 	@Resource
@@ -42,10 +42,13 @@ public class RuleDaoTest {
 
 	@Test
 	public void testInsertRules() {
-		String name = "testName01";
-		String displayName = "testDisplayName01";
-		byte[] whenClause = "testWhenClause".getBytes();
-		byte[] thenClause = "testThenClause".getBytes();
+		String whenString = "1 == 1;";
+		String thenString = "System.out.println( \" Hello Dan \" );";
+		
+		String name = "testName03";
+		String displayName = "testDisplayName03";
+		byte[] whenClause = whenString.getBytes();
+		byte[] thenClause = thenString.getBytes();
 		Date validFrom = new Date();
 		Date validTo = new Date();
 		String delay = "testDelay";
@@ -54,8 +57,11 @@ public class RuleDaoTest {
 		boolean isInternal = false;
 		double version = 1.0;
 		byte[] model = "model".getBytes();
+		boolean isEnable = true;
+		boolean isDirty = true;
+		boolean isDeployed = true;
 		ruleDao.insertRule(name, displayName, whenClause, thenClause, validFrom, validTo, delay, priority, description,
-				isInternal, version, model);
+				isInternal, version, model, isEnable, isDirty, isDeployed);
 	}
 
 }

@@ -19,9 +19,9 @@ public class EMSServiceImpl implements EMSService {
 	// Logger logger = LoggerFactory.getLogger(this.getClass());
 	String key;
 
-	public Map<String, Object> getMappingFields() {
+	public List<Map> getMappingFields() {
 
-		LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
+//		LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
 
 		LinkedHashMap<String, Object> so = new LinkedHashMap<String, Object>();
 
@@ -30,6 +30,8 @@ public class EMSServiceImpl implements EMSService {
 		LinkedHashMap<String, Object> emsEntitlement = new LinkedHashMap<String, Object>();
 		
 		LinkedHashMap<String, Object> field = new LinkedHashMap<String, Object>();
+		
+		List<Map> map = new ArrayList<Map>();
 		
 		List<Map> SoPropertyAndType = new ArrayList<Map>();
 		
@@ -222,10 +224,18 @@ public class EMSServiceImpl implements EMSService {
 			}
 		}
 
-		soItem.put("Sales Order Item", itemPropertyAndType);
+		soItem.put("property", "Sales Order Item");
+		soItem.put("content", itemPropertyAndType);
 		SoPropertyAndType.add(soItem);
-		map.put("Sales Order", SoPropertyAndType);
-		map.put("Entitlement", entitlementPropertyAndType);
+		so.put("propertyId", 0);
+		so.put("propertyName", "Sales Order");
+		so.put("content", SoPropertyAndType);
+		map.add(so);
+		
+		emsEntitlement.put("propertyId", 2);
+		emsEntitlement.put("propertyName", "Entitlement");
+		emsEntitlement.put("content", entitlementPropertyAndType);
+		map.add(emsEntitlement);
 
 		return map;
 

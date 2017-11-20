@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface EMSService {
 
-	public Map<String, Object> getMappingFields();
+	public List<Map> getMappingFields();
 	
 }
