@@ -1,1 +1,6 @@
-/target/
+target/
+.settings/
+#specific files
+.classpath
+.project
+src/main/resource/spring/jdbc.properties
