@@ -1,5 +1,2 @@
 target/
-.settings/
 #specific files
-.classpath
-.project
