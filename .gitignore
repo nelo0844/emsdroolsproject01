@@ -3,4 +3,3 @@ target/
 #specific files
 .classpath
 .project
-src/main/resource/spring/jdbc.properties
