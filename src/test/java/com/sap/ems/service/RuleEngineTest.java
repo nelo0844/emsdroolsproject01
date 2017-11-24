@@ -68,8 +68,8 @@ public class RuleEngineTest {
 		boolean isEnable = true;
 		boolean isDirty = true;
 		boolean isDeployed = true;
-		ruleDao.insertRule(name, displayName, whenClause, thenClause, validFrom, validTo, delay, priority, description,
-				isInternal, version, model, isEnable, isDirty, isDeployed);
+//		ruleDao.insertRule(name, displayName, whenClause, thenClause, validFrom, validTo, delay, priority, description,
+//				isInternal, version, model, isEnable, isDirty, isDeployed);
 	}
 
 }

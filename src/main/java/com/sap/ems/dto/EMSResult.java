@@ -42,5 +42,4 @@ public class EMSResult<T> {
 		this.error = error;
 	}
 	
-	
 }

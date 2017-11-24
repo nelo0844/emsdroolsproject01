@@ -2,13 +2,18 @@ package com.sap.ems.service.impl;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sap.ems.dao.RuleDao;
+import com.sap.ems.dto.RuleDto;
 import com.sap.ems.entity.Entitlement;
+import com.sap.ems.entity.Rule;
 import com.sap.ems.entity.SalesOrder;
 import com.sap.ems.entity.SalesOrderItem;
 import com.sap.ems.service.EMSService;
@@ -18,6 +23,9 @@ public class EMSServiceImpl implements EMSService {
 
 	// Logger logger = LoggerFactory.getLogger(this.getClass());
 	String key;
+	
+	@Autowired
+	private RuleDao ruleDao;
 
 	public List<Map> getMappingFields() {
 
@@ -249,5 +257,86 @@ public class EMSServiceImpl implements EMSService {
 		value.put("type", type);
 		propertyAndType.add(value);
 		return propertyAndType;
+	}
+	
+	public List<Rule> getAllRules() {
+		List<Rule> rules = new ArrayList();
+		rules = ruleDao.queryAll();
+		return rules;
+	}
+
+	public RuleDto getRuleById(long ruleId) {
+		List when = new ArrayList();
+		List then = new ArrayList();
+		
+		Rule rule = ruleDao.queryById(ruleId);
+
+//		when.add(rule.getWhen().toString());
+//		when.add(new String(rule.getWhen()));		
+//		then.add(rule.getThen().toString());
+//		then.add(new String(rule.getThen()));
+		
+		String whenString = new String(rule.getWhen());
+		String thenString = new String(rule.getThen());
+		
+
+		
+//		whenString = whenString.replaceAll("{", "");
+//		whenString = whenString.replaceAll("}", "");
+//		whenString = whenString.replaceAll("[", "");
+//		whenString = whenString.replaceAll("]", "");
+//		
+//		thenString = thenString.replaceAll("{", "");
+//		thenString = thenString.replaceAll("}", "");
+//		thenString = thenString.replaceAll("[", "");
+//		thenString = thenString.replaceAll("]", "");
+
+		whenString = whenString.substring(2, whenString.length());
+		whenString = whenString.substring(0, whenString.length()-2);
+		thenString = thenString.substring(2, thenString.length());
+		thenString = thenString.substring(0, thenString.length()-2);
+		
+		when = Arrays.asList(whenString);
+		then = Arrays.asList(thenString);
+		
+//		when = Arrays.asList(whenString.split(","));
+//		then = Arrays.asList(thenString.split(","));
+		
+		return new RuleDto(rule.getId(), rule.getName(), rule.getDisplayName(), rule.getValidFrom(), rule.getValidTo(),
+				rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.getVersion(), rule.isInternal(), rule.isEnabled(),
+				rule.isDirty(), rule.isDeployed(), when, then, rule.getWhenString(), rule.getThenString());
+	}
+
+	public int insertRule(RuleDto rule) {
+//		String when = rule.getWhenPart().toString();
+//		when = when.substring(1, when.length());
+//		when = when.substring(0, when.length()-1);
+//		
+//		String then = rule.getThenPart().toString();
+//		then = then.substring(1, then.length());
+//		then = then.substring(0, then.length()-1);
+		
+		List whenList = rule.getWhenPart();
+		List thenList = rule.getThenPart();//when.getBytes(), then.getBytes()
+		
+		ruleDao.insertRule(rule.getRuleName(), rule.getDisplayName(), Arrays.toString(whenList.toArray()).getBytes(),
+				Arrays.toString(thenList.toArray()).getBytes(), rule.getWhenString(), rule.getThenString(),
+				rule.getValidFrom(), rule.getValidTo(), rule.getDelay(), rule.getPriority(), rule.getDescription(),
+				rule.isInternal(), rule.getVersion(), rule.isEnabled(), rule.isDirty(), rule.isDeployed());
+		return 1;
+	}
+
+	public int updateRule(RuleDto rule) {
+		ruleDao.updateRule(rule.getRuleId(), rule.getRuleName(), rule.getDisplayName(),
+				rule.getWhenPart().toString().getBytes(), rule.getThenPart().toString().getBytes(),
+				rule.getWhenString(), rule.getThenString(), rule.getValidFrom(), rule.getValidTo(), rule.getDelay(),
+				rule.getPriority(), rule.getDescription(), rule.isInternal(), rule.getVersion(), rule.isEnabled(),
+				rule.isDirty(), rule.isDeployed());
+		return 1;
+	}
+
+	public int deleteRule(long ruleId) {
+		ruleDao.deleteById(ruleId);
+		return 1;
 	}
 }

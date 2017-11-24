@@ -13,8 +13,6 @@ CREATE TABLE rule(
 `display_name` varchar(120) COMMENT 'Rule Display Name',
 `when_clause` BLOB COMMENT 'When',
 `then_clause` BLOB COMmENT 'Then',
-`when_string` varchar(1024) COMMENT 'When String',
-`then_string` varchar(1024) COMMENT 'Then String',
 `valid_to` timestamp COMMENT 'Valid To',
 `valid_from` timestamp COMMENT 'valid From',
 `delay` varchar(10) COMMENT 'Delay',

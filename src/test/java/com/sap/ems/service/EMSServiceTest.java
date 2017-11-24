@@ -1,5 +1,6 @@
 package com.sap.ems.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.sap.ems.entity.Rule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-dao.xml","classpath:spring/spring-service.xml"})
@@ -29,6 +32,15 @@ public class EMSServiceTest {
 		logger.info("mapping={}",map);
 		
 		System.out.println(map);
+	}
+	
+	@Test
+	public void testGetAllRules() {
+		List<Rule> rules = new ArrayList();
+		rules = emsService.getAllRules();
+		
+		logger.info("rules={}",rules);
+		System.out.println(rules);
 	}
 
 }

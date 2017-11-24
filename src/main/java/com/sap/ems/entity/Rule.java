@@ -26,6 +26,10 @@ public class Rule {
 	
 	private byte[] thenClause;
 	
+	private String whenString;
+	
+	private String thenString;
+
 	private Date validFrom;
 	
 	private Date validTo;
@@ -83,16 +87,18 @@ public class Rule {
 		this.displayName = displayName;
 	}
 
-	public String getWhen() {
-		return (null == this.whenClause) ? null : new String(this.whenClause, CommonsConfig.CHARSET);
+	public byte[] getWhen() {
+//		return (null == this.whenClause) ? null : new String(this.whenClause, CommonsConfig.CHARSET);
+		return this.whenClause;
 	}
 
 	public void setWhen(String param) {
 		this.whenClause = param.getBytes(CommonsConfig.CHARSET);
 	}
 
-	public String getThen() {
-		return (null == this.thenClause) ? null : new String(this.thenClause, CommonsConfig.CHARSET);
+	public byte[] getThen() {
+//		return (null == this.thenClause) ? null : new String(this.thenClause, CommonsConfig.CHARSET);
+		return this.thenClause;
 	}
 
 	public void setThen(String param) {
@@ -202,6 +208,22 @@ public class Rule {
 	public static Logger getLogger() {
 		return logger;
 	}
+	
+	public String getWhenString() {
+		return whenString;
+	}
+
+	public void setWhenString(String whenString) {
+		this.whenString = whenString;
+	}
+
+	public String getThenString() {
+		return thenString;
+	}
+
+	public void setThenString(String thenString) {
+		this.thenString = thenString;
+	}
 
 	private final String slat = "sdfsdfjoijefikdjflsjdflksajf943829u99(*(**&^^%^%$#@";
 	
@@ -240,7 +262,7 @@ public class Rule {
 	      rule += "no-loop true \n";
 
 	      // when and then shouldn't add "null" to the code, but skip their whens and thens
-	      String when = this.getWhen() == null ? "" : this.getWhen();
+	      String when = this.getWhen() == null ? "" : this.getWhen().toString();
 
 	      rule += "when \n " + when + " \n" + "then \n try {\n   ";
 
@@ -248,7 +270,7 @@ public class Rule {
 	      if (!this.isInternal()) {
 	         rule += enableSecurityManager + "\n";
 	      }
-	      String then = this.getThen() == null ? "" : this.getThen();
+	      String then = this.getThen() == null ? "" : this.getThen().toString();
 
 	      rule += then + "\n } catch (Exception e) {\n " + disableSecurityManager + "\n" + exceptionHandling + " \n}\n";
 

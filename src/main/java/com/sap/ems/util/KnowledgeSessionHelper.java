@@ -41,17 +41,14 @@ public class KnowledgeSessionHelper {
 		
 		kieSession.addEventListener(new RuleRuntimeEventListener() {
 			
-			@Override
 			public void objectUpdated(ObjectUpdatedEvent event) {
 				System.out.println("Object was updated \n" + "new COntent \n" + event.getObject().toString());
 			}
 			
-			@Override
 			public void objectInserted(ObjectInsertedEvent event) {
 				System.out.println("Objec inserted \n" + event.getObject().toString());
 			}
 			
-			@Override
 			public void objectDeleted(ObjectDeletedEvent event) {
 				System.out.println("Object retracted \n" + event.getOldObject().toString());
 			}

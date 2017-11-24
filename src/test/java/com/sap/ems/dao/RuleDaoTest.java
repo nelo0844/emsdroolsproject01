@@ -23,13 +23,13 @@ public class RuleDaoTest {
 	public void testQueryById() {
 		long id = 10000;
 		Rule rule = ruleDao.queryById(id);
-		String delay = rule.getDelay();
-		String when = rule.getWhen();
-		String then = rule.getThen();
+//		String delay = rule.getDelay();
+//		String when = rule.getWhen();
+//		String then = rule.getThen();
 		System.out.println(rule.toString());
-		System.out.println(delay);
-		System.out.println(when);
-		System.out.println(then);
+//		System.out.println(delay);
+//		System.out.println(when);
+//		System.out.println(then);
 	}
 
 	@Test
@@ -60,8 +60,8 @@ public class RuleDaoTest {
 		boolean isEnable = true;
 		boolean isDirty = true;
 		boolean isDeployed = true;
-		ruleDao.insertRule(name, displayName, whenClause, thenClause, validFrom, validTo, delay, priority, description,
-				isInternal, version, model, isEnable, isDirty, isDeployed);
+		ruleDao.insertRule(name, displayName, whenClause, thenClause, whenString, thenString, validFrom, validTo, delay, priority, description,
+				isInternal, version, isEnable, isDirty, isDeployed);
 	}
 
 }
