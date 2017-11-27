@@ -44,7 +44,10 @@
             "css": [{
                 "uri": "css/component.css",
                 "id": "componentcss"
-            }]
+            }],
+            "js":[{
+					"uri": "js/Utils.js"
+			}]
         },
       "dependencies":{  
          "minUI5Version":"1.38.16",

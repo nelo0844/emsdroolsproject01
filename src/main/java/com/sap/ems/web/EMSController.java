@@ -89,6 +89,7 @@ public class EMSController {
 	@ResponseBody
 	public EMSResult<Integer> insertRule(@RequestBody RuleDto rule) {
 		EMSResult<Integer> result;		
+//		rule.getThenPart().get(0).
 		Integer num = emsService.insertRule(rule);
 		result = new EMSResult<Integer>(true, num);
 		return result;

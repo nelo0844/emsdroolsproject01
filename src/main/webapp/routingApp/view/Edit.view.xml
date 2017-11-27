@@ -32,6 +32,7 @@
 														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
 														placeholder="Enter Value ..." width="200px" value="{value}"
 														valueStateText="E-Mail must be a valid email address." />
+													<Button class="sapUiTinyMarginBegin" text="Delete" type="Accept" press="onDeleteConditionEvent" />
 												</CustomListItem>
 											</items>
 										</List>
@@ -58,11 +59,12 @@
 											<items>
 												<CustomListItem class="GMSelectionItem">
 													<Label text="{property}" />
-													<Label text=": {selectedChildProperty/property}" />
+													<Label text=">{selectedChildProperty/property}" />
 													<Input
 														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
 														placeholder="Enter Value ..." width="200px" value="{value}"
 														valueStateText="E-Mail must be a valid email address." />
+													<Button class="sapUiTinyMarginBegin" text="Delete" type="Accept" press="onDeleteConditionEvent" />
 												</CustomListItem>
 											</items>
 										</List>

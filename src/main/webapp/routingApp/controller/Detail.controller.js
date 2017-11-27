@@ -9,7 +9,18 @@ sap.ui.define([
 		},
 		_onRouteMatched: function(oEvent) {
 			this._orderId = oEvent.getParameter("arguments").orderId;
-			this.getView().bindElement("globalModel>/orders/" + this._orderId);
+			this.getView().bindElement("globalModel>/rules/" + this._orderId);
+
+			var currentRule = this.getView().getBindingContext("globalModel").getObject();
+			var oModel = new sap.ui.model.json.JSONModel();
+			if (currentRule && currentRule.whenString) {
+				oModel.setData({
+					whenString: currentRule.whenString,
+					thenString: currentRule.thenString
+				});
+			}
+
+			this.getView().setModel(oModel);
 		},
 		onNavBack: function() {
 			var sPreviousHash = History.getInstance().getPreviousHash();
@@ -27,6 +38,23 @@ sap.ui.define([
 			this.getOwnerComponent().getRouter().navTo("productDetails", {
 				rulesId: this._orderId
 			});
+		},
+		onRemoveRuleEvent: function(oEvent) {
+			var oCurrentModel = this.getView().getModel("globalModel");
+			var oData = oCurrentModel.getData();
+
+			var currentRule = this.getView().getBindingContext("globalModel").getObject();
+			let
+			deteleIndex = -1;
+			oData.rules.forEach(function(item, index) {
+				if (item.ruleId === currentRule.ruleId) {
+					deteleIndex = index;
+				}
+			});
+			if (deteleIndex != -1) {
+				oData.rules.splice(deteleIndex, 1);
+				oCurrentModel.refresh();
+			}
 		},
 		onChangeSection: function(oEvent) {
 			var oBindingContext = oEvent.getParameter("selectedItem").getBindingContext("selectionModel");

@@ -16,8 +16,11 @@ sap.ui.controller("sap.gm.controller.Edit", {
 
 		var currentRule = this.getView().getBindingContext("globalModel").getObject();
 		var oModel = new sap.ui.model.json.JSONModel();
-		if (currentRule && currentRule.content) {
-			oModel.setData(currentRule.content);
+		if (currentRule && currentRule.whenPart) {
+			oModel.setData({
+				whenPart: currentRule.whenPart,
+				thenPart: currentRule.thenPart
+			});
 		} else {
 			oModel.setData({
 				whenPart: [],
@@ -143,7 +146,9 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		var oData = oCurrentModel.getData();
 
 		var currentRule = this.getView().getBindingContext("globalModel").getObject();
-		currentRule.content = oData;
+		var ruleString = generateRuleString(oData);
+		Object.assign(currentRule, ruleString);
+		this.getView().getBindingContext("globalModel").getModel().refresh();
 	},
 
 	onCancelRuleEvent: function(oEvent) {
@@ -154,11 +159,32 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	},
 
 	onRemoveRuleEvent: function(oEvent) {
-		var oCurrentModel = this.getView().getModel();
+		var oCurrentModel = this.getView().getModel("globalModel");
 		var oData = oCurrentModel.getData();
 
 		var currentRule = this.getView().getBindingContext("globalModel").getObject();
-		currentRule.content = oData;
+		let
+		deteleIndex = -1;
+		oData.rules.forEach(function(item, index) {
+			if (item.ruleId === currentRule.ruleId) {
+				deteleIndex = index;
+			}
+		});
+		if (deteleIndex != -1) {
+			oData.rules.splice(deteleIndex, 1);
+			oCurrentModel.refresh();
+		}
+	},
+
+	onDeleteConditionEvent: function(oEvent) {
+		var oCurrentModel = this.getView().getModel();
+		var oData = oCurrentModel.getData();
+
+		var path = oEvent.getSource().getBindingContext().getPath();
+		var paths = path.split("/");
+		var child = oData[paths[1]][paths[2]][paths[3]];
+		child.splice(paths[4], 1);
+		oCurrentModel.refresh();
 	},
 
 	/*************************************************************************************************************************************************

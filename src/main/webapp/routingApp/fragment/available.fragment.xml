@@ -3,7 +3,7 @@
 
 	<Select forceSelection="true"
 		items="{selectionModel>/selections}" change="onChangeSection">
-		<core:Item key="{selectionModel>propertyId}" text="{selectionModel>propertyName}" />
+		<core:Item key="{selectionModel>propertyName}" text="{selectionModel>propertyName}" />
 	</Select>
 
 	<List id="available" items="{selectionModel>/selectedItem/content}">

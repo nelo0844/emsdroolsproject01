@@ -10,22 +10,7 @@
 						</Toolbar>
 					</headerToolbar>
 					<content>
-						<List items="{/}">
-							<items>
-								<CustomListItem>
-									<VBox class="sapUiSmallMargin">
-										<Label text="{productName}" />
-										<List items="{properties}">
-											<items>
-												<CustomListItem>
-													<Label text="{productName}" />
-												</CustomListItem>
-											</items>
-										</List>
-									</VBox>
-								</CustomListItem>
-							</items>
-						</List>
+						<Label text="{/whenString}" />
 					</content>
 				</Panel>
 				<Panel width="auto" height="50%">
@@ -35,6 +20,7 @@
 						</Toolbar>
 					</headerToolbar>
 					<content>
+						<Label text="{/thenString}" />
 					</content>
 				</Panel>
 			</content>

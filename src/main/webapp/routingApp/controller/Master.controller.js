@@ -53,13 +53,13 @@ sap.ui.define([
 		},
 		addRule: function() {
 			var sText = sap.ui.getCore().byId('createRuleInput').getValue();
-			var data = this.getView().getModel().getData();
-			data.orders[data.orders.length] = {
-				ruleId: data.orders.length,
+			var data = this.getView().getModel("globalModel").getData();
+			data.rules[data.rules.length] = {
+				ruleId: data.rules.length,
 				ruleName: sText,
 				products: []
 			}
-			this.getView().getModel().setData(data);
+			this.getView().getModel("globalModel").setData(data);
 			this._dialog.close();
 		},
 		onSearch: function(oEvt) {

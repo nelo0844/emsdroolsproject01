@@ -14,10 +14,10 @@ public interface EMSService {
 	
 	public RuleDto getRuleById(long ruleId);
 
-	public int insertRule(RuleDto rule);
+	public Integer insertRule(RuleDto rule);
 	
-	public int updateRule(RuleDto rule);
+	public Integer updateRule(RuleDto rule);
 	
-	public int deleteRule(long ruleId);
+	public Integer deleteRule(long ruleId);
 	
 }

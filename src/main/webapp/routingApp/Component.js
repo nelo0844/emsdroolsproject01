@@ -20,11 +20,15 @@ sap.ui.define([
 
 			// available selection model
 			var oSelectionModel = new JSONModel();
-			oSelectionModel.loadData("routingApp/data/selection.json", null, true);
+			oSelectionModel.loadData("drools/list", null, true);
+
 			oSelectionModel.attachRequestCompleted(function() {
-				var oData = oSelectionModel.getData();
-				oData.selectedItem = oData.selections[0];
-				oSelectionModel.setData(oData);
+				var oData = oSelectionModel.getData().data;
+				var availableData = {
+					selections: oData,
+					selectedItem: oData[0]
+				}
+				oSelectionModel.setData(availableData);
 			});
 			this.setModel(oSelectionModel, "selectionModel");
 
