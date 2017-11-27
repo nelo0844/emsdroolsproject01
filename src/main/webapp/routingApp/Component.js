@@ -20,8 +20,7 @@ sap.ui.define([
 
 			// available selection model
 			var oSelectionModel = new JSONModel();
-			oSelectionModel.loadData("drools/list", null, true);
-
+			oSelectionModel.loadData("drools/list", null, true, "POST");
 			oSelectionModel.attachRequestCompleted(function() {
 				var oData = oSelectionModel.getData().data;
 				var availableData = {
