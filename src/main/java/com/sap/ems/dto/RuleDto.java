@@ -36,9 +36,9 @@ public class RuleDto<T> {
 	
 	private boolean deployed;
 	
-	private List whenPart;
+	private List<RulePartDto> whenPart;
 	
-	private List thenPart;
+	private List<RulePartDto> thenPart;
 	
 	private String whenString;
 	
@@ -46,7 +46,7 @@ public class RuleDto<T> {
 
 	public RuleDto(long ruleId, String ruleName, String displayName, Date validFrom, Date validTo, String delay,
 			Integer priority, String description, double version, boolean internal, boolean enabled, boolean dirty,
-			boolean deployed, List whenPart, List thenPart, String whenString, String thenString) {
+			boolean deployed, List<RulePartDto> whenPart, List<RulePartDto> thenPart, String whenString, String thenString) {
 		this.ruleId = ruleId;
 		this.ruleName = ruleName;
 		this.displayName = displayName;
@@ -64,22 +64,22 @@ public class RuleDto<T> {
 		this.thenPart = thenPart;
 	}
 
-	public List getWhenPart() {
+	public List<RulePartDto> getWhenPart() {
 //		return (null == this.whenPart) ? null : new String(this.whenPart, CommonsConfig.CHARSET);
 		return this.whenPart;
 	}
 
-	public void setWhenPart(List whenPart) {
+	public void setWhenPart(List<RulePartDto> whenPart) {
 //		this.whenPart = whenPart.getBytes(CommonsConfig.CHARSET);
 		this.whenPart = whenPart;
 	}
 
-	public List getThenPart() {
+	public List<RulePartDto> getThenPart() {
 //		return (null == this.thenPart) ? null : new String(this.thenPart, CommonsConfig.CHARSET);
 		return this.thenPart;
 	}
 
-	public void setThenPart(List thenPart) {
+	public void setThenPart(List<RulePartDto> thenPart) {
 //		this.thenPart = thenPart.getBytes(CommonsConfig.CHARSET);
 		this.thenPart = thenPart;
 	}

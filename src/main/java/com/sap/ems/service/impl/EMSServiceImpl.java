@@ -307,7 +307,7 @@ public class EMSServiceImpl implements EMSService {
 				rule.isDirty(), rule.isDeployed(), when, then, rule.getWhenString(), rule.getThenString());
 	}
 
-	public int insertRule(RuleDto rule) {
+	public Integer insertRule(RuleDto rule) {
 //		String when = rule.getWhenPart().toString();
 //		when = when.substring(1, when.length());
 //		when = when.substring(0, when.length()-1);
@@ -326,7 +326,7 @@ public class EMSServiceImpl implements EMSService {
 		return 1;
 	}
 
-	public int updateRule(RuleDto rule) {
+	public Integer updateRule(RuleDto rule) {
 		ruleDao.updateRule(rule.getRuleId(), rule.getRuleName(), rule.getDisplayName(),
 				rule.getWhenPart().toString().getBytes(), rule.getThenPart().toString().getBytes(),
 				rule.getWhenString(), rule.getThenString(), rule.getValidFrom(), rule.getValidTo(), rule.getDelay(),
@@ -335,7 +335,7 @@ public class EMSServiceImpl implements EMSService {
 		return 1;
 	}
 
-	public int deleteRule(long ruleId) {
+	public Integer deleteRule(long ruleId) {
 		ruleDao.deleteById(ruleId);
 		return 1;
 	}
