@@ -148,8 +148,9 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		var currentRule = this.getView().getBindingContext("globalModel").getObject();
 		var ruleString = generateRuleString(oData);
 		Object.assign(currentRule, ruleString);
-		$.post("/drools/rule", currentRule, function(data, status) {
-			alert("Data: " + data + "\nStatus: " + status);
+
+		postToServer("drools/rule", currentRule, function(data, status) {
+			alert("save success.");
 		});
 		this.getView().getBindingContext("globalModel").getModel().refresh();
 	},

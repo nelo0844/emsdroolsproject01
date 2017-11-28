@@ -1,48 +1,57 @@
+function postToServer(url, data, fnSuccess) {
+	$.ajax({
+		type: 'POST',
+		url: url,
+		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify(data),
+		success: fnSuccess,
+		dataType: "json"
+	});
+}
+
 function generateRuleString(Object) {
 	return {
 		whenPart: Object.whenPart,
 		thenPart: Object.thenPart,
-		whenString: generateWhenString(Object.whenPart),
-		thenString: generateThenString(Object.thenPart)
+		whenString: readRuleStructure(Object.whenPart, generateWhenString),
+		thenString: readRuleStructure(Object.thenPart, generateThenString)
 	};
 }
-function generateWhenString(Object) {
-	var whenString = "";
-	Object.forEach(function(item) {
-		var allItem = "";
-		item.properties.forEach(function(property) {
-			if (allItem == "") {
-				allItem = property.property + property.operation + "'" + property.value + "'";
-			} else {
-				allItem = allItem + "," + property.property + property.operation + "'" + property.value + "'";
-			}
-		});
-
-		if (whenString == "") {
-			whenString = item.propertyName + "(" + allItem + ")";
-		} else {
-			whenString = whenString + " and " + item.propertyName + "(" + allItem + ")";
-		}
-	})
-	return whenString;
+function generateWhenString(property) {
+	return (!property.selectedChildProperty ? property.property : property.selectedChildProperty.property) + property.operation + "'" + property.value + "'";
 }
-function generateThenString(Object) {
-	var thenString = "";
-	Object.forEach(function(item) {
+function generateThenString(property) {
+	return (!property.selectedChildProperty ? property.property : property.selectedChildProperty.property) + "=" + "'" + property.value + "'";
+}
+
+function readRuleStructure(sourceData, fnGenerate) {
+	var objString = "";
+
+	var childItems = {};
+	sourceData.forEach(function(item) {
 		var allItem = "";
 		item.properties.forEach(function(property) {
-			if (allItem == "") {
-				allItem = property.property + "=" + "'" + property.value + "'";
+			if (property.selectedChildProperty) {
+				if (!childItems[property.property]) {
+					childItems[property.property] = [];
+				}
+				childItems[property.property].push(property);
 			} else {
-				allItem = allItem + "," + property.property + "=" + "'" + property.value + "'";
+				allItem = (allItem == "" ? "" : (allItem + ",")) + fnGenerate(property);
 			}
 		});
 
-		if (thenString == "") {
-			thenString = item.propertyName + "(" + allItem + ")";
-		} else {
-			thenString = thenString + " and " + item.propertyName + "(" + allItem + ")";
-		}
-	})
-	return thenString;
+		var condition = allItem == "" ? "" : (item.propertyName + "(" + allItem + ")");
+		objString = objString == "" ? condition : (objString + " and " + condition);
+	});
+
+	for ( var i in childItems) {
+		var allItem = "";
+		childItems[i].forEach(function(property) {
+			allItem = (allItem == "" ? "" : (allItem + ",")) + fnGenerate(property);
+		});
+		var condition = i + "(" + allItem + ")";
+		objString = objString == "" ? condition : (objString + " and " + condition);
+	}
+	return objString;
 }
