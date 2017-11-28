@@ -44,6 +44,8 @@ public class RuleDaoTest {
 	public void testInsertRules() {
 		String whenString = "1 == 1;";
 		String thenString = "System.out.println( \" Hello Dan \" );";
+		String whenDrl = "1 == 1;";
+		String thenDrl = "System.out.println( \" Hello Dan \" );";
 		
 		String name = "testName03";
 		String displayName = "testDisplayName03";
@@ -60,7 +62,7 @@ public class RuleDaoTest {
 		boolean isEnable = true;
 		boolean isDirty = true;
 		boolean isDeployed = true;
-		ruleDao.insertRule(name, displayName, whenClause, thenClause, whenString, thenString, validFrom, validTo, delay, priority, description,
+		ruleDao.insertRule(name, displayName, whenClause, thenClause, whenString, thenString, whenDrl, thenDrl, validFrom, validTo, delay, priority, description,
 				isInternal, version, isEnable, isDirty, isDeployed);
 	}
 

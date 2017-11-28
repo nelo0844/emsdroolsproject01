@@ -38,10 +38,10 @@ public class EMSController {
 	
 	@RequestMapping(value = "/allrules", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public EMSResult<List<Rule>> getAllRules() {
-		EMSResult<List<Rule>> result;
-		List<Rule> rules = emsService.getAllRules();
-		result = new EMSResult<List<Rule>>(true, rules);
+	public EMSResult<List<RuleDto>> getAllRules() {
+		EMSResult<List<RuleDto>> result;
+		List<RuleDto> rules = emsService.getAllRules();
+		result = new EMSResult<List<RuleDto>>(true, rules);
 		return result;
 	}
 	
@@ -89,7 +89,7 @@ public class EMSController {
 	@ResponseBody
 	public EMSResult<Integer> insertRule(@RequestBody RuleDto rule) {
 		EMSResult<Integer> result;		
-//		rule.getThenPart().get(0).
+		rule.toString();
 		Integer num = emsService.insertRule(rule);
 		result = new EMSResult<Integer>(true, num);
 		return result;

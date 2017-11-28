@@ -43,6 +43,10 @@ public class RuleDto<T> {
 	private String whenString;
 	
 	private String thenString;
+	
+	private String whenDrl;
+	
+	private String thenDrl;
 
 	public RuleDto(long ruleId, String ruleName, String displayName, Date validFrom, Date validTo, String delay,
 			Integer priority, String description, double version, boolean internal, boolean enabled, boolean dirty,
@@ -62,6 +66,28 @@ public class RuleDto<T> {
 		this.deployed = deployed;
 		this.whenPart = whenPart;
 		this.thenPart = thenPart;
+	}
+
+	public RuleDto(long ruleId, String ruleName, String displayName, Date validFrom, Date validTo, String delay,
+			Integer priority, String description, double version, boolean internal, boolean enabled, boolean dirty,
+			boolean deployed, String whenString, String thenString, String whenDrl, String thenDrl) {
+		this.ruleId = ruleId;
+		this.ruleName = ruleName;
+		this.displayName = displayName;
+		this.validFrom = validFrom;
+		this.validTo = validTo;
+		this.delay = delay;
+		this.priority = priority;
+		this.description = description;
+		this.version = version;
+		this.internal = internal;
+		this.enabled = enabled;
+		this.dirty = dirty;
+		this.deployed = deployed;
+		this.whenString = whenString;
+		this.thenString = thenString;
+		this.whenDrl = whenDrl;
+		this.thenDrl = thenDrl;
 	}
 
 	public List<RulePartDto> getWhenPart() {
@@ -217,6 +243,22 @@ public class RuleDto<T> {
 
 	public void setThenString(String thenString) {
 		this.thenString = thenString;
+	}
+	
+	public String getWhenDrl() {
+		return whenDrl;
+	}
+
+	public void setWhenDrl(String whenDrl) {
+		this.whenDrl = whenDrl;
+	}
+
+	public String getThenDrl() {
+		return thenDrl;
+	}
+
+	public void setThenDrl(String thenDrl) {
+		this.thenDrl = thenDrl;
 	}
 	
 }

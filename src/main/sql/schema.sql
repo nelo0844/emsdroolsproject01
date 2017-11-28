@@ -15,6 +15,8 @@ CREATE TABLE rule(
 `then_clause` BLOB COMmENT 'Then',
 `when_string` varchar(1024) COMMENT 'When String',
 `then_string` varchar(1024) COMMENT 'Then String',
+`when_drl` varchar(1024) COMMENT 'When DRL',
+`then_drl` varchar(1024) COMMENT 'Then DRL',
 `valid_to` timestamp COMMENT 'Valid To',
 `valid_from` timestamp COMMENT 'valid From',
 `delay` varchar(10) COMMENT 'Delay',

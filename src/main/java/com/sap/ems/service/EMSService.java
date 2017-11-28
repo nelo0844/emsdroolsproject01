@@ -10,7 +10,7 @@ public interface EMSService {
 
 	public List<Map> getMappingFields();
 	
-	public List<Rule> getAllRules();
+	public List<RuleDto> getAllRules();
 	
 	public RuleDto getRuleById(long ruleId);
 
