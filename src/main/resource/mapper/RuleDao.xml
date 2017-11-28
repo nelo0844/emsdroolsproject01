@@ -35,6 +35,8 @@
 			    then_clause = #{thenClause},
 			    when_string = #{whenString},
 			    then_string = #{thenString},
+			    when_drl = #{whenDrl},
+			    then_drl = #{thenDrl},
 			    valid_from = #{validFrom},
 			    valid_to = #{validTo},
 			    delay = #{delay},

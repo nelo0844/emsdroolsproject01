@@ -85,17 +85,16 @@ public class EMSController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/rule", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "/rule", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public EMSResult<Integer> insertRule(@RequestBody RuleDto rule) {
 		EMSResult<Integer> result;		
-		rule.toString();
 		Integer num = emsService.insertRule(rule);
 		result = new EMSResult<Integer>(true, num);
 		return result;
 	}
 	
-	@RequestMapping(value = "/rule", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "/rule", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public EMSResult<Integer> updateRule(@RequestBody RuleDto rule) {
 		EMSResult<Integer> result;

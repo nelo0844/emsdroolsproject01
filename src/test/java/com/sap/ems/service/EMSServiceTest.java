@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.sap.ems.dto.RuleDto;
 import com.sap.ems.entity.Rule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,7 +37,7 @@ public class EMSServiceTest {
 	
 	@Test
 	public void testGetAllRules() {
-		List<Rule> rules = new ArrayList();
+		List<RuleDto> rules = new ArrayList();
 		rules = emsService.getAllRules();
 		
 		logger.info("rules={}",rules);

@@ -289,8 +289,6 @@ public class EMSServiceImpl implements EMSService {
 	public Integer insertRule(RuleDto rule) {
 		String whenString;
 		String thenString;
-		String whenDrl;
-		String thenDrl;
 		whenString = parseListToString(rule.getWhenPart());
 		thenString = parseListToString(rule.getThenPart());
 		ruleDao.insertRule(rule.getRuleName(), rule.getDisplayName(), whenString.getBytes(), thenString.getBytes(),
