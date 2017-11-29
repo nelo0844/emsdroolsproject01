@@ -19,18 +19,18 @@ public class RuleDaoTest {
 	@Resource
 	private RuleDao ruleDao;
 
-	@Test
-	public void testQueryById() {
-		long id = 10000;
-		Rule rule = ruleDao.queryById(id);
-		// String delay = rule.getDelay();
-		// String when = rule.getWhen();
-		// String then = rule.getThen();
-		System.out.println(rule.toString());
-		// System.out.println(delay);
-		// System.out.println(when);
-		// System.out.println(then);
-	}
+	// @Test
+	// public void testQueryById() {
+	// long id = 10000;
+	// Rule rule = ruleDao.queryById(id);
+	// // String delay = rule.getDelay();
+	// // String when = rule.getWhen();
+	// // String then = rule.getThen();
+	// System.out.println(rule.toString());
+	// // System.out.println(delay);
+	// // System.out.println(when);
+	// // System.out.println(then);
+	// }
 
 	@Test
 	public void testQueryAll() {
@@ -44,8 +44,8 @@ public class RuleDaoTest {
 	public void testInsertRules() {
 		String whenString = "Message( );";
 		String thenString = "System.out.println( \" Hello , EMS rule App \" );";
-		String whenDrl = "1 == 1;";
-		String thenDrl = "System.out.println( \" Hello , EMS Rule App \" );";
+		String whenDrl = "Message( );";
+		String thenDrl = "System.out.println( \" Hello , EMS rule App \" );";
 
 		String name = "testName03";
 		String displayName = "testDisplayName03";

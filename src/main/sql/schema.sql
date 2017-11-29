@@ -1,12 +1,12 @@
---Initial DB
-
---Create DB
+-- Initial DB
+DROP DATABASE `ems`;
+-- Create DB
 CREATE database ems;
 
---Use DB
+-- Use DB
 use ems;
 
---Create table
+-- Create table
 CREATE TABLE rule(
 `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'Rule ID',
 `name` varchar(120) COMMENT 'Rule Name',

@@ -29,7 +29,7 @@ public class Rule {
 	private String whenString;
 
 	private String thenString;
-	
+
 	private String whenDrl;
 
 	private String thenDrl;
@@ -230,7 +230,7 @@ public class Rule {
 	public void setThenString(String thenString) {
 		this.thenString = thenString;
 	}
-	
+
 	public String getWhenDrl() {
 		return whenDrl;
 	}
@@ -296,7 +296,7 @@ public class Rule {
 
 		// when and then shouldn't add "null" to the code, but skip their whens
 		// and thens
-		String when = this.getWhenString() == null ? "" : this.getWhenString();
+		String when = this.getWhenDrl() == null ? "" : this.getWhenDrl();
 
 		rule += "when \n " + when + " \n" + "then \n";
 
@@ -305,7 +305,7 @@ public class Rule {
 		// if (!this.isInternal()) {
 		// rule += enableSecurityManager + "\n";
 		// }
-		String then = this.getThenString() == null ? "" : this.getThenString();
+		String then = this.getThenDrl() == null ? "" : this.getThenDrl();
 
 		rule += then; // + "\n } catch (Exception e) {\n " +
 						// disableSecurityManager + "\n" + exceptionHandling + "
