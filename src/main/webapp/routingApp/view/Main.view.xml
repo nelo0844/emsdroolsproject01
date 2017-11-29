@@ -3,7 +3,7 @@
 		<Page title="{globalModel>orderName}" navButtonPress="onNavBack"
 			showNavButton="{device>/system/phone}">
 			<content>
-				<Text text="Welcome!!!" />
+			<VBox height="100%" alignItems="Center" justifyContent="Center"><Text text="Welcome!!!" /></VBox>
 			</content>
 		</Page>
 </View>

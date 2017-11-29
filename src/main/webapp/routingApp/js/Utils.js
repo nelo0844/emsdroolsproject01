@@ -23,8 +23,8 @@ function generateRuleString(Object) {
 	return {
 		whenPart: Object.whenPart,
 		thenPart: Object.thenPart,
-		whenString: readRuleStructure(Object.whenPart, generateWhenString),
-		thenString: readRuleStructure(Object.thenPart, generateThenString)
+		whenDrl: readRuleStructure(Object.whenPart, generateWhenString),
+		thenDrl: readRuleStructure(Object.thenPart, generateThenString)
 	};
 }
 function generateWhenString(property) {

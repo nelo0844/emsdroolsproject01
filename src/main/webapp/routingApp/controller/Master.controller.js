@@ -54,8 +54,7 @@ sap.ui.define([
 			var sText = sap.ui.getCore().byId('createRuleInput').getValue();
 			var data = this.getView().getModel("globalModel").getData();
 			data.rules[data.rules.length] = {
-				ruleName: sText,
-				products: []
+				ruleName: sText
 			}
 			postToServer("drools/rule", data.rules[data.rules.length - 1], function(data, status) {
 				// that.getView().getModel("globalModel").setData(data);

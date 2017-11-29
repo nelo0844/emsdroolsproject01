@@ -10,7 +10,7 @@
 						</Toolbar>
 					</headerToolbar>
 					<content>
-						<Label text="{/whenString}" />
+						<Label text="{/whenDrl}" />
 					</content>
 				</Panel>
 				<Panel width="auto" height="50%">
@@ -20,7 +20,7 @@
 						</Toolbar>
 					</headerToolbar>
 					<content>
-						<Label text="{/thenString}" />
+						<Label text="{/thenDrl}" />
 					</content>
 				</Panel>
 			</content>
