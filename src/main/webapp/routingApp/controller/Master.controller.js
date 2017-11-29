@@ -50,17 +50,17 @@ sap.ui.define([
 			this._dialog.open();
 		},
 		addRule: function() {
+			var that = this;
 			var sText = sap.ui.getCore().byId('createRuleInput').getValue();
 			var data = this.getView().getModel("globalModel").getData();
 			data.rules[data.rules.length] = {
-				ruleId: data.rules.length,
 				ruleName: sText,
 				products: []
 			}
 			postToServer("drools/rule", data.rules[data.rules.length - 1], function(data, status) {
-				alert("create success.");
+				// that.getView().getModel("globalModel").setData(data);
 			});
-			this.getView().getModel("globalModel").setData(data);
+			that.getView().getModel("globalModel").setData(data);
 			this._dialog.close();
 		},
 		onSearch: function(oEvt) {

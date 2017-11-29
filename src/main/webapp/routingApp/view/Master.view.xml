@@ -20,7 +20,7 @@
 		<List id="ruleList" 
 				items="{globalModel>/rules}"
 				mode="SingleSelectMaster"
-				selectionChange="onSelectionChange">
+				itemPress="onSelectionChange">
 			<items>
 				<StandardListItem title="{globalModel>ruleName}" 
 					type="Active"

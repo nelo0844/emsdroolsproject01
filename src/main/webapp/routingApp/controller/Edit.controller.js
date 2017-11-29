@@ -11,8 +11,18 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	},
 
 	_onRouteMatched: function(oEvent) {
+		var that = this;
 		this._ruleId = oEvent.getParameter("arguments").ruleId;
-		this.getView().bindElement("globalModel>/rules/" + this._ruleId);
+
+		var oGlobalModel = this.getView().getModel("globalModel");
+		var bindingIndex = -1;
+		oGlobalModel.getData().rules.forEach(function(item, index) {
+			if (item.ruleId == that._ruleId) {
+				bindingIndex = index;
+			}
+		});
+
+		this.getView().bindElement("globalModel>/rules/" + bindingIndex);
 
 		var currentRule = this.getView().getBindingContext("globalModel").getObject();
 		var oModel = new sap.ui.model.json.JSONModel();
