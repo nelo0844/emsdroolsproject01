@@ -27,7 +27,7 @@ public class RuleEngineTest {
 	@Test
 	public void TestSingleRule() {
 		Rule rule = ruleDao.queryById(10000);
-		rule.setEnabled(true);
+		rule.setEnable(true);
 		System.out.println(rule.toString());
 
 		Collection<Rule> rules = new ArrayList<Rule>();
@@ -42,7 +42,19 @@ public class RuleEngineTest {
 		ruleEngine.setKsession();
 		ruleEngine.getKession().insert(message);
 		ruleEngine.getKession().fireAllRules(1000000 * 2);
+	}
+
+	@Test
+	public void TestFireAllRule() {
 		// this.insertSingleRule();
+
+		ruleEngine.applyRuleChanges();
+		Message message = new Message();
+		message.setMessage("Good Bye My Hello World");
+		message.setStatus(Message.GOODBYE);
+
+		ruleEngine.getKession().insert(message);
+		ruleEngine.getKession().fireAllRules(1000000 * 2);
 
 	}
 

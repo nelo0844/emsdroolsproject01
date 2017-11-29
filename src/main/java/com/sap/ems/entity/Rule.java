@@ -29,6 +29,10 @@ public class Rule {
 	private String whenString;
 
 	private String thenString;
+	
+	private String whenDrl;
+
+	private String thenDrl;
 
 	private Date validFrom;
 
@@ -50,7 +54,7 @@ public class Rule {
 	 * indicates that the rule should become enabled with the next rule engine
 	 * update
 	 */
-	private boolean isEnabled;
+	private boolean isEnable;
 
 	/**
 	 * indicates that rule engine relevant properties have changed. a rule
@@ -171,12 +175,12 @@ public class Rule {
 		this.model = model;
 	}
 
-	public boolean isEnabled() {
-		return isEnabled;
+	public boolean isEnable() {
+		return isEnable;
 	}
 
-	public void setEnabled(boolean isEnabled) {
-		this.isEnabled = isEnabled;
+	public void setEnable(boolean isEnable) {
+		this.isEnable = isEnable;
 	}
 
 	public boolean isDirty() {
@@ -225,6 +229,22 @@ public class Rule {
 
 	public void setThenString(String thenString) {
 		this.thenString = thenString;
+	}
+	
+	public String getWhenDrl() {
+		return whenDrl;
+	}
+
+	public void setWhenDrl(String whenDrl) {
+		this.whenDrl = whenDrl;
+	}
+
+	public String getThenDrl() {
+		return thenDrl;
+	}
+
+	public void setThenDrl(String thenDrl) {
+		this.thenDrl = thenDrl;
 	}
 
 	private final String slat = "sdfsdfjoijefikdjflsjdflksajf943829u99(*(**&^^%^%$#@";
