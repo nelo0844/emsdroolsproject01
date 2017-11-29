@@ -142,6 +142,7 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	},
 
 	onSaveRuleEvent: function(oEvent) {
+		var that = this;
 		var oCurrentModel = this.getView().getModel();
 		var oData = oCurrentModel.getData();
 
@@ -150,7 +151,9 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		Object.assign(currentRule, ruleString);
 
 		postToServer("drools/rule", currentRule, function(data, status) {
-			alert("save success.");
+			that.getOwnerComponent().getRouter().navTo("ruleDetail", {
+				ruleId: that._ruleId
+			});
 		});
 		this.getView().getBindingContext("globalModel").getModel().refresh();
 	},
@@ -163,6 +166,7 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	},
 
 	onRemoveRuleEvent: function(oEvent) {
+		var that = this;
 		var oCurrentModel = this.getView().getModel("globalModel");
 		var oData = oCurrentModel.getData();
 
@@ -177,6 +181,7 @@ sap.ui.controller("sap.gm.controller.Edit", {
 			deleteFromServer("drools/rule/" + currentRule.ruleId + "/detail", function() {
 				oData.rules.splice(deteleIndex, 1);
 				oCurrentModel.refresh();
+				that.getOwnerComponent().getRouter().navTo("master", {}, true);
 			});
 		}
 	},
