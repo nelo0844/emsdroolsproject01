@@ -287,11 +287,15 @@ public class EMSServiceImpl implements EMSService {
 	}
 
 	public Integer insertRule(RuleDto rule) {
-		String whenString;
-		String thenString;
-		whenString = parseListToString(rule.getWhenPart());
-		thenString = parseListToString(rule.getThenPart());
-		ruleDao.insertRule(rule.getRuleName(), rule.getDisplayName(), whenString.getBytes(), thenString.getBytes(),
+		byte[] whenBytes = null;
+		byte[] thenBytes = null;
+		if(rule.getWhenPart() != null){
+			whenBytes = parseListToString(rule.getWhenPart()).getBytes();
+		}
+		if(rule.getThenPart() != null){
+			thenBytes = parseListToString(rule.getThenPart()).getBytes();
+		}
+		ruleDao.insertRule(rule.getRuleName(), rule.getDisplayName(), whenBytes, thenBytes,
 				rule.getWhenString(), rule.getThenString(), rule.getWhenDrl(), rule.getThenDrl(), rule.getValidFrom(), rule.getValidTo(), rule.getDelay(),
 				rule.getPriority(), rule.getDescription(), rule.isInternal(), rule.getVersion(), rule.isEnabled(),
 				rule.isDirty(), rule.isDeployed());
@@ -299,15 +303,22 @@ public class EMSServiceImpl implements EMSService {
 	}
 
 	public Integer updateRule(RuleDto rule) {
-		String whenString;
-		String thenString;
-		whenString = parseListToString(rule.getWhenPart());
-		thenString = parseListToString(rule.getThenPart());
-		ruleDao.updateRule(rule.getRuleId(), rule.getRuleName(), rule.getDisplayName(),
-				whenString.getBytes(), thenString.getBytes(),
-				rule.getWhenString(), rule.getThenString(), rule.getWhenDrl(), rule.getThenDrl(), rule.getValidFrom(), rule.getValidTo(), rule.getDelay(),
-				rule.getPriority(), rule.getDescription(), rule.isInternal(), rule.getVersion(), rule.isEnabled(),
-				rule.isDirty(), rule.isDeployed());
+//		String whenString;
+//		String thenString;
+//		whenString = parseListToString(rule.getWhenPart());
+//		thenString = parseListToString(rule.getThenPart());
+		byte[] whenBytes = null;
+		byte[] thenBytes = null;
+		if(rule.getWhenPart() != null){
+			whenBytes = parseListToString(rule.getWhenPart()).getBytes();
+		}
+		if(rule.getThenPart() != null){
+			thenBytes = parseListToString(rule.getThenPart()).getBytes();
+		}
+		ruleDao.updateRule(rule.getRuleId(), rule.getRuleName(), rule.getDisplayName(), whenBytes, thenBytes,
+				rule.getWhenString(), rule.getThenString(), rule.getWhenDrl(), rule.getThenDrl(), rule.getValidFrom(),
+				rule.getValidTo(), rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.isInternal(),
+				rule.getVersion(), rule.isEnabled(), rule.isDirty(), rule.isDeployed());
 		return 1;
 	}
 
