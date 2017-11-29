@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.EventObject;
 
 import org.kie.api.builder.ReleaseId;
+import org.kie.api.runtime.KieSession;
 
 import com.sap.ems.entity.Rule;
 
@@ -17,14 +18,14 @@ public interface RuleEngine {
 	 * @throws RuleRuntimeException
 	 */
 	void fireRules(EventObject obj);
-	
+
 	/**
 	 * Tries to load the currently staged rules into the engine
 	 * 
 	 * @throws RuleRuntimeException
 	 */
 	void applyRuleChanges();
-	
+
 	/**
 	 * 
 	 * @param rulesToDeploy
@@ -33,7 +34,11 @@ public interface RuleEngine {
 	 * @param upgrade
 	 */
 	void deployRuleSet(Collection<Rule> rulesToDeploy, int releaseVersion, int ruleVersion, boolean upgrade);
-	
+
+	void setKsession();
+
+	KieSession getKession();
+
 	/**
 	 * 
 	 * @param ruleVersion

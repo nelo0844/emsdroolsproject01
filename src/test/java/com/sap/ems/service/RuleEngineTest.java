@@ -1,16 +1,19 @@
 package com.sap.ems.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kie.api.builder.ReleaseId;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sap.ems.dao.RuleDao;
+import com.sap.ems.entity.Rule;
+import com.sap.ems.service.impl.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "classpath:spring/spring-dao.xml", "classpath:spring/spring-service.xml" })
@@ -22,39 +25,39 @@ public class RuleEngineTest {
 	private RuleDao ruleDao;
 
 	@Test
-	public void testApplyRuleChanges() {
-		ruleEngine.applyRuleChanges();
-	}
-
-	@Test
 	public void TestSingleRule() {
-		this.insertSingleRule();
-
-		ReleaseId releaseId1 = ruleEngine.generateReleaseId(1);
+		// Rule rule = ruleDao.queryById(10002);
+		// rule.setEnabled(true);
+		// System.out.println(rule.toString());
+		//
+		// Collection<Rule> rules = new ArrayList<Rule>();
+		// rules.add(rule);
+		//
+		// ruleEngine.deployRuleSet(rules, 0, 0, true);
+		//
+		// Message message = new Message();
+		// message.setMessage("Good Bye My Hello World");
+		// message.setStatus(Message.GOODBYE);
+		//
+		// ruleEngine.setKsession();
+		// ruleEngine.getKession().insert(message);
+		// ruleEngine.getKession().fireAllRules(1000000 * 2);
+		// this.insertSingleRule();
 
 	}
 
 	public void insertSingleRule() {
 		StringBuffer whenString = new StringBuffer();
-		whenString.append("package com.sap.gamification.ruleengine\n");
-		whenString.append("global java.util.List list;\n");
-		whenString.append("global java.util.List list2;\n");
-
-		whenString.append("rule R1\n");
-		whenString.append(" timer (int: 3s)\n");
-		whenString.append(" when\n");
-		whenString.append("   $m : Message( message == \"Hello World1\" )\n");
+		whenString.append(" Message( status == Message.GOODBYE, myMessage :message )\n");
 
 		StringBuffer thenString = new StringBuffer();
-		thenString.append(" then\n");
-		thenString.append("   list.add( $m );\n");
-		thenString.append("   retract( $m );\n");
-		thenString.append("   Message newMessage = new Message(\"Hello World2\");\n");
-		thenString.append("   insert(newMessage);\n");
-		thenString.append("end\n");
+		thenString.append(" System.out.println( myMessage );\n");
 
-		String name = "testName03";
-		String displayName = "testDisplayName03";
+		String whenDrl = whenString.toString();
+		String thenDrl = thenString.toString();
+
+		String name = "Hello Word";
+		String displayName = "TestRule";
 		byte[] whenClause = whenString.toString().getBytes();
 		byte[] thenClause = thenString.toString().getBytes();
 		Date validFrom = new Date();
@@ -68,8 +71,11 @@ public class RuleEngineTest {
 		boolean isEnable = true;
 		boolean isDirty = true;
 		boolean isDeployed = true;
-//		ruleDao.insertRule(name, displayName, whenClause, thenClause, validFrom, validTo, delay, priority, description,
-//				isInternal, version, model, isEnable, isDirty, isDeployed);
+
+		ruleDao.insertRule(name, displayName, whenClause, thenClause, whenString.toString(), thenString.toString(),
+				whenDrl, thenDrl, validFrom, validTo, delay, priority, description, isInternal, version, isEnable,
+				isDirty, isDeployed);
+
 	}
 
 }

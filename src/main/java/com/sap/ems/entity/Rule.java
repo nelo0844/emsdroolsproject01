@@ -13,51 +13,51 @@ public class Rule {
 	public static final String RULE_NAME_PREFIX = "rule_~";
 	public static final String RULE_NAME_SUFFIX = "~_id";
 	public static final String RULE_NAME_PATTERN = "a-zA-Z0-9\\-_@]*";
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(Rule.class);
-	
+
 	private long id;
-	
+
 	private String name;
-	
+
 	private String displayName;
-	
+
 	private byte[] whenClause;
-	
+
 	private byte[] thenClause;
-	
+
 	private String whenString;
-	
+
 	private String thenString;
 
 	private Date validFrom;
-	
+
 	private Date validTo;
-	
+
 	private String delay;
-	
+
 	private Integer priority;
-	
+
 	private String description;
-	
+
 	private boolean isInternal = false;
-	
+
 	private int version;
-	
+
 	private byte[] model;
-	
+
 	/**
 	 * indicates that the rule should become enabled with the next rule engine
 	 * update
 	 */
 	private boolean isEnabled;
-	
+
 	/**
 	 * indicates that rule engine relevant properties have changed. a rule
 	 * engine update is required apply these changes
 	 */
 	private boolean isDirty;
-	
+
 	/**
 	 * indicates that the rule is currently deployed in the rule engine
 	 */
@@ -88,7 +88,8 @@ public class Rule {
 	}
 
 	public byte[] getWhen() {
-//		return (null == this.whenClause) ? null : new String(this.whenClause, CommonsConfig.CHARSET);
+		// return (null == this.whenClause) ? null : new String(this.whenClause,
+		// CommonsConfig.CHARSET);
 		return this.whenClause;
 	}
 
@@ -97,7 +98,8 @@ public class Rule {
 	}
 
 	public byte[] getThen() {
-//		return (null == this.thenClause) ? null : new String(this.thenClause, CommonsConfig.CHARSET);
+		// return (null == this.thenClause) ? null : new String(this.thenClause,
+		// CommonsConfig.CHARSET);
 		return this.thenClause;
 	}
 
@@ -208,7 +210,7 @@ public class Rule {
 	public static Logger getLogger() {
 		return logger;
 	}
-	
+
 	public String getWhenString() {
 		return whenString;
 	}
@@ -226,68 +228,84 @@ public class Rule {
 	}
 
 	private final String slat = "sdfsdfjoijefikdjflsjdflksajf943829u99(*(**&^^%^%$#@";
-	
+
 	@Override
 	public String toString() {
 
-	      String rule = "rule '" + RULE_NAME_PREFIX + this.getName() + RULE_NAME_SUFFIX + "' \n";
-	      // String rule = "rule '" + this.getName() + "' \n";
-	      // "enabled(!RuleEngineConf.LOAD) \n";
+		String rule = "rule '" + RULE_NAME_PREFIX + this.getName() + RULE_NAME_SUFFIX + "' \n";
+		// String rule = "rule '" + this.getName() + "' \n";
+		// "enabled(!RuleEngineConf.LOAD) \n";
 
-	      // ASE (in contrast to Derby) stores an empty string as a single blank! This is why we also have to check for " "
-	      // here.
-	      if (this.getDelay() != null && !this.getDelay().isEmpty() && !(this.getDelay().compareTo(" ") == 0)) {
-	         rule += "timer(" + this.getDelay() + ") \n";
-	      }
+		// ASE (in contrast to Derby) stores an empty string as a single blank!
+		// This is why we also have to check for " "
+		// here.
+		// if (this.getDelay() != null && !this.getDelay().isEmpty() &&
+		// !(this.getDelay().compareTo(" ") == 0)) {
+		// rule += "timer(" + this.getDelay() + ") \n";
+		// }
+		//
+		// if (this.getPriority() != null) {
+		// rule += "salience " + this.getPriority() + " \n";
+		// }
 
-	      if (this.getPriority() != null) {
-	         rule += "salience " + this.getPriority() + " \n";
-	      }
+		// used for handling exceptions in then-block
+		// String exceptionHandling = "
+		// engine.handleRuleException(drools.getRule(), e);\n";
 
-	      // used for handling exceptions in then-block
-	      String exceptionHandling = "   engine.handleRuleException(drools.getRule(), e);\n";
+		// generating hash code from name, when and then. name is immutable. If
+		// when or then change, then hashcode can
+		// change as well. Scheduled activations are dropped anyway.
+		// String securityManagerPass =
+		// this.generateSecurityManagerKey(this.getName() + this.getWhen() +
+		// this.getThen());
 
-	      // generating hash code from name, when and then. name is immutable. If when or then change, then hashcode can
-	      // change as well. Scheduled activations are dropped anyway.
-	      String securityManagerPass = this.generateSecurityManagerKey(this.getName() + this.getWhen() + this.getThen());
+		// note: the " + " between "System." and "[g|s]etSecurityManager" are
+		// necessary to avoid checkstyle issues there.
+		// These issues are of no use, as we need to use this code here anyway
+		// String enableSecurityManager = "
+		// ((RuleEngineSecurityManager)java.lang.System." +
+		// "getSecurityManager()).enable(\""
+		// + securityManagerPass + "\");\n";
+		// // disable security manager one and reset to old one.
+		// String disableSecurityManager = "
+		// ((RuleEngineSecurityManager)java.lang.System." +
+		// "getSecurityManager()).disable(\""
+		// + securityManagerPass + "\");\n";
 
-	      // note: the " + " between "System." and "[g|s]etSecurityManager" are necessary to avoid checkstyle issues there.
-	      // These issues are of no use, as we need to use this code here anyway
-	      String enableSecurityManager = "  ((RuleEngineSecurityManager)java.lang.System." + "getSecurityManager()).enable(\""
-	            + securityManagerPass + "\");\n";
-	      // disable security manager one and reset to old one.
-	      String disableSecurityManager = "  ((RuleEngineSecurityManager)java.lang.System." + "getSecurityManager()).disable(\""
-	            + securityManagerPass + "\");\n";
+		// rule += "no-loop true \n";
 
-	      rule += "no-loop true \n";
+		// when and then shouldn't add "null" to the code, but skip their whens
+		// and thens
+		String when = this.getWhenString() == null ? "" : this.getWhenString();
 
-	      // when and then shouldn't add "null" to the code, but skip their whens and thens
-	      String when = this.getWhen() == null ? "" : this.getWhen().toString();
+		rule += "when \n " + when + " \n" + "then \n";
 
-	      rule += "when \n " + when + " \n" + "then \n try {\n   ";
+		// if the rule is internal, the security manager doesn't have to be
+		// enabled.
+		// if (!this.isInternal()) {
+		// rule += enableSecurityManager + "\n";
+		// }
+		String then = this.getThenString() == null ? "" : this.getThenString();
 
-	      // if the rule is internal, the security manager doesn't have to be enabled.
-	      if (!this.isInternal()) {
-	         rule += enableSecurityManager + "\n";
-	      }
-	      String then = this.getThen() == null ? "" : this.getThen().toString();
+		rule += then; // + "\n } catch (Exception e) {\n " +
+						// disableSecurityManager + "\n" + exceptionHandling + "
+						// \n}\n";
 
-	      rule += then + "\n } catch (Exception e) {\n " + disableSecurityManager + "\n" + exceptionHandling + " \n}\n";
+		// if the rule is internal, the security manager doesn't have to be
+		// disabled, as it wasn't enabled anyway.
+		// if (!this.isInternal()) {
+		// rule += "finally {\n" + disableSecurityManager + "\n}\n";
+		// }
+		rule += "end\n";
 
-	      // if the rule is internal, the security manager doesn't have to be disabled, as it wasn't enabled anyway.
-	      if (!this.isInternal()) {
-	         rule += "finally {\n" + disableSecurityManager + "\n}\n";
-	      }
-	      rule += "end\n";
+		return rule;
 
-	      return rule;
-	   
 	}
-	
+
 	private String generateSecurityManagerKey(String input) {
 		String base = input + "/" + slat;
 		String md5 = DigestUtils.md5DigestAsHex(base.getBytes());
 		return md5;
 	}
-	
+
 }
