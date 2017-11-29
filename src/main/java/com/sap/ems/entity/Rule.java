@@ -29,6 +29,10 @@ public class Rule {
 	private String whenString;
 
 	private String thenString;
+	
+	private String whenDrl;
+
+	private String thenDrl;
 
 	private Date validFrom;
 
@@ -225,6 +229,22 @@ public class Rule {
 
 	public void setThenString(String thenString) {
 		this.thenString = thenString;
+	}
+	
+	public String getWhenDrl() {
+		return whenDrl;
+	}
+
+	public void setWhenDrl(String whenDrl) {
+		this.whenDrl = whenDrl;
+	}
+
+	public String getThenDrl() {
+		return thenDrl;
+	}
+
+	public void setThenDrl(String thenDrl) {
+		this.thenDrl = thenDrl;
 	}
 
 	private final String slat = "sdfsdfjoijefikdjflsjdflksajf943829u99(*(**&^^%^%$#@";
