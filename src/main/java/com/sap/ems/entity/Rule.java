@@ -50,7 +50,7 @@ public class Rule {
 	 * indicates that the rule should become enabled with the next rule engine
 	 * update
 	 */
-	private boolean isEnabled;
+	private boolean isEnable;
 
 	/**
 	 * indicates that rule engine relevant properties have changed. a rule
@@ -171,12 +171,12 @@ public class Rule {
 		this.model = model;
 	}
 
-	public boolean isEnabled() {
-		return isEnabled;
+	public boolean isEnable() {
+		return isEnable;
 	}
 
-	public void setEnabled(boolean isEnabled) {
-		this.isEnabled = isEnabled;
+	public void setEnable(boolean isEnable) {
+		this.isEnable = isEnable;
 	}
 
 	public boolean isDirty() {
