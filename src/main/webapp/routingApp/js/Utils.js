@@ -9,6 +9,16 @@ function postToServer(url, data, fnSuccess) {
 	});
 }
 
+function deleteFromServer(url, fnSuccess) {
+	$.ajax({
+		type: 'DELETE',
+		url: url,
+		contentType: "application/json; charset=utf-8",
+		success: fnSuccess,
+		dataType: "json"
+	});
+}
+
 function generateRuleString(Object) {
 	return {
 		whenPart: Object.whenPart,

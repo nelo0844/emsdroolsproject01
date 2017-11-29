@@ -1,0 +1,9 @@
+<View xmlns="sap.m" xmlns:layout="sap.ui.layout" controllerName="sap.gm.controller.Main"
+	xmlns:core="sap.ui.core">
+		<Page title="{globalModel>orderName}" navButtonPress="onNavBack"
+			showNavButton="{device>/system/phone}">
+			<content>
+				<Text text="Welcome!!!" />
+			</content>
+		</Page>
+</View>

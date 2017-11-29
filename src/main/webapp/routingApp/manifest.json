@@ -91,19 +91,27 @@
                ]
             },
             {  
-               "pattern":"orders/:orderId:",
-               "name":"orderDetails",
+               "pattern":"main",
+               "name":"mainPage",
                "target":[  
                   "master",
-                  "orderDetails"
+                  "mainPage"
                ]
             },
             {  
-               "pattern":"rules/:rulesId:",
-               "name":"productDetails",
+               "pattern":"detail/:ruleId:",
+               "name":"ruleDetail",
                "target":[  
                   "master",
-                  "productDetails"
+                  "ruleDetail"
+               ]
+            },
+            {  
+               "pattern":"edit/:ruleId:",
+               "name":"ruleEdit",
+               "target":[  
+                  "master",
+                  "ruleEdit"
                ]
             }
          ],
@@ -113,7 +121,12 @@
                "controlAggregation":"masterPages",
                "viewLevel":0
             },
-            "orderDetails":{  
+            "mainPage":{  
+               "viewName":"Main",
+               "controlAggregation":"detailPages",
+               "viewLevel":1
+            },
+            "ruleDetail":{  
                "viewName":"Detail",
                "controlAggregation":"detailPages",
                "title":{  
@@ -124,7 +137,7 @@
                },
                "viewLevel":1
             },
-            "productDetails":{  
+            "ruleEdit":{  
                "viewName":"Edit",
                "controlAggregation":"detailPages",
                "title":{  

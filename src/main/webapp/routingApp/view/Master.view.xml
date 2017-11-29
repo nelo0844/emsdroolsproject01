@@ -17,7 +17,7 @@
 			</Toolbar>
 		</subHeader>
 		<content>
-		<List id="orders" 
+		<List id="ruleList" 
 				items="{globalModel>/rules}"
 				mode="SingleSelectMaster"
 				selectionChange="onSelectionChange">

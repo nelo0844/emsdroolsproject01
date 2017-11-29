@@ -13,15 +13,13 @@ sap.ui.define([
 			 * of scope of this sample
 			 */
 			if (!Device.system.phone) {
-				this.getOwnerComponent().getRouter().navTo("orderDetails", {
-					order: 0
-				}, true);
+				this.getOwnerComponent().getRouter().navTo("mainPage", null, true);
 			}
 		},
 		onSelectionChange: function(oEvent) {
-			var sOrderId = oEvent.getSource().getSelectedItem().getBindingContext("globalModel").getProperty("ruleId")
-			this.getOwnerComponent().getRouter().navTo("orderDetails", {
-				orderId: sOrderId
+			var sRuleId = oEvent.getSource().getSelectedItem().getBindingContext("globalModel").getProperty("ruleId")
+			this.getOwnerComponent().getRouter().navTo("ruleDetail", {
+				ruleId: sRuleId
 			}, !Device.system.phone);
 		},
 		onAddRuleEvent: function() {
@@ -59,6 +57,9 @@ sap.ui.define([
 				ruleName: sText,
 				products: []
 			}
+			postToServer("drools/rule", data.rules[data.rules.length - 1], function(data, status) {
+				alert("create success.");
+			});
 			this.getView().getModel("globalModel").setData(data);
 			this._dialog.close();
 		},
@@ -72,7 +73,7 @@ sap.ui.define([
 			}
 
 			// update list binding
-			var list = this.getView().byId("orders");
+			var list = this.getView().byId("ruleList");
 			var binding = list.getBinding("items");
 			binding.filter(aFilters, "Application");
 		}

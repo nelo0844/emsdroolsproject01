@@ -12,6 +12,10 @@ sap.ui.define([
 
 			var oModel = new JSONModel();
 			oModel.loadData("routingApp/data/data.json", null, true);
+			/*
+			 * oModel.loadData("drools/allrules", null, true); oModel.attachRequestCompleted(function() { var oData = oModel.getData();
+			 * oModel.setData({ rules: oData.data, }); });
+			 */
 			this.setModel(oModel, "globalModel");
 
 			// static model

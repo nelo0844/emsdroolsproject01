@@ -7,12 +7,12 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	 * @memberOf emsdroolsproject01.Edit
 	 */
 	onInit: function() {
-		this.getOwnerComponent().getRouter().getRoute("productDetails").attachPatternMatched(this._onRouteMatched, this);
+		this.getOwnerComponent().getRouter().getRoute("ruleEdit").attachPatternMatched(this._onRouteMatched, this);
 	},
 
 	_onRouteMatched: function(oEvent) {
-		this._rulesId = oEvent.getParameter("arguments").rulesId;
-		this.getView().bindElement("globalModel>/rules/" + this._rulesId);
+		this._ruleId = oEvent.getParameter("arguments").ruleId;
+		this.getView().bindElement("globalModel>/rules/" + this._ruleId);
 
 		var currentRule = this.getView().getBindingContext("globalModel").getObject();
 		var oModel = new sap.ui.model.json.JSONModel();
@@ -157,8 +157,8 @@ sap.ui.controller("sap.gm.controller.Edit", {
 
 	onCancelRuleEvent: function(oEvent) {
 		var that = this;
-		this.getOwnerComponent().getRouter().navTo("orderDetails", {
-			orderId: that._rulesId
+		this.getOwnerComponent().getRouter().navTo("ruleDetail", {
+			ruleId: that._ruleId
 		});
 	},
 
@@ -167,16 +167,17 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		var oData = oCurrentModel.getData();
 
 		var currentRule = this.getView().getBindingContext("globalModel").getObject();
-		let
-		deteleIndex = -1;
+		var deteleIndex = -1;
 		oData.rules.forEach(function(item, index) {
 			if (item.ruleId === currentRule.ruleId) {
 				deteleIndex = index;
 			}
 		});
 		if (deteleIndex != -1) {
-			oData.rules.splice(deteleIndex, 1);
-			oCurrentModel.refresh();
+			deleteFromServer("drools/rule/" + currentRule.ruleId + "/detail", function() {
+				oData.rules.splice(deteleIndex, 1);
+				oCurrentModel.refresh();
+			});
 		}
 	},
 

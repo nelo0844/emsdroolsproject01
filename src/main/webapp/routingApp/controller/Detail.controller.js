@@ -5,11 +5,11 @@ sap.ui.define([
 
 	return Controller.extend("sap.gm.controller.Detail", {
 		onInit: function() {
-			this.getOwnerComponent().getRouter().getRoute("orderDetails").attachPatternMatched(this._onRouteMatched, this);
+			this.getOwnerComponent().getRouter().getRoute("ruleDetail").attachPatternMatched(this._onRouteMatched, this);
 		},
 		_onRouteMatched: function(oEvent) {
-			this._orderId = oEvent.getParameter("arguments").orderId;
-			this.getView().bindElement("globalModel>/rules/" + this._orderId);
+			this._ruleId = oEvent.getParameter("arguments").ruleId;
+			this.getView().bindElement("globalModel>/rules/" + this._ruleId);
 
 			var currentRule = this.getView().getBindingContext("globalModel").getObject();
 			var oModel = new sap.ui.model.json.JSONModel();
@@ -35,11 +35,12 @@ sap.ui.define([
 			}
 		},
 		onEditRuleEvent: function(oEvent) {
-			this.getOwnerComponent().getRouter().navTo("productDetails", {
-				rulesId: this._orderId
+			this.getOwnerComponent().getRouter().navTo("ruleEdit", {
+				ruleId: this._ruleId
 			});
 		},
 		onRemoveRuleEvent: function(oEvent) {
+			var that = this;
 			var oCurrentModel = this.getView().getModel("globalModel");
 			var oData = oCurrentModel.getData();
 
@@ -52,8 +53,11 @@ sap.ui.define([
 				}
 			});
 			if (deteleIndex != -1) {
-				oData.rules.splice(deteleIndex, 1);
-				oCurrentModel.refresh();
+				deleteFromServer("drools/rule/" + currentRule.ruleId + "/detail", function() {
+					oData.rules.splice(deteleIndex, 1);
+					oCurrentModel.refresh();
+					that.getOwnerComponent().getRouter().navTo("master", {}, true);
+				});
 			}
 		},
 		onChangeSection: function(oEvent) {
