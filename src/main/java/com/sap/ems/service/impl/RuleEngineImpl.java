@@ -108,7 +108,7 @@ public class RuleEngineImpl implements RuleEngine {
 		List<Rule> inactiveRules = new ArrayList<Rule>();
 		try {
 			for (Rule rule : rulesToDeploy) {
-				if (rule.isEnabled()) {
+				if (rule.isEnable()) {
 					activeRules.add(rule);
 				} else {
 					inactiveRules.add(rule);

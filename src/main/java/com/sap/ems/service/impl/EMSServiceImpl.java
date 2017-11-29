@@ -25,31 +25,33 @@ public class EMSServiceImpl implements EMSService {
 
 	// Logger logger = LoggerFactory.getLogger(this.getClass());
 	String key;
-	
+
 	@Autowired
 	private RuleDao ruleDao;
 
 	public List<Map> getMappingFields() {
 
-//		LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
+		// LinkedHashMap<String, Object> map = new LinkedHashMap<String,
+		// Object>();
 
 		LinkedHashMap<String, Object> so = new LinkedHashMap<String, Object>();
 
 		LinkedHashMap<String, Object> soItem = new LinkedHashMap<String, Object>();
 
 		LinkedHashMap<String, Object> emsEntitlement = new LinkedHashMap<String, Object>();
-		
+
 		LinkedHashMap<String, Object> field = new LinkedHashMap<String, Object>();
-		
+
 		List<Map> map = new ArrayList<Map>();
-		
+
 		List<Map> SoPropertyAndType = new ArrayList<Map>();
-		
+
 		List<Map> itemPropertyAndType = new ArrayList<Map>();
-		
+
 		List<Map> entitlementPropertyAndType = new ArrayList<Map>();
-		
-//		LinkedHashMap<String, Object> field = new LinkedHashMap<String, Object>();
+
+		// LinkedHashMap<String, Object> field = new LinkedHashMap<String,
+		// Object>();
 
 		Field[] soHeads = SalesOrder.class.getDeclaredFields();
 
@@ -131,10 +133,12 @@ public class EMSServiceImpl implements EMSService {
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "C000000003");
 				break;
 			case "sourceSystem":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Source System");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Source System");
 				break;
 			case "refItemNo":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Referance Item Number");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Referance Item Number");
 				break;
 			case "channel":
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Channel");
@@ -155,7 +159,8 @@ public class EMSServiceImpl implements EMSService {
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "changed On");
 				break;
 			case "generationMethod":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Generation Method");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Generation Method");
 				break;
 			case "uom":
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "UoM");
@@ -170,13 +175,16 @@ public class EMSServiceImpl implements EMSService {
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Customer ID");
 				break;
 			case "simulationEntitlementNo":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Simulation Entitlement Number");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Simulation Entitlement Number");
 				break;
 			case "performanceAndGoals":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Performance And Goals");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Performance And Goals");
 				break;
 			case "refDocNo":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Referance DocumentNumber");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Referance DocumentNumber");
 				break;
 			case "quantity":
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Quantity");
@@ -185,31 +193,38 @@ public class EMSServiceImpl implements EMSService {
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Comments");
 				break;
 			case "distributorID":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Distributor ID");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Distributor ID");
 				break;
 			case "refDocType":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Referance Document Type");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Referance Document Type");
 				break;
 			case "entitlementType":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Entitlement Type");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Entitlement Type");
 				break;
 			case "version":
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Version");
 				break;
 			case "entitlementNo":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Entitlement Number");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Entitlement Number");
 				break;
 			case "performanceAndReward":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Performance And Reward");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Performance And Reward");
 				break;
 			case "modules":
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Modules");
 				break;
 			case "advancedEdition":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Advanced Edition");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Advanced Edition");
 				break;
 			case "entitlementMasterId":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Entitlement Master ID");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Entitlement Master ID");
 				break;
 			case "component":
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Component");
@@ -221,7 +236,8 @@ public class EMSServiceImpl implements EMSService {
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Named Users");
 				break;
 			case "CLOUDSTORAGE":
-				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Cloud Storage");
+				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement,
+						"Cloud Storage");
 				break;
 			case "persistence":
 				entitlementPropertyAndType = setPropertyAndType(entitlementPropertyAndType, entitlement, "Persistence");
@@ -241,7 +257,7 @@ public class EMSServiceImpl implements EMSService {
 		so.put("propertyName", "Sales Order");
 		so.put("content", SoPropertyAndType);
 		map.add(so);
-		
+
 		emsEntitlement.put("propertyId", 2);
 		emsEntitlement.put("propertyName", "Entitlement");
 		emsEntitlement.put("content", entitlementPropertyAndType);
@@ -260,19 +276,20 @@ public class EMSServiceImpl implements EMSService {
 		propertyAndType.add(value);
 		return propertyAndType;
 	}
-	
+
 	public List<RuleDto> getAllRules() {
 		List<Rule> rules = new ArrayList();
 		List<RuleDto> rulesDtos = new ArrayList();
 		String whenString;
 		String thenString;
 		rules = ruleDao.queryAll();
-		for(Rule rule : rules){
+		for (Rule rule : rules) {
 			whenString = new String(rule.getWhen());
 			thenString = new String(rule.getThen());
-			rulesDtos.add(new RuleDto(rule.getId(), rule.getName(), rule.getDisplayName(), rule.getValidFrom(), rule.getValidTo(),
-					rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.getVersion(), rule.isInternal(), rule.isEnabled(),
-					rule.isDirty(), rule.isDeployed(), whenString, thenString, rule.getWhenString(), rule.getThenString()));
+			rulesDtos.add(new RuleDto(rule.getId(), rule.getName(), rule.getDisplayName(), rule.getValidFrom(),
+					rule.getValidTo(), rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.getVersion(),
+					rule.isInternal(), rule.isEnable(), rule.isDirty(), rule.isDeployed(), whenString, thenString,
+					rule.getWhenString(), rule.getThenString()));
 		}
 		return rulesDtos;
 	}
@@ -282,37 +299,38 @@ public class EMSServiceImpl implements EMSService {
 		String whenString = new String(rule.getWhen());
 		String thenString = new String(rule.getThen());
 		return new RuleDto(rule.getId(), rule.getName(), rule.getDisplayName(), rule.getValidFrom(), rule.getValidTo(),
-				rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.getVersion(), rule.isInternal(), rule.isEnabled(),
-				rule.isDirty(), rule.isDeployed(), whenString, thenString, rule.getWhenString(), rule.getThenString());
+				rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.getVersion(), rule.isInternal(),
+				rule.isEnable(), rule.isDirty(), rule.isDeployed(), whenString, thenString, rule.getWhenString(),
+				rule.getThenString());
 	}
 
 	public Integer insertRule(RuleDto rule) {
 		byte[] whenBytes = null;
 		byte[] thenBytes = null;
-		if(rule.getWhenPart() != null){
+		if (rule.getWhenPart() != null) {
 			whenBytes = parseListToString(rule.getWhenPart()).getBytes();
 		}
-		if(rule.getThenPart() != null){
+		if (rule.getThenPart() != null) {
 			thenBytes = parseListToString(rule.getThenPart()).getBytes();
 		}
-		ruleDao.insertRule(rule.getRuleName(), rule.getDisplayName(), whenBytes, thenBytes,
-				rule.getWhenString(), rule.getThenString(), rule.getWhenDrl(), rule.getThenDrl(), rule.getValidFrom(), rule.getValidTo(), rule.getDelay(),
-				rule.getPriority(), rule.getDescription(), rule.isInternal(), rule.getVersion(), rule.isEnabled(),
-				rule.isDirty(), rule.isDeployed());
+		ruleDao.insertRule(rule.getRuleName(), rule.getDisplayName(), whenBytes, thenBytes, rule.getWhenString(),
+				rule.getThenString(), rule.getWhenDrl(), rule.getThenDrl(), rule.getValidFrom(), rule.getValidTo(),
+				rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.isInternal(), rule.getVersion(),
+				rule.isEnabled(), rule.isDirty(), rule.isDeployed());
 		return 1;
 	}
 
 	public Integer updateRule(RuleDto rule) {
-//		String whenString;
-//		String thenString;
-//		whenString = parseListToString(rule.getWhenPart());
-//		thenString = parseListToString(rule.getThenPart());
+		// String whenString;
+		// String thenString;
+		// whenString = parseListToString(rule.getWhenPart());
+		// thenString = parseListToString(rule.getThenPart());
 		byte[] whenBytes = null;
 		byte[] thenBytes = null;
-		if(rule.getWhenPart() != null){
+		if (rule.getWhenPart() != null) {
 			whenBytes = parseListToString(rule.getWhenPart()).getBytes();
 		}
-		if(rule.getThenPart() != null){
+		if (rule.getThenPart() != null) {
 			thenBytes = parseListToString(rule.getThenPart()).getBytes();
 		}
 		ruleDao.updateRule(rule.getRuleId(), rule.getRuleName(), rule.getDisplayName(), whenBytes, thenBytes,
@@ -326,46 +344,46 @@ public class EMSServiceImpl implements EMSService {
 		ruleDao.deleteById(ruleId);
 		return 1;
 	}
-	
+
 	private String parseListToString(List<RulePartDto> List) {
 		String result = "[";
 		List<PropertiesDto> Properties = new ArrayList<PropertiesDto>();
 		PropertiesDto selectedChildProperty;
-		
-		for(int i = 0; i < List.size();i++){
+
+		for (int i = 0; i < List.size(); i++) {
 			result = result + "{";
 			result = result + "\"propertyId\":" + List.get(i).getPropertyId() + ",";
 			result = result + "\"propertyName\":\"" + List.get(i).getPropertyName() + "\",";
 			Properties = List.get(i).getProperties();
-			if(Properties != null){
+			if (Properties != null) {
 				result = result + "\"properties\":" + "[";
-					for(int k=0;k < Properties.size();k++){
-						result = result + "{\"property\":\"" + Properties.get(k).getProperty() + "\",";
-						if(Properties.get(k).getType() != null){
-							result = result + "\"type\":\"" + Properties.get(k).getType() + "\"";
-						}else{
-							result = result + "\"type\":null,";
-						}
-						selectedChildProperty = Properties.get(k).getSelectedChildProperty();
-						if(selectedChildProperty != null){
-							result = result + "\"selectedChildProperty\":" + "{";
-							result = result + "\"property\":\"" + selectedChildProperty.getProperty() + "\",";
-							result = result + "\"type\":\"" + selectedChildProperty.getType() + "\"";
-						}
-						result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
-						result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"";
-						if(k == Properties.size() - 1) {
-							result = result + "}";
-						}else {
-							result = result + "},";
-						}
+				for (int k = 0; k < Properties.size(); k++) {
+					result = result + "{\"property\":\"" + Properties.get(k).getProperty() + "\",";
+					if (Properties.get(k).getType() != null) {
+						result = result + "\"type\":\"" + Properties.get(k).getType() + "\"";
+					} else {
+						result = result + "\"type\":null,";
 					}
+					selectedChildProperty = Properties.get(k).getSelectedChildProperty();
+					if (selectedChildProperty != null) {
+						result = result + "\"selectedChildProperty\":" + "{";
+						result = result + "\"property\":\"" + selectedChildProperty.getProperty() + "\",";
+						result = result + "\"type\":\"" + selectedChildProperty.getType() + "\"";
+					}
+					result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
+					result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"";
+					if (k == Properties.size() - 1) {
+						result = result + "}";
+					} else {
+						result = result + "},";
+					}
+				}
 			}
 			result = result + "}]";
 		}
 		result = result + "}]";
-		
+
 		return result;
 	}
-	
+
 }
