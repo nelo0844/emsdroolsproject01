@@ -280,12 +280,16 @@ public class EMSServiceImpl implements EMSService {
 	public List<RuleDto> getAllRules() {
 		List<Rule> rules = new ArrayList();
 		List<RuleDto> rulesDtos = new ArrayList();
-		String whenString;
-		String thenString;
+		String whenString = null;
+		String thenString = null;
 		rules = ruleDao.queryAll();
 		for (Rule rule : rules) {
-			whenString = new String(rule.getWhen());
-			thenString = new String(rule.getThen());
+			if(rule.getWhen()!=null){
+				whenString = new String(rule.getWhen());
+			}
+			if(rule.getThen() != null){
+				thenString = new String(rule.getThen());
+			}
 			rulesDtos.add(new RuleDto(rule.getId(), rule.getName(), rule.getDisplayName(), rule.getValidFrom(),
 					rule.getValidTo(), rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.getVersion(),
 					rule.isInternal(), rule.isEnable(), rule.isDirty(), rule.isDeployed(), whenString, thenString,
