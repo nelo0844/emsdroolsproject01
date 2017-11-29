@@ -22,7 +22,7 @@
 			   version, is_enable, is_dirty, is_deployed, when_string, then_string, when_drl, then_drl)
 		values (#{name}, #{displayName}, #{whenClause}, #{thenClause}, #{validFrom},
 				#{validTo}, #{delay}, #{priority}, #{description}, #{isInternal},
-				#{version}, #{isEnable}, #{isDirty}, #{isDeployed}, #{whenString}, #{thenString}, #{whenDrl}, #{whenDrl});
+				#{version}, #{isEnable}, #{isDirty}, #{isDeployed}, #{whenString}, #{thenString}, #{whenDrl}, #{thenDrl});
 	</insert>
 	
 	<update id="updateRule">
