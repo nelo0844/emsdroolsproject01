@@ -11,25 +11,33 @@ sap.ui.define([
 			var that = this;
 			this._ruleId = oEvent.getParameter("arguments").ruleId;
 			var oGlobalModel = this.getView().getModel("globalModel");
+			var oGlobalData = oGlobalModel.getData();
 			var bindingIndex = -1;
-			oGlobalModel.getData().rules.forEach(function(item, index) {
-				if (item.ruleId == that._ruleId) {
-					bindingIndex = index;
-				}
-			});
-
-			this.getView().bindElement("globalModel>/rules/" + bindingIndex);
-
-			var currentRule = this.getView().getBindingContext("globalModel").getObject();
-			var oModel = new sap.ui.model.json.JSONModel();
-			if (currentRule && currentRule.whenDrl) {
-				oModel.setData({
-					whenDrl: currentRule.whenDrl,
-					thenDrl: currentRule.thenDrl
+			if (oGlobalData.rules) {
+				oGlobalData.rules.forEach(function(item, index) {
+					if (item.ruleId == that._ruleId) {
+						bindingIndex = index;
+					}
 				});
 			}
 
-			this.getView().setModel(oModel);
+			if (bindingIndex == -1) {
+				alert("error");
+				this.getOwnerComponent().getRouter().navTo("master", {}, true);
+			} else {
+				this.getView().bindElement("globalModel>/rules/" + bindingIndex);
+
+				var currentRule = this.getView().getBindingContext("globalModel").getObject();
+				var oModel = new sap.ui.model.json.JSONModel();
+				if (currentRule && currentRule.whenDrl) {
+					oModel.setData({
+						whenDrl: currentRule.whenDrl,
+						thenDrl: currentRule.thenDrl
+					});
+				}
+
+				this.getView().setModel(oModel);
+			}
 		},
 		onNavBack: function() {
 			var sPreviousHash = History.getInstance().getPreviousHash();
@@ -78,7 +86,6 @@ sap.ui.define([
 			oModel.setData(oData);
 			oModel.refresh();
 		}
-
 	});
 
 }, /* bExport= */true);

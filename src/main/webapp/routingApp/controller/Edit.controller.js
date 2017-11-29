@@ -15,30 +15,37 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		this._ruleId = oEvent.getParameter("arguments").ruleId;
 
 		var oGlobalModel = this.getView().getModel("globalModel");
+		var oGlobalData = oGlobalModel.getData();
 		var bindingIndex = -1;
-		oGlobalModel.getData().rules.forEach(function(item, index) {
-			if (item.ruleId == that._ruleId) {
-				bindingIndex = index;
-			}
-		});
-
-		this.getView().bindElement("globalModel>/rules/" + bindingIndex);
-
-		var currentRule = this.getView().getBindingContext("globalModel").getObject();
-		var oModel = new sap.ui.model.json.JSONModel();
-		if (currentRule && currentRule.whenPart) {
-			oModel.setData({
-				whenPart: currentRule.whenPart,
-				thenPart: currentRule.thenPart
-			});
-		} else {
-			oModel.setData({
-				whenPart: [],
-				thenPart: []
+		if (oGlobalData.rules) {
+			oGlobalData.rules.forEach(function(item, index) {
+				if (item.ruleId == that._ruleId) {
+					bindingIndex = index;
+				}
 			});
 		}
+		if (bindingIndex == -1) {
+			alert("error");
+			this.getOwnerComponent().getRouter().navTo("master", {}, true);
+		} else {
+			this.getView().bindElement("globalModel>/rules/" + bindingIndex);
 
-		this.getView().setModel(oModel);
+			var currentRule = this.getView().getBindingContext("globalModel").getObject();
+			var oModel = new sap.ui.model.json.JSONModel();
+			if (currentRule && currentRule.whenPart) {
+				oModel.setData({
+					whenPart: currentRule.whenPart,
+					thenPart: currentRule.thenPart
+				});
+			} else {
+				oModel.setData({
+					whenPart: [],
+					thenPart: []
+				});
+			}
+
+			this.getView().setModel(oModel);
+		}
 	},
 
 	/**
