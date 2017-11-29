@@ -26,22 +26,22 @@ public class RuleEngineTest {
 
 	@Test
 	public void TestSingleRule() {
-		// Rule rule = ruleDao.queryById(10002);
-		// rule.setEnabled(true);
-		// System.out.println(rule.toString());
-		//
-		// Collection<Rule> rules = new ArrayList<Rule>();
-		// rules.add(rule);
-		//
-		// ruleEngine.deployRuleSet(rules, 0, 0, true);
-		//
-		// Message message = new Message();
-		// message.setMessage("Good Bye My Hello World");
-		// message.setStatus(Message.GOODBYE);
-		//
-		// ruleEngine.setKsession();
-		// ruleEngine.getKession().insert(message);
-		// ruleEngine.getKession().fireAllRules(1000000 * 2);
+		Rule rule = ruleDao.queryById(10000);
+		rule.setEnabled(true);
+		System.out.println(rule.toString());
+
+		Collection<Rule> rules = new ArrayList<Rule>();
+		rules.add(rule);
+
+		ruleEngine.deployRuleSet(rules, 0, 0, true);
+
+		Message message = new Message();
+		message.setMessage("Good Bye My Hello World");
+		message.setStatus(Message.GOODBYE);
+
+		ruleEngine.setKsession();
+		ruleEngine.getKession().insert(message);
+		ruleEngine.getKession().fireAllRules(1000000 * 2);
 		// this.insertSingleRule();
 
 	}
