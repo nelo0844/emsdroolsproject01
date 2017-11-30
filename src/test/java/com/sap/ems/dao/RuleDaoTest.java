@@ -42,6 +42,7 @@ public class RuleDaoTest {
 
 	@Test
 	public void testInsertRules() {
+
 		String whenString = "Message( );";
 		String thenString = "System.out.println( \" Hello , EMS rule App \" );";
 		String whenDrl = "Message( );";
@@ -62,8 +63,17 @@ public class RuleDaoTest {
 		boolean isEnable = true;
 		boolean isDirty = true;
 		boolean isDeployed = true;
-//		ruleDao.insertRule(name, displayName, whenClause, thenClause, whenString, thenString, whenDrl, thenDrl,
-//				validFrom, validTo, delay, priority, description, isInternal, version, isEnable, isDirty, isDeployed);
+
+		Rule rule = new Rule(name, displayName, whenClause, thenClause, whenString, thenString, whenDrl, thenDrl,
+				validFrom, validTo, delay, priority, description, isInternal, version, model, isEnable, isDirty,
+				isDeployed);
+
+		ruleDao.insertRule(rule);
+
+		// ruleDao.insertRule(name, displayName, whenClause, thenClause,
+		// whenString, thenString, whenDrl, thenDrl,
+		// validFrom, validTo, delay, priority, description, isInternal,
+		// version, isEnable, isDirty, isDeployed);
 	}
 
 }
