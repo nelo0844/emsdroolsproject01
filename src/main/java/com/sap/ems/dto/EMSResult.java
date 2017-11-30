@@ -3,9 +3,9 @@ package com.sap.ems.dto;
 public class EMSResult<T> {
 
 	private boolean status;
-	
+
 	private T data;
-	
+
 	private String error;
 
 	public EMSResult(boolean status, T data) {
@@ -41,5 +41,5 @@ public class EMSResult<T> {
 	public void setError(String error) {
 		this.error = error;
 	}
-	
+
 }

@@ -6,6 +6,7 @@ import java.util.EventObject;
 import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieSession;
 
+import com.sap.ems.dto.EMSResult;
 import com.sap.ems.entity.Rule;
 
 public interface RuleEngine {
@@ -22,9 +23,11 @@ public interface RuleEngine {
 	/**
 	 * Tries to load the currently staged rules into the engine
 	 * 
+	 * @return
+	 * 
 	 * @throws RuleRuntimeException
 	 */
-	void applyRuleChanges();
+	EMSResult<Integer> applyRuleChanges();
 
 	/**
 	 * 
@@ -32,8 +35,10 @@ public interface RuleEngine {
 	 * @param releaseVersion
 	 * @param ruleVersion
 	 * @param upgrade
+	 * @return
 	 */
-	void deployRuleSet(Collection<Rule> rulesToDeploy, int releaseVersion, int ruleVersion, boolean upgrade);
+	EMSResult<Integer> deployRuleSet(Collection<Rule> rulesToDeploy, int releaseVersion, int ruleVersion,
+			boolean upgrade);
 
 	void setKsession();
 

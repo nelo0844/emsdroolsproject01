@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import com.sap.ems.dao.RuleDao;
 import com.sap.ems.dao.SessionPersistenceDao;
+import com.sap.ems.dto.EMSResult;
 import com.sap.ems.entity.Rule;
 import com.sap.ems.service.RuleEngine;
 
@@ -78,16 +79,18 @@ public class RuleEngineImpl implements RuleEngine {
 		return this.kSession;
 	}
 
-	public void applyRuleChanges() {
+	public EMSResult<Integer> applyRuleChanges() {
 
 		// Get Rules
 		Collection<Rule> rules = ruleDao.queryAll();
 
 		int nextVersion = getHighestSnapshotVersion() + 1;
 
-		this.deployRuleSet(rules, nextVersion, 0, true);
+		EMSResult<Integer> emsResult = this.deployRuleSet(rules, nextVersion, 0, true);
 
 		this.fireRules(null);
+
+		return emsResult;
 	}
 
 	public int getHighestSnapshotVersion() {
@@ -102,10 +105,13 @@ public class RuleEngineImpl implements RuleEngine {
 		return version.intValue();
 	}
 
-	public void deployRuleSet(Collection<Rule> rulesToDeploy, int releaseVersion, int ruleVersion, boolean upgrade) {
+	public EMSResult<Integer> deployRuleSet(Collection<Rule> rulesToDeploy, int releaseVersion, int ruleVersion,
+			boolean upgrade) {
 		// reset lists and buffer
 		List<Rule> activeRules = new ArrayList<Rule>();
 		List<Rule> inactiveRules = new ArrayList<Rule>();
+		EMSResult<Integer> emsResult = new EMSResult<Integer>(false, "");
+
 		try {
 			for (Rule rule : rulesToDeploy) {
 				if (rule.isEnable()) {
@@ -121,8 +127,7 @@ public class RuleEngineImpl implements RuleEngine {
 			KieBuilder kb = loadRules(this.kServices, releaseId, activeRules);
 
 			Results results = kb.getResults();
-
-			assertEquals(0, results.getMessages(Message.Level.ERROR).size());
+			// assertEquals(0, results.getMessages(Message.Level.ERROR).size());
 
 			this.kModule = kb.getKieModule();
 
@@ -131,9 +136,19 @@ public class RuleEngineImpl implements RuleEngine {
 				this.kContainer.updateToVersion(releaseId);
 			}
 
+			if (results.getMessages(Message.Level.ERROR).size() != 0) {
+				emsResult.setError(results.getMessages().toString());
+				return emsResult;
+			}
+
 		} catch (Exception e) {
-			System.out.println(e);
+			emsResult.setError(e.toString());
+			return emsResult;
 		}
+
+		emsResult.setStatus(true);
+
+		return emsResult;
 	}
 
 	protected final String getRulePrefix() {
