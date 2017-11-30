@@ -88,7 +88,9 @@ public class RuleEngineImpl implements RuleEngine {
 
 		EMSResult<Integer> emsResult = this.deployRuleSet(rules, nextVersion, 0, true);
 
-		this.fireRules(null);
+		if (emsResult.isStatus() == true) {
+			this.fireRules(null);
+		}
 
 		return emsResult;
 	}
@@ -128,17 +130,16 @@ public class RuleEngineImpl implements RuleEngine {
 
 			Results results = kb.getResults();
 			// assertEquals(0, results.getMessages(Message.Level.ERROR).size());
+			if (results.getMessages(Message.Level.ERROR).size() != 0) {
+				emsResult.setError(results.getMessages().toString());
+				return emsResult;
+			}
 
 			this.kModule = kb.getKieModule();
 
 			if (upgrade) {
 				this.kContainer = this.kServices.newKieContainer(releaseId);
 				this.kContainer.updateToVersion(releaseId);
-			}
-
-			if (results.getMessages(Message.Level.ERROR).size() != 0) {
-				emsResult.setError(results.getMessages().toString());
-				return emsResult;
 			}
 
 		} catch (Exception e) {
