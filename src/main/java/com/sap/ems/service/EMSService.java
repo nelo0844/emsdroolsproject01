@@ -14,7 +14,7 @@ public interface EMSService {
 	
 	public RuleDto getRuleById(long ruleId);
 
-	public Integer insertRule(RuleDto rule);
+	public RuleDto insertRule(RuleDto rule);
 	
 	public Integer updateRule(RuleDto rule);
 	

@@ -251,10 +251,12 @@ public class EMSServiceImpl implements EMSService {
 		}
 
 		soItem.put("property", "Sales Order Item");
+		soItem.put("technicalName", "SalesOrderItem");
 		soItem.put("content", itemPropertyAndType);
 		SoPropertyAndType.add(soItem);
 		so.put("propertyId", 0);
 		so.put("propertyName", "Sales Order");
+		so.put("technicalName", "SalesOrder");
 		so.put("content", SoPropertyAndType);
 		map.add(so);
 
@@ -270,6 +272,7 @@ public class EMSServiceImpl implements EMSService {
 	private List<Map> setPropertyAndType(List<Map> propertyAndType, Field field, String property) {
 		LinkedHashMap<String, Object> value = new LinkedHashMap<String, Object>();
 		value.put("property", property);
+		value.put("technicalName", field.getName());
 		String type = field.getType().toString();
 		type = type.replace("class ", "");
 		value.put("type", type);
@@ -308,27 +311,40 @@ public class EMSServiceImpl implements EMSService {
 				rule.getThenString());
 	}
 
-	public Integer insertRule(RuleDto rule) {
+	public RuleDto insertRule(RuleDto ruleDto) {
+		Rule rule = ruleDtoToRule(ruleDto);
+		
+//		ruleDao.insertRule(rule.getRuleName(), rule.getDisplayName(), whenBytes, thenBytes, whenString,
+//				thenString, rule.getWhenDrl(), rule.getThenDrl(), rule.getValidFrom(), rule.getValidTo(),
+//				rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.isInternal(), rule.getVersion(),
+//				rule.isEnabled(), rule.isDirty(), rule.isDeployed());
+		ruleDao.insertRule(rule);
+		ruleDto.setRuleId(rule.getId());
+		return ruleDto;
+	}
+
+	private Rule ruleDtoToRule(RuleDto ruleDto) {
 		byte[] whenBytes = null;
 		byte[] thenBytes = null;
-		if (rule.getWhenPart() != null) {
-			whenBytes = parseListToString(rule.getWhenPart()).getBytes();
+		byte[] model = null;
+		String whenString = null;
+		String thenString = null;
+		long ruleId;
+		whenString = parseListToString(ruleDto.getWhenPart());
+		thenString = parseListToString(ruleDto.getThenPart());
+		if(whenString != null){
+			whenBytes = whenString.getBytes();
 		}
-		if (rule.getThenPart() != null) {
-			thenBytes = parseListToString(rule.getThenPart()).getBytes();
+		if(thenString != null){
+			thenBytes = thenString.getBytes();
 		}
-		ruleDao.insertRule(rule.getRuleName(), rule.getDisplayName(), whenBytes, thenBytes, rule.getWhenString(),
-				rule.getThenString(), rule.getWhenDrl(), rule.getThenDrl(), rule.getValidFrom(), rule.getValidTo(),
-				rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.isInternal(), rule.getVersion(),
-				rule.isEnabled(), rule.isDirty(), rule.isDeployed());
-		return 1;
+		return new Rule(ruleDto.getRuleName(), ruleDto.getDisplayName(), whenBytes, thenBytes, whenString, thenString,
+				ruleDto.getWhenDrl(), ruleDto.getThenDrl(), ruleDto.getValidFrom(), ruleDto.getValidTo(),
+				ruleDto.getDelay(), ruleDto.getPriority(), ruleDto.getDescription(), ruleDto.isInternal(),
+				ruleDto.getVersion(), model, ruleDto.isEnabled(), ruleDto.isDirty(), ruleDto.isDeployed());
 	}
 
 	public Integer updateRule(RuleDto rule) {
-		// String whenString;
-		// String thenString;
-		// whenString = parseListToString(rule.getWhenPart());
-		// thenString = parseListToString(rule.getThenPart());
 		byte[] whenBytes = null;
 		byte[] thenBytes = null;
 		if (rule.getWhenPart() != null) {
@@ -350,6 +366,9 @@ public class EMSServiceImpl implements EMSService {
 	}
 
 	private String parseListToString(List<RulePartDto> List) {
+		if(null == List ||List.size() == 0){
+			return null;
+		};
 		String result = "[";
 		List<PropertiesDto> Properties = new ArrayList<PropertiesDto>();
 		PropertiesDto selectedChildProperty;
@@ -383,7 +402,7 @@ public class EMSServiceImpl implements EMSService {
 					}
 				}
 			}
-			result = result + "}]";
+			result = result + "]";
 		}
 		result = result + "}]";
 

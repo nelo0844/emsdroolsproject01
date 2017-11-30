@@ -84,9 +84,9 @@ public class RuleEngineTest {
 		boolean isDirty = true;
 		boolean isDeployed = true;
 
-		ruleDao.insertRule(name, displayName, whenClause, thenClause, whenString.toString(), thenString.toString(),
-				whenDrl, thenDrl, validFrom, validTo, delay, priority, description, isInternal, version, isEnable,
-				isDirty, isDeployed);
+//		ruleDao.insertRule(name, displayName, whenClause, thenClause, whenString.toString(), thenString.toString(),
+//				whenDrl, thenDrl, validFrom, validTo, delay, priority, description, isInternal, version, isEnable,
+//				isDirty, isDeployed);
 
 	}
 

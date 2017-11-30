@@ -42,15 +42,16 @@ public interface RuleDao {
 	 * @param isDeployed
 	 * @return
 	 */
-	int insertRule(@Param("name") String name, @Param("displayName") String displayName,
-			@Param("whenClause") byte[] whenClause, @Param("thenClause") byte[] thenClause,
-			@Param("whenString") String whenString, @Param("thenString") String thenString,
-			@Param("whenDrl") String whenDrl, @Param("thenDrl") String thenDrl,
-			@Param("validFrom") Date validFrom, @Param("validTo") Date validTo, @Param("delay") String delay,
-			@Param("priority") Integer priority, @Param("description") String description,
-			@Param("isInternal") boolean isInternal, @Param("version") double version,
-			@Param("isEnable") boolean isEnable, @Param("isDirty") boolean isDirty,
-			@Param("isDeployed") boolean isDeployed);
+//	long insertRule(@Param("name") String name, @Param("displayName") String displayName,
+//			@Param("whenClause") byte[] whenClause, @Param("thenClause") byte[] thenClause,
+//			@Param("whenString") String whenString, @Param("thenString") String thenString,
+//			@Param("whenDrl") String whenDrl, @Param("thenDrl") String thenDrl,
+//			@Param("validFrom") Date validFrom, @Param("validTo") Date validTo, @Param("delay") String delay,
+//			@Param("priority") Integer priority, @Param("description") String description,
+//			@Param("isInternal") boolean isInternal, @Param("version") double version,
+//			@Param("isEnable") boolean isEnable, @Param("isDirty") boolean isDirty,
+//			@Param("isDeployed") boolean isDeployed);
+	int insertRule(Rule rule);
 
 	/**
 	 * 

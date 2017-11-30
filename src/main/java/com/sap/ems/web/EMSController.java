@@ -16,21 +16,18 @@ import com.sap.ems.dto.EMSResult;
 import com.sap.ems.dto.RuleDto;
 import com.sap.ems.entity.Rule;
 import com.sap.ems.service.EMSService;
-import com.sap.ems.service.RuleEngine;
 
 @Controller
 @RequestMapping("/drools")
 public class EMSController {
-
-	// Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
+//	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private EMSService emsService;
-	@Autowired
-	private RuleEngine ruleEngine;
-
+	
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
+	@RequestMapping(value = "/list", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public EMSResult<List<Map>> getMappingFields() {
 		EMSResult<List<Map>> result;
@@ -38,8 +35,8 @@ public class EMSController {
 		result = new EMSResult<List<Map>>(true, map);
 		return result;
 	};
-
-	@RequestMapping(value = "/allrules", method = RequestMethod.GET, produces = { "application/json;charset=UTF-8" })
+	
+	@RequestMapping(value = "/allrules", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public EMSResult<List<RuleDto>> getAllRules() {
 		EMSResult<List<RuleDto>> result;
@@ -47,9 +44,8 @@ public class EMSController {
 		result = new EMSResult<List<RuleDto>>(true, rules);
 		return result;
 	}
-
-	@RequestMapping(value = "/rule/{ruleId}/detail", method = RequestMethod.GET, produces = {
-			"application/json;charset=UTF-8" })
+	
+	@RequestMapping(value = "/rule/{ruleId}/detail", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public EMSResult<RuleDto> getRuleById(@PathVariable("ruleId") Long ruleId) {
 		EMSResult<RuleDto> result;
@@ -58,19 +54,18 @@ public class EMSController {
 		if (ruleId == null) {
 			return result = new EMSResult<>(false, "Rule ID is not correct!");
 		}
-
+		
 		rule = emsService.getRuleById(ruleId);
-
+		
 		if (rule == null) {
 			return result = new EMSResult<>(false, "Rule ID is not correct!");
 		}
-
+		
 		result = new EMSResult<RuleDto>(true, rule);
 		return result;
 	}
-
-	@RequestMapping(value = "/rule/{ruleId}/detail", method = RequestMethod.DELETE, produces = {
-			"application/json;charset=UTF-8" })
+	
+	@RequestMapping(value = "/rule/{ruleId}/detail", method = RequestMethod.DELETE, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public EMSResult<Integer> deleteRuleById(@PathVariable("ruleId") Long ruleId) {
 		EMSResult<Integer> result;
@@ -79,27 +74,27 @@ public class EMSController {
 		if (ruleId == null) {
 			return result = new EMSResult<>(false, "Rule ID is not correct!");
 		}
-
+		
 		num = emsService.deleteRule(ruleId);
-
+		
 		if (num == 0) {
 			return result = new EMSResult<>(false, "Delete rule is not correct!");
 		}
-
+		
 		result = new EMSResult<Integer>(true, num);
 		return result;
 	}
-
-	@RequestMapping(value = "/rule", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
+	
+	@RequestMapping(value = "/rule", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public EMSResult<Integer> insertRule(@RequestBody RuleDto rule) {
-		EMSResult<Integer> result;
-		Integer num = emsService.insertRule(rule);
-		result = new EMSResult<Integer>(true, num);
+	public EMSResult<RuleDto> insertRule(@RequestBody RuleDto rule) {
+		EMSResult<RuleDto> result;		
+		RuleDto ruleDto = emsService.insertRule(rule);
+		result = new EMSResult<RuleDto>(true, ruleDto);
 		return result;
 	}
-
-	@RequestMapping(value = "/rule", method = RequestMethod.PUT, produces = { "application/json;charset=UTF-8" })
+	
+	@RequestMapping(value = "/rule", method = RequestMethod.PUT, produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public EMSResult<Integer> updateRule(@RequestBody RuleDto rule) {
 		EMSResult<Integer> result;
@@ -107,13 +102,5 @@ public class EMSController {
 		result = new EMSResult<Integer>(true, num);
 		return result;
 	}
-
-	@RequestMapping(value = "/rule/appliance", method = RequestMethod.POST, produces = {
-			"application/json;charset=UTF-8" })
-	@ResponseBody
-	public EMSResult<Integer> applyRule() {
-		EMSResult<Integer> result = ruleEngine.applyRuleChanges();
-		return result;
-	}
-
+	
 }

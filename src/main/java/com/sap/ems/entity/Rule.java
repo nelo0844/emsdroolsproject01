@@ -46,7 +46,7 @@ public class Rule {
 
 	private boolean isInternal = false;
 
-	private int version;
+	private double version;
 
 	private byte[] model;
 
@@ -66,6 +66,35 @@ public class Rule {
 	 * indicates that the rule is currently deployed in the rule engine
 	 */
 	private boolean isDeployed;
+	
+	public Rule() {
+
+	}
+
+	public Rule(String name, String displayName, byte[] whenClause, byte[] thenClause, String whenString,
+			String thenString, String whenDrl, String thenDrl, Date validFrom, Date validTo, String delay,
+			Integer priority, String description, boolean isInternal, double version, byte[] model, boolean isEnable,
+			boolean isDirty, boolean isDeployed) {
+		this.name = name;
+		this.displayName = displayName;
+		this.whenClause = whenClause;
+		this.thenClause = thenClause;
+		this.whenString = whenString;
+		this.thenString = thenString;
+		this.whenDrl = whenDrl;
+		this.thenDrl = thenDrl;
+		this.validFrom = validFrom;
+		this.validTo = validTo;
+		this.delay = delay;
+		this.priority = priority;
+		this.description = description;
+		this.isInternal = isInternal;
+		this.version = version;
+		this.model = model;
+		this.isEnable = isEnable;
+		this.isDirty = isDirty;
+		this.isDeployed = isDeployed;
+	}
 
 	public long getId() {
 		return id;
@@ -159,11 +188,11 @@ public class Rule {
 		this.isInternal = isInternal;
 	}
 
-	public int getVersion() {
+	public double getVersion() {
 		return version;
 	}
 
-	public void setVersion(int version) {
+	public void setVersion(double version) {
 		this.version = version;
 	}
 

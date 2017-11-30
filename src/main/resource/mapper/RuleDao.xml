@@ -16,7 +16,7 @@
 		limit 0, 1000;
 	</select>
 	
-	<insert id="insertRule">
+	<insert id="insertRule" keyProperty="id" parameterType="com.sap.ems.entity.Rule">
 		insert into rule(name, display_name, when_clause, then_clause,
 			   valid_from, valid_to, delay, priority, description, is_internal,
 			   version, is_enable, is_dirty, is_deployed, when_string, then_string, when_drl, then_drl)
