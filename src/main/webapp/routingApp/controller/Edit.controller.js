@@ -1,5 +1,5 @@
 sap.ui.controller("sap.gm.controller.Edit", {
-
+	_create: false,
 	/**
 	 * Called when a controller is instantiated and its View controls (if available) are already created. Can be used to modify the View before it is
 	 * displayed, to bind event handlers and do other one-time initialization.
@@ -7,10 +7,12 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	 * @memberOf emsdroolsproject01.Edit
 	 */
 	onInit: function() {
-		this.getOwnerComponent().getRouter().getRoute("ruleEdit").attachPatternMatched(this._onRouteMatched, this);
+		this.getOwnerComponent().getRouter().getRoute("ruleEdit").attachPatternMatched(this._onRouteMatchedEdit, this);
+		this.getOwnerComponent().getRouter().getRoute("ruleCreate").attachPatternMatched(this._onRouteMatchedCreate, this);
 	},
 
-	_onRouteMatched: function(oEvent) {
+	// for edit rule
+	_onRouteMatchedEdit: function(oEvent) {
 		var that = this;
 		this._ruleId = oEvent.getParameter("arguments").ruleId;
 
@@ -46,6 +48,19 @@ sap.ui.controller("sap.gm.controller.Edit", {
 
 			this.getView().setModel(oModel);
 		}
+	},
+
+	// for create a rule
+	_onRouteMatchedCreate: function(oEvent) {
+		this._create = true;
+		this._ruleName = oEvent.getParameter("arguments").ruleName;
+		var oModel = new sap.ui.model.json.JSONModel();
+		oModel.setData({
+			whenPart: [],
+			thenPart: [],
+			ruleName: this._ruleName
+		});
+		this.getView().setModel(oModel);
 	},
 
 	/**
@@ -161,46 +176,69 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	onSaveRuleEvent: function(oEvent) {
 		var that = this;
 		var oCurrentModel = this.getView().getModel();
+		var globalModel = this.getView().getModel("globalModel");
 		var oData = oCurrentModel.getData();
 
-		var currentRule = this.getView().getBindingContext("globalModel").getObject();
-		var ruleString = generateRuleString(oData);
-		Object.assign(currentRule, ruleString);
-
-		postToServer("drools/rule", currentRule, function(data, status) {
-			that.getOwnerComponent().getRouter().navTo("ruleDetail", {
-				ruleId: that._ruleId
+		if (this._create) {
+			var ruleString = generateRuleString(oData);
+			ruleString.ruleName = this._ruleName;
+			postToServer("drools/rule", ruleString, function(data, status) {
+				// TODO 需要返回数据
+				var globalData = globalModel.getData();
+				globalData.rules.push(data.data);
+				globalModel.refresh(true);
+				that.getOwnerComponent().getRouter().navTo("ruleDetail", {
+					ruleId: data.data.ruleId
+				});
 			});
-		});
-		this.getView().getBindingContext("globalModel").getModel().refresh();
+		} else {
+			var currentRule = this.getView().getBindingContext("globalModel").getObject();
+			var ruleString = generateRuleString(oData);
+			Object.assign(currentRule, ruleString);
+
+			putToServer("drools/rule", currentRule, function(data, status) {
+				that.getOwnerComponent().getRouter().navTo("ruleDetail", {
+					ruleId: that._ruleId
+				});
+				globalModel.refresh();
+			});
+		}
 	},
 
 	onCancelRuleEvent: function(oEvent) {
-		var that = this;
-		this.getOwnerComponent().getRouter().navTo("ruleDetail", {
-			ruleId: that._ruleId
-		});
+		if (this._create) {
+			this.getOwnerComponent().getRouter().navTo("mainPage", null, true);
+		} else {
+			this.getOwnerComponent().getRouter().navTo("ruleDetail", {
+				ruleId: that._ruleId
+			});
+		}
 	},
 
 	onRemoveRuleEvent: function(oEvent) {
 		var that = this;
-		var oCurrentModel = this.getView().getModel("globalModel");
-		var oData = oCurrentModel.getData();
+		if (this._create) {
+			this.getOwnerComponent().getRouter().navTo("mainPage", null, true);
+		} else {
+			var oCurrentModel = this.getView().getModel("globalModel");
+			var oData = oCurrentModel.getData();
 
-		var currentRule = this.getView().getBindingContext("globalModel").getObject();
-		var deteleIndex = -1;
-		oData.rules.forEach(function(item, index) {
-			if (item.ruleId === currentRule.ruleId) {
-				deteleIndex = index;
-			}
-		});
-		if (deteleIndex != -1) {
-			deleteFromServer("drools/rule/" + currentRule.ruleId + "/detail", function() {
-				oData.rules.splice(deteleIndex, 1);
-				oCurrentModel.refresh();
-				that.getOwnerComponent().getRouter().navTo("master", {}, true);
+			var currentRule = this.getView().getBindingContext("globalModel").getObject();
+			var deteleIndex = -1;
+			oData.rules.forEach(function(item, index) {
+				if (item.ruleId === currentRule.ruleId) {
+					deteleIndex = index;
+				}
 			});
+			if (deteleIndex != -1) {
+				deleteFromServer("drools/rule/" + currentRule.ruleId + "/detail", function() {
+					oData.rules.splice(deteleIndex, 1);
+					oCurrentModel.refresh();
+					that.getOwnerComponent().getRouter().navTo("master", {}, true);
+				});
+			}
 		}
+
 	},
 
 	onDeleteConditionEvent: function(oEvent) {
@@ -237,9 +275,9 @@ sap.ui.controller("sap.gm.controller.Edit", {
 			};
 			oCurrentData[selectedIndex] = $.extend(true, {}, globalSelecteItem);
 			oCurrentData[selectedIndex].properties = [];
-			oCurrentData[selectedIndex].properties[0] = selectedObj;
+			oCurrentData[selectedIndex].properties[0] = $.extend(true, {}, selectedObj);
 		} else {
-			oCurrentData[selectedIndex].properties[oCurrentData[selectedIndex].properties.length] = selectedObj;
+			oCurrentData[selectedIndex].properties[oCurrentData[selectedIndex].properties.length] = $.extend(true, {}, selectedObj);
 		}
 
 		if (isWhenPart) {

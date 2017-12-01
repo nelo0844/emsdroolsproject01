@@ -1,6 +1,12 @@
-<View xmlns="sap.m">
+<View xmlns="sap.m" xmlns:l="sap.ui.layout">
 	<Page title="EMS Rule Design" class="GMPage">
+		<subHeader>
+			<Toolbar id="oVerticalContent"
+				width="100%">
+			</Toolbar>
+		</subHeader>
 		<content>
+			
 			<SplitApp id="rootControl">
 			</SplitApp>
 		</content>

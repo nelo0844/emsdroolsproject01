@@ -1,7 +1,10 @@
 <View xmlns="sap.m" xmlns:layout="sap.ui.layout" controllerName="sap.gm.controller.Detail"
 	xmlns:core="sap.ui.core">
-		<Page title="{globalModel>orderName}" navButtonPress="onNavBack"
+		<Page title="{globalModel>ruleName}" navButtonPress="onNavBack"
 			showNavButton="{device>/system/phone}">
+			<headerContent>
+				<CheckBox text="Enable" enabled="false" selected="globalModel>isEnable"/>
+			</headerContent>
 			<content>
 				<Panel width="auto" height="50%" accessibleRole="Region">
 					<headerToolbar>

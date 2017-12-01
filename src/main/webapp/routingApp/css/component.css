@@ -50,4 +50,7 @@
 .GMActivePage .sapMFlexBox li[tabindex='0'] {
     background-color: lightyellow !important;
 }
+.GMHidden{
+	display: none;
+}
 

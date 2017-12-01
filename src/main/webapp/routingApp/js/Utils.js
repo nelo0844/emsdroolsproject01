@@ -9,6 +9,17 @@ function postToServer(url, data, fnSuccess) {
 	});
 }
 
+function putToServer(url, data, fnSuccess) {
+	$.ajax({
+		type: 'PUT',
+		url: url,
+		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify(data),
+		success: fnSuccess,
+		dataType: "json"
+	});
+}
+
 function deleteFromServer(url, fnSuccess) {
 	$.ajax({
 		type: 'DELETE',
@@ -28,10 +39,14 @@ function generateRuleString(Object) {
 	};
 }
 function generateWhenString(property) {
-	return (!property.selectedChildProperty ? property.property : property.selectedChildProperty.property) + property.operation + "'" + property.value + "'";
+	return (!property.selectedChildProperty ? property.property : property.selectedChildProperty.property) + property.operation + tranformRuleValue(property);
 }
 function generateThenString(property) {
-	return (!property.selectedChildProperty ? property.property : property.selectedChildProperty.property) + "=" + "'" + property.value + "'";
+	return (!property.selectedChildProperty ? property.property : property.selectedChildProperty.property) + "=" + tranformRuleValue(property);
+}
+
+function tranformRuleValue(property) {
+	return (property.type || property.selectedChildProperty.type) == "java.lang.String" ? ("'" + property.value + "'") : property.value;
 }
 
 function readRuleStructure(sourceData, fnGenerate) {

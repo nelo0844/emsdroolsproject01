@@ -1,6 +1,6 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller", "sap/ui/Device", 'sap/m/Button', 'sap/m/Dialog', 'sap/m/Label', 'sap/m/Text', 'sap/m/Input', 'sap/ui/model/Filter'
-], function(Controller, Device, Button, Dialog, Label, Text, Input, Filter) {
+	"sap/ui/core/mvc/Controller", "sap/ui/Device", 'sap/m/Button', 'sap/m/Dialog', 'sap/m/Label', 'sap/m/Text', 'sap/m/Input', 'sap/ui/model/Filter', 'sap/m/MessageStrip'
+], function(Controller, Device, Button, Dialog, Label, Text, Input, Filter, MessageStrip) {
 	"use strict";
 
 	return Controller.extend("sap.gm.controller.Master", {
@@ -13,7 +13,7 @@ sap.ui.define([
 			}
 		},
 		onSelectionChange: function(oEvent) {
-			var sRuleId = oEvent.getSource().getSelectedItem().getBindingContext("globalModel").getProperty("ruleId")
+			var sRuleId = oEvent.getSource().getBindingContext("globalModel").getProperty("ruleId")
 			this.getOwnerComponent().getRouter().navTo("ruleDetail", {
 				ruleId: sRuleId
 			}, !Device.system.phone);
@@ -49,14 +49,11 @@ sap.ui.define([
 			var that = this;
 			var sText = sap.ui.getCore().byId('createRuleInput').getValue();
 			var data = this.getView().getModel("globalModel").getData();
-			data.rules[data.rules.length] = {
-				ruleName: sText
-			}
-			postToServer("drools/rule", data.rules[data.rules.length - 1], function(returnData, status) {
-				// TODO 将存储后的数据填充在这个节点
-				that.getView().getModel("globalModel").setData(data);
-			});
 			this._dialog.close();
+			this.getOwnerComponent().getRouter().navTo("ruleCreate", {
+				ruleName: sText
+			}, !Device.system.phone);
+
 		},
 		onSearch: function(oEvt) {
 			// add filter for search
@@ -71,6 +68,37 @@ sap.ui.define([
 			var list = this.getView().byId("ruleList");
 			var binding = list.getBinding("items");
 			binding.filter(aFilters, "Application");
+		},
+		onApplyRuleEvent: function() {
+			postToServer("drools/rule/appliance",{},(data,status)=>{
+				if(!data.status){
+					this.showMsgStrip(data.error);
+				}
+				
+			});
+		},
+		showMsgStrip: function(message) {
+			var oMs = sap.ui.getCore().byId("msgStrip");
+
+			if (oMs) {
+				oMs.destroy();
+			}
+			this._generateMsgStrip(message);
+		},
+
+		_generateMsgStrip: function(message) {
+			var aTypes = [
+				"Information", "Warning", "Error", "Success"
+			], oVC = sap.ui.getCore().byId("__component0---app--oVerticalContent"),
+
+			oMsgStrip = new MessageStrip("msgStrip", {
+				text: message,
+				showCloseButton: true,
+				showIcon: true,
+				type: "Error"
+			});
+
+			oVC.addContent(oMsgStrip);
 		}
 	});
 

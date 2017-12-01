@@ -99,7 +99,7 @@
                ]
             },
             {  
-               "pattern":"detail/:ruleId:",
+               "pattern":":ruleId:/detail",
                "name":"ruleDetail",
                "target":[  
                   "master",
@@ -107,7 +107,15 @@
                ]
             },
             {  
-               "pattern":"edit/:ruleId:",
+               "pattern":"create/:ruleName:",
+               "name":"ruleCreate",
+               "target":[  
+                  "master",
+                  "ruleEdit"
+               ]
+            },
+            {  
+               "pattern":":ruleId:/edit",
                "name":"ruleEdit",
                "target":[  
                   "master",
