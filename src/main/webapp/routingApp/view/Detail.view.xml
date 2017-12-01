@@ -1,9 +1,9 @@
 <View xmlns="sap.m" xmlns:layout="sap.ui.layout" controllerName="sap.gm.controller.Detail"
 	xmlns:core="sap.ui.core">
-		<Page title="{globalModel>ruleName}" navButtonPress="onNavBack"
+		<Page title="{/ruleName}" navButtonPress="onNavBack"
 			showNavButton="{device>/system/phone}">
 			<headerContent>
-				<CheckBox text="Enable" enabled="false" selected="globalModel>isEnable"/>
+				<CheckBox text="Enable" enabled="false" selected="{/enabled}"/>
 			</headerContent>
 			<content>
 				<Panel width="auto" height="50%" accessibleRole="Region">

@@ -30,10 +30,7 @@ sap.ui.define([
 				var currentRule = this.getView().getBindingContext("globalModel").getObject();
 				var oModel = new sap.ui.model.json.JSONModel();
 				if (currentRule && currentRule.whenDrl) {
-					oModel.setData({
-						whenDrl: currentRule.whenDrl,
-						thenDrl: currentRule.thenDrl
-					});
+					oModel.setData(currentRule);
 				}
 
 				this.getView().setModel(oModel);

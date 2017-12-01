@@ -35,10 +35,7 @@ sap.ui.controller("sap.gm.controller.Edit", {
 			var currentRule = this.getView().getBindingContext("globalModel").getObject();
 			var oModel = new sap.ui.model.json.JSONModel();
 			if (currentRule && currentRule.whenPart) {
-				oModel.setData({
-					whenPart: currentRule.whenPart,
-					thenPart: currentRule.thenPart
-				});
+				oModel.setData(currentRule);
 			} else {
 				oModel.setData({
 					whenPart: [],

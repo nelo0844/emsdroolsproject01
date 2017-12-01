@@ -1,10 +1,10 @@
 <core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m" controllerName="sap.gm.controller.Edit" xmlns:html="http://www.w3.org/1999/xhtml">
 	<HBox height="100%" class="GMRightContent">
-		<Page title="{globalModel>ruleName}" navButtonPress="onNavBack"
+		<Page title="{/ruleName}" navButtonPress="onNavBack"
 			showNavButton="{device>/system/phone}">
 			<headerContent>
-				<CheckBox text="Enable" width="120px" selected="{globalModel>enabled}"/>
+				<CheckBox text="Enable" width="120px" selected="{/enabled}"/>
 			</headerContent>
 			<content>
 				<Panel width="auto" class="GMActivePage" height="50%"
