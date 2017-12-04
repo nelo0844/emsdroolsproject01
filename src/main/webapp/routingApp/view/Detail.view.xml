@@ -1,19 +1,56 @@
 <View xmlns="sap.m" xmlns:layout="sap.ui.layout" controllerName="sap.gm.controller.Detail"
 	xmlns:core="sap.ui.core">
-		<Page title="{/ruleName}" navButtonPress="onNavBack"
+		<Page navButtonPress="onNavBack" height="100%" class="GMRightContent"
 			showNavButton="{device>/system/phone}">
 			<headerContent>
-				<CheckBox text="Enable" enabled="false" selected="{/enabled}"/>
+			<Toolbar>
+				<Title level="H3" text="{/ruleName}" />
+				<ToolbarSpacer/>
+				<Switch state="true" customTextOn="Normal" customTextOff="Expert" change="onChangeMode" class="sapUiSmallMarginBeginEnd">
+					<layoutData>
+						<FlexItemData growFactor="2" />
+					</layoutData>
+				</Switch>
+				<CheckBox text="Enable" enabled="false" selected="{/enabled}" class="sapUiSmallMarginBeginEnd"/>
+			</Toolbar>
+				
 			</headerContent>
 			<content>
-				<Panel width="auto" height="50%" accessibleRole="Region">
+				<Panel width="auto"  height="50%" accessibleRole="Region">
 					<headerToolbar>
 						<Toolbar height="3rem">
 							<Title text="When" />
 						</Toolbar>
 					</headerToolbar>
 					<content>
-						<Label text="{/whenDrl}" />
+						<Label text="{/whenDrl}" visible="{=${/mode}==='expert'}"/>
+						<List items="{/whenPart}" visible="{=${/mode}==='normal'}">
+							<items>
+								<CustomListItem>
+									<VBox class="sapUiSmallMargin">
+										<Label text="{propertyName}" />
+										<List items="{properties}">
+											<items>
+												<CustomListItem class="GMSelectionItem">
+													<Label text="{property}" />
+													<Label text=": {selectedChildProperty/property}" />
+													<Select forceSelection="true"
+														class="GMCustomeSelect sapUiTinyMarginBegin" items="{operationModel>/long}" enabled="false"
+														selectedKey="{operation}" change="onChangeOperationSection">
+														<core:Item key="{operationModel>value}"
+															text="{operationModel>functionName}" />
+													</Select>
+													<Input
+														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
+														placeholder="Enter Value ..." width="200px" value="{value}" enabled="false"
+														valueStateText="E-Mail must be a valid email address." />
+												</CustomListItem>
+											</items>
+										</List>
+									</VBox>
+								</CustomListItem>
+							</items>
+						</List>
 					</content>
 				</Panel>
 				<Panel width="auto" height="50%">
@@ -23,7 +60,28 @@
 						</Toolbar>
 					</headerToolbar>
 					<content>
-						<Label text="{/thenDrl}" />
+						<Label text="{/thenDrl}" visible="{=${/mode}==='expert'}"/>
+						<List items="{/thenPart}" visible="{=${/mode}==='normal'}">
+							<items>
+								<CustomListItem>
+									<VBox class="sapUiSmallMargin">
+										<Label text="{propertyName}" />
+										<List items="{properties}">
+											<items>
+												<CustomListItem class="GMSelectionItem">
+													<Label text="{property}" />
+													<Label text=">{selectedChildProperty/property}" />
+													<Input
+														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
+														placeholder="Enter Value ..." width="200px" value="{value}" enabled="false"
+														valueStateText="E-Mail must be a valid email address." />
+												</CustomListItem>
+											</items>
+										</List>
+									</VBox>
+								</CustomListItem>
+							</items>
+						</List>
 					</content>
 				</Panel>
 			</content>

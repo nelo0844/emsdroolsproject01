@@ -10,7 +10,7 @@ sap.ui.define([
 		_onRouteMatched: function(oEvent) {
 			var that = this;
 			this._ruleId = oEvent.getParameter("arguments").ruleId;
-			var oGlobalModel = this.getView().getModel("globalModel");
+			var oGlobalModel = this.getOwnerComponent().getModel("globalModel");
 			var oGlobalData = oGlobalModel.getData();
 			var bindingIndex = -1;
 			if (oGlobalData.rules) {
@@ -30,6 +30,7 @@ sap.ui.define([
 				var currentRule = this.getView().getBindingContext("globalModel").getObject();
 				var oModel = new sap.ui.model.json.JSONModel();
 				if (currentRule && currentRule.whenDrl) {
+					currentRule.mode = "normal";
 					oModel.setData(currentRule);
 				}
 
@@ -82,6 +83,11 @@ sap.ui.define([
 			oData.selectedItem = selectedObj;
 			oModel.setData(oData);
 			oModel.refresh();
+		},
+		onChangeMode: function(oEvent) {
+			var data = this.getView().getModel().getData();
+			data.mode = data.mode == "expert" ? "normal" : "expert";
+			this.getView().getModel().refresh();
 		}
 	});
 

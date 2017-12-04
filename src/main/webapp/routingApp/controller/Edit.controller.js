@@ -16,7 +16,7 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		var that = this;
 		this._ruleId = oEvent.getParameter("arguments").ruleId;
 
-		var oGlobalModel = this.getView().getModel("globalModel");
+		var oGlobalModel = this.getOwnerComponent().getModel("globalModel");
 		var oGlobalData = oGlobalModel.getData();
 		var bindingIndex = -1;
 		if (oGlobalData.rules) {
@@ -203,6 +203,7 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	},
 
 	onCancelRuleEvent: function(oEvent) {
+		var that = this;
 		if (this._create) {
 			this.getOwnerComponent().getRouter().navTo("mainPage", null, true);
 		} else {

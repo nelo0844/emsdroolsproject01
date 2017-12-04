@@ -4,7 +4,11 @@
 		<Page title="{/ruleName}" navButtonPress="onNavBack"
 			showNavButton="{device>/system/phone}">
 			<headerContent>
+			<Toolbar>
+				<Title level="H3" text="{/ruleName}" />
+				<ToolbarSpacer/>
 				<CheckBox text="Enable" width="120px" selected="{/enabled}"/>
+				</Toolbar>
 			</headerContent>
 			<content>
 				<Panel width="auto" class="GMActivePage" height="50%"
