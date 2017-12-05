@@ -262,6 +262,7 @@ public class EMSServiceImpl implements EMSService {
 
 		emsEntitlement.put("propertyId", 2);
 		emsEntitlement.put("propertyName", "Entitlement");
+		emsEntitlement.put("technicalName", "Entitlement");
 		emsEntitlement.put("content", entitlementPropertyAndType);
 		map.add(emsEntitlement);
 
