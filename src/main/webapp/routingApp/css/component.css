@@ -54,3 +54,10 @@
 	display: none;
 }
 
+.GMStatus {
+    color: red;
+}
+.GMStatus.sapMLabelRequired {
+    color: green;
+}
+

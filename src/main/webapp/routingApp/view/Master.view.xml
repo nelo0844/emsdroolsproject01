@@ -3,7 +3,7 @@
 		<headerContent>
 			<Toolbar>
 				<Button text="Add" type="Accept" press="onAddRuleEvent" />
-				<Button text="Apply" type="Accept" press="onApplyRuleEvent"/>
+				<Button text="Apply" type="Accept" press="onApplyRuleEvent" />
 			</Toolbar>
 		</headerContent>
 		<subHeader>
@@ -15,10 +15,12 @@
 			<List id="ruleList" items="{globalModel>/rules}" mode="SingleSelectMaster">
 				<items>
 					<CustomListItem>
-						<HBox justifyContent="SpaceBetween">
-							<Link text="{globalModel>ruleName}" press="onSelectionChange"  class="sapUiSmallMargin"/>
-							<Label text="{=${globalModel>enabled}?'Enable':'Disable'}" class="sapUiSmallMargin"/>
-						</HBox>
+						<Toolbar press="onSelectionChange" active="true">
+							<HBox justifyContent="SpaceBetween" width="100%">
+								<Link text="{globalModel>ruleName}" class="sapUiSmallMargin" press="onSelectionChange"/>
+								<Label text="{=${globalModel>enabled}?'Enable':'Disable'}" required = "{=${globalModel>enabled}}" class="sapUiSmallMargin GMStatus"/>
+							</HBox>
+						</Toolbar>
 					</CustomListItem>
 				</items>
 			</List>

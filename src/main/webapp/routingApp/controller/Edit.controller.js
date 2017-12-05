@@ -66,7 +66,7 @@ sap.ui.controller("sap.gm.controller.Edit", {
 
 			var currentRule = this.getView().getBindingContext("globalModel").getObject();
 			var oModel = new sap.ui.model.json.JSONModel();
-			if (currentRule && currentRule.whenPart) {
+			if (currentRule) {
 				oModel.setData(currentRule);
 			} else {
 				oModel.setData({
@@ -210,7 +210,7 @@ sap.ui.controller("sap.gm.controller.Edit", {
 
 		if (this._create) {
 			var ruleString = generateRuleString(oData);
-			ruleString.ruleName = this._ruleName;
+			ruleString = $.extend(ruleString, oData)
 			postToServer("drools/rule", ruleString, function(data, status) {
 				// TODO 需要返回数据
 				var globalData = globalModel.getData();
@@ -301,7 +301,8 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		if (selectedIndex == oCurrentData.length) {
 			var globalSelecteItem = {
 				propertyId: selectedItem.propertyId,
-				propertyName: selectedItem.propertyName
+				propertyName: selectedItem.propertyName,
+				technicalName: selectedItem.technicalName
 			};
 			oCurrentData[selectedIndex] = $.extend(true, {}, globalSelecteItem);
 			oCurrentData[selectedIndex].properties = [];

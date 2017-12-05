@@ -73,20 +73,22 @@ sap.ui.define([
 			postToServer("drools/rule/appliance",{},(data,status)=>{
 				if(!data.status){
 					this.showMsgStrip(data.error);
+				}else{
+					this.showMsgStrip("successful.",true);
 				}
 				
 			});
 		},
-		showMsgStrip: function(message) {
+		showMsgStrip: function(message,isRight) {
 			var oMs = sap.ui.getCore().byId("msgStrip");
 
 			if (oMs) {
 				oMs.destroy();
 			}
-			this._generateMsgStrip(message);
+			this._generateMsgStrip(message,isRight);
 		},
 
-		_generateMsgStrip: function(message) {
+		_generateMsgStrip: function(message,isRight) {
 			var aTypes = [
 				"Information", "Warning", "Error", "Success"
 			], oVC = sap.ui.getCore().byId("__component0---app--oVerticalContent"),
@@ -95,7 +97,7 @@ sap.ui.define([
 				text: message,
 				showCloseButton: true,
 				showIcon: true,
-				type: "Error"
+				type: isRight?"Success":"Error"
 			});
 
 			oVC.addContent(oMsgStrip);

@@ -4,7 +4,7 @@
 			showNavButton="{device>/system/phone}">
 			<headerContent>
 			<Toolbar>
-				<Title level="H3" text="Rule Name: {/ruleName}" />
+				<Title level="H2" text="Rule Name: {/ruleName}" class="sapUiSmallMargin"/>
 				<ToolbarSpacer/>
 				<Switch state="true" customTextOn="Normal" customTextOff="Expert" change="onChangeMode" class="sapUiSmallMarginBeginEnd">
 					<layoutData>

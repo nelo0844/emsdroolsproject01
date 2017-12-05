@@ -32,17 +32,15 @@ function deleteFromServer(url, fnSuccess) {
 
 function generateRuleString(Object) {
 	return {
-		whenPart: Object.whenPart,
-		thenPart: Object.thenPart,
 		whenDrl: readRuleStructure(Object.whenPart, generateWhenString),
 		thenDrl: readRuleStructure(Object.thenPart, generateThenString)
 	};
 }
 function generateWhenString(property) {
-	return (!property.selectedChildProperty ? property.property : property.selectedChildProperty.property) + property.operation + tranformRuleValue(property);
+	return (!property.selectedChildProperty ? property.technicalName : property.selectedChildProperty.technicalName) + property.operation + tranformRuleValue(property);
 }
 function generateThenString(property) {
-	return (!property.selectedChildProperty ? property.property : property.selectedChildProperty.property) + "=" + tranformRuleValue(property);
+	return (!property.selectedChildProperty ? property.technicalName : property.selectedChildProperty.technicalName) + "=" + tranformRuleValue(property);
 }
 
 function tranformRuleValue(property) {
@@ -67,7 +65,7 @@ function readRuleStructure(sourceData, fnGenerate) {
 				}
 			});
 
-			var condition = allItem == "" ? "" : (item.propertyName + "(" + allItem + ")");
+			var condition = allItem == "" ? "" : (item.technicalName + "(" + allItem + ")");
 			objString = objString == "" ? condition : (objString + " and " + condition);
 		});
 	}

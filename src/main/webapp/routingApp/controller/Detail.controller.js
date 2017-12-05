@@ -29,7 +29,7 @@ sap.ui.define([
 
 				var currentRule = this.getView().getBindingContext("globalModel").getObject();
 				var oModel = new sap.ui.model.json.JSONModel();
-				if (currentRule && currentRule.whenDrl) {
+				if (currentRule) {
 					currentRule.mode = "normal";
 					oModel.setData(currentRule);
 				}
