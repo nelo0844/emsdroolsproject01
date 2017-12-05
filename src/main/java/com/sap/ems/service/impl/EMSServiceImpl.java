@@ -384,9 +384,11 @@ public class EMSServiceImpl implements EMSService {
 						result = result + ",\"selectedChildProperty\":" + "{";
 						result = result + "\"property\":\"" + selectedChildProperty.getProperty() + "\",";
 						result = result + "\"type\":\"" + selectedChildProperty.getType() + "\"";
+						result = result + ",\"technicalName\":\"" + Properties.get(k).getTechnicalName() + "\"";
 						result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
 						result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"}";
 					} else {
+						result = result + ",\"technicalName\":\"" + Properties.get(k).getTechnicalName() + "\"";
 						result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
 						result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"";
 					}

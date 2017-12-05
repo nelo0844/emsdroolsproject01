@@ -10,15 +10,18 @@ public class RulePartDto {
 	
 	private List<PropertiesDto> properties;
 	
+	private String technicalName;
+
 	public RulePartDto() {
 		
 	}
 
-	public RulePartDto(long propertyId, String propertyName, List<PropertiesDto> properties) {
+	public RulePartDto(long propertyId, String propertyName, List<PropertiesDto> properties, String technicalName) {
 		super();
 		this.propertyId = propertyId;
 		this.propertyName = propertyName;
 		this.properties = properties;
+		this.technicalName = technicalName;
 	}
 
 	public long getPropertyId() {
@@ -45,5 +48,12 @@ public class RulePartDto {
 		this.properties = properties;
 	}
 	
+	public String getTechnicalName() {
+		return technicalName;
+	}
+
+	public void setTechnicalName(String technicalName) {
+		this.technicalName = technicalName;
+	}
 	
 }

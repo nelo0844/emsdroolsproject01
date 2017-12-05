@@ -12,17 +12,20 @@ public class PropertiesDto {
 	
 	private String value;
 	
+	private String technicalName;
+
 	public PropertiesDto() {
 		
 	}
 
 	public PropertiesDto(String property, PropertiesDto selectedChildProperty, String type, String operation,
-			String value) {
+			String value, String technicalName) {
 		this.property = property;
 		this.selectedChildProperty = selectedChildProperty;
 		this.type = type;
 		this.operation = operation;
 		this.value = value;
+		this.technicalName = technicalName;
 	}
 
 	public String getProperty() {
@@ -63,6 +66,14 @@ public class PropertiesDto {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+	
+	public String getTechnicalName() {
+		return technicalName;
+	}
+
+	public void setTechnicalName(String technicalName) {
+		this.technicalName = technicalName;
 	}
 	
 }
