@@ -95,6 +95,32 @@ public class Rule {
 		this.isDirty = isDirty;
 		this.isDeployed = isDeployed;
 	}
+	
+	public Rule(long id, String name, String displayName, byte[] whenClause, byte[] thenClause, String whenString,
+			String thenString, String whenDrl, String thenDrl, Date validFrom, Date validTo, String delay,
+			Integer priority, String description, boolean isInternal, double version, byte[] model, boolean isEnable,
+			boolean isDirty, boolean isDeployed) {
+		this.id = id;
+		this.name = name;
+		this.displayName = displayName;
+		this.whenClause = whenClause;
+		this.thenClause = thenClause;
+		this.whenString = whenString;
+		this.thenString = thenString;
+		this.whenDrl = whenDrl;
+		this.thenDrl = thenDrl;
+		this.validFrom = validFrom;
+		this.validTo = validTo;
+		this.delay = delay;
+		this.priority = priority;
+		this.description = description;
+		this.isInternal = isInternal;
+		this.version = version;
+		this.model = model;
+		this.isEnable = isEnable;
+		this.isDirty = isDirty;
+		this.isDeployed = isDeployed;
+	}
 
 	public long getId() {
 		return id;

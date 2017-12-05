@@ -269,17 +269,6 @@ public class EMSServiceImpl implements EMSService {
 
 	}
 
-	private List<Map> setPropertyAndType(List<Map> propertyAndType, Field field, String property) {
-		LinkedHashMap<String, Object> value = new LinkedHashMap<String, Object>();
-		value.put("property", property);
-		value.put("technicalName", field.getName());
-		String type = field.getType().toString();
-		type = type.replace("class ", "");
-		value.put("type", type);
-		propertyAndType.add(value);
-		return propertyAndType;
-	}
-
 	public List<RuleDto> getAllRules() {
 		List<Rule> rules = new ArrayList();
 		List<RuleDto> rulesDtos = new ArrayList();
@@ -295,8 +284,8 @@ public class EMSServiceImpl implements EMSService {
 			}
 			rulesDtos.add(new RuleDto(rule.getId(), rule.getName(), rule.getDisplayName(), rule.getValidFrom(),
 					rule.getValidTo(), rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.getVersion(),
-					rule.isInternal(), rule.isEnable(), rule.isDirty(), rule.isDeployed(), whenString, thenString,
-					rule.getWhenString(), rule.getThenString()));
+					rule.isInternal(), rule.isEnable(), rule.isDirty(), rule.isDeployed(), //whenString, thenString,
+					rule.getWhenString(), rule.getThenString(), rule.getWhenDrl(), rule.getThenDrl()));
 		}
 		return rulesDtos;
 	}
@@ -313,16 +302,33 @@ public class EMSServiceImpl implements EMSService {
 
 	public RuleDto insertRule(RuleDto ruleDto) {
 		Rule rule = ruleDtoToRule(ruleDto);
-		
-//		ruleDao.insertRule(rule.getRuleName(), rule.getDisplayName(), whenBytes, thenBytes, whenString,
-//				thenString, rule.getWhenDrl(), rule.getThenDrl(), rule.getValidFrom(), rule.getValidTo(),
-//				rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.isInternal(), rule.getVersion(),
-//				rule.isEnabled(), rule.isDirty(), rule.isDeployed());
 		ruleDao.insertRule(rule);
 		ruleDto.setRuleId(rule.getId());
 		return ruleDto;
 	}
 
+	public RuleDto updateRule(RuleDto ruleDto) {
+		Rule rule = ruleDtoToRule(ruleDto);
+		ruleDao.updateRule(rule);
+		return ruleDto;
+	}
+
+	public Integer deleteRule(long ruleId) {
+		ruleDao.deleteById(ruleId);
+		return 1;
+	}
+
+	private List<Map> setPropertyAndType(List<Map> propertyAndType, Field field, String property) {
+		LinkedHashMap<String, Object> value = new LinkedHashMap<String, Object>();
+		value.put("property", property);
+		value.put("technicalName", field.getName());
+		String type = field.getType().toString();
+		type = type.replace("class ", "");
+		value.put("type", type);
+		propertyAndType.add(value);
+		return propertyAndType;
+	}
+	
 	private Rule ruleDtoToRule(RuleDto ruleDto) {
 		byte[] whenBytes = null;
 		byte[] thenBytes = null;
@@ -338,35 +344,21 @@ public class EMSServiceImpl implements EMSService {
 		if(thenString != null){
 			thenBytes = thenString.getBytes();
 		}
-		return new Rule(ruleDto.getRuleName(), ruleDto.getDisplayName(), whenBytes, thenBytes, whenString, thenString,
-				ruleDto.getWhenDrl(), ruleDto.getThenDrl(), ruleDto.getValidFrom(), ruleDto.getValidTo(),
-				ruleDto.getDelay(), ruleDto.getPriority(), ruleDto.getDescription(), ruleDto.isInternal(),
-				ruleDto.getVersion(), model, ruleDto.isEnabled(), ruleDto.isDirty(), ruleDto.isDeployed());
-	}
-
-	public Integer updateRule(RuleDto rule) {
-		byte[] whenBytes = null;
-		byte[] thenBytes = null;
-		if (rule.getWhenPart() != null) {
-			whenBytes = parseListToString(rule.getWhenPart()).getBytes();
+		if(ruleDto.getRuleId() == 0){
+			return new Rule(ruleDto.getRuleName(), ruleDto.getDisplayName(), whenBytes, thenBytes, whenString, thenString,
+					ruleDto.getWhenDrl(), ruleDto.getThenDrl(), ruleDto.getValidFrom(), ruleDto.getValidTo(),
+					ruleDto.getDelay(), ruleDto.getPriority(), ruleDto.getDescription(), ruleDto.isInternal(),
+					ruleDto.getVersion(), model, ruleDto.isEnabled(), ruleDto.isDirty(), ruleDto.isDeployed());
+		}else{
+			return new Rule(ruleDto.getRuleId(),ruleDto.getRuleName(), ruleDto.getDisplayName(), whenBytes, thenBytes, whenString, thenString,
+					ruleDto.getWhenDrl(), ruleDto.getThenDrl(), ruleDto.getValidFrom(), ruleDto.getValidTo(),
+					ruleDto.getDelay(), ruleDto.getPriority(), ruleDto.getDescription(), ruleDto.isInternal(),
+					ruleDto.getVersion(), model, ruleDto.isEnabled(), ruleDto.isDirty(), ruleDto.isDeployed());
 		}
-		if (rule.getThenPart() != null) {
-			thenBytes = parseListToString(rule.getThenPart()).getBytes();
-		}
-		ruleDao.updateRule(rule.getRuleId(), rule.getRuleName(), rule.getDisplayName(), whenBytes, thenBytes,
-				rule.getWhenString(), rule.getThenString(), rule.getWhenDrl(), rule.getThenDrl(), rule.getValidFrom(),
-				rule.getValidTo(), rule.getDelay(), rule.getPriority(), rule.getDescription(), rule.isInternal(),
-				rule.getVersion(), rule.isEnabled(), rule.isDirty(), rule.isDeployed());
-		return 1;
 	}
-
-	public Integer deleteRule(long ruleId) {
-		ruleDao.deleteById(ruleId);
-		return 1;
-	}
-
+	
 	private String parseListToString(List<RulePartDto> List) {
-		if(null == List ||List.size() == 0){
+		if(null == List || List.size() == 0){
 			return null;
 		};
 		String result = "[";
@@ -385,16 +377,19 @@ public class EMSServiceImpl implements EMSService {
 					if (Properties.get(k).getType() != null) {
 						result = result + "\"type\":\"" + Properties.get(k).getType() + "\"";
 					} else {
-						result = result + "\"type\":null,";
+						result = result + "\"type\":null";
 					}
 					selectedChildProperty = Properties.get(k).getSelectedChildProperty();
 					if (selectedChildProperty != null) {
-						result = result + "\"selectedChildProperty\":" + "{";
+						result = result + ",\"selectedChildProperty\":" + "{";
 						result = result + "\"property\":\"" + selectedChildProperty.getProperty() + "\",";
 						result = result + "\"type\":\"" + selectedChildProperty.getType() + "\"";
+						result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
+						result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"}";
+					} else {
+						result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
+						result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"";
 					}
-					result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
-					result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"";
 					if (k == Properties.size() - 1) {
 						result = result + "}";
 					} else {

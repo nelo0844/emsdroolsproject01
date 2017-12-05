@@ -101,10 +101,10 @@ public class EMSController {
 
 	@RequestMapping(value = "/rule", method = RequestMethod.PUT, produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
-	public EMSResult<Integer> updateRule(@RequestBody RuleDto rule) {
-		EMSResult<Integer> result;
-		Integer num = emsService.updateRule(rule);
-		result = new EMSResult<Integer>(true, num);
+	public EMSResult<RuleDto> updateRule(@RequestBody RuleDto rule) {
+		EMSResult<RuleDto> result;
+		RuleDto ruleDto = emsService.updateRule(rule);
+		result = new EMSResult<RuleDto>(true, ruleDto);
 		return result;
 	}
 

@@ -16,7 +16,7 @@ public interface EMSService {
 
 	public RuleDto insertRule(RuleDto rule);
 	
-	public Integer updateRule(RuleDto rule);
+	public RuleDto updateRule(RuleDto rule);
 	
 	public Integer deleteRule(long ruleId);
 	
