@@ -401,8 +401,13 @@ public class EMSServiceImpl implements EMSService {
 				}
 			}
 			result = result + "]";
+			if (i == List.size() - 1) {
+				result = result + "}";
+			} else {
+				result = result + "},";
+			}
 		}
-		result = result + "}]";
+		result = result + "]";
 
 		return result;
 	}
