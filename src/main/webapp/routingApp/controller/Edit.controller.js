@@ -6,13 +6,45 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	 * 
 	 * @memberOf emsdroolsproject01.Edit
 	 */
+	/**
+	 * Custom model type for validating an E-Mail address
+	 * 
+	 * @class
+	 * @extends sap.ui.model.SimpleType
+	 */
+	customType: sap.ui.model.CompositeType.extend("string", {
+		formatValue: function(oValue, oType) {
+			return oValue;
+		},
+		parseValue: function(oValue, oType, oCurrentValue) {
+			// parsing step takes place before validating step, value could be altered here
+			return oValue;
+		},
+		validateValue: function(oValue) {
+			// The following Regex is NOT a completely correct one and only used for demonstration purposes.
+			// RFC 5322 cannot even checked by a Regex and the Regex for RFC 822 is very long and complex.
+			var rexMail = /^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/;
+			if (!oValue.match(rexMail)) {
+				throw new ValidateException("'" + oValue + "' is not a valid email address");
+			}
+		}
+	}, this.abc),
+
+	abc: function(oValue, oType) {
+		Console.log("-----------------" + oValue);
+	},
+
 	onInit: function() {
 		this.getOwnerComponent().getRouter().getRoute("ruleEdit").attachPatternMatched(this._onRouteMatchedEdit, this);
 		this.getOwnerComponent().getRouter().getRoute("ruleCreate").attachPatternMatched(this._onRouteMatchedCreate, this);
+
+		sap.ui.getCore().getMessageManager().registerObject(this.getView().byId("ID_WhenContent"), true);
+		sap.ui.getCore().getMessageManager().registerObject(this.getView().byId("ID_ThenContent"), true);
 	},
 
 	// for edit rule
 	_onRouteMatchedEdit: function(oEvent) {
+		this._create = false;
 		var that = this;
 		this._ruleId = oEvent.getParameter("arguments").ruleId;
 

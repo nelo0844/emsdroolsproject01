@@ -132,29 +132,20 @@
             "mainPage":{  
                "viewName":"Main",
                "controlAggregation":"detailPages",
-               "viewLevel":1
+               "viewLevel":1,
+                "title": "EMS Rule Design"
             },
             "ruleDetail":{  
                "viewName":"Detail",
                "controlAggregation":"detailPages",
-               "title":{  
-                  "parts":[  
-                     "orderName"
-                  ],
-                  "formatter":"jQuery.sap.formatMessage"
-               },
-               "viewLevel":1
+               "viewLevel":1,
+               "title": "EMS Rule Detail"
             },
             "ruleEdit":{  
                "viewName":"Edit",
                "controlAggregation":"detailPages",
-               "title":{  
-                  "parts":[  
-                     "productName"
-                  ],
-                  "formatter":"jQuery.sap.formatMessage"
-               },
-               "viewLevel":2
+               "viewLevel":2,
+                "title": "Edit EMS Rule"
             }
          }
       }

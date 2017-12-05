@@ -53,23 +53,24 @@ function readRuleStructure(sourceData, fnGenerate) {
 	var objString = "";
 
 	var childItems = {};
-	sourceData.forEach(function(item) {
-		var allItem = "";
-		item.properties.forEach(function(property) {
-			if (property.selectedChildProperty) {
-				if (!childItems[property.property]) {
-					childItems[property.property] = [];
+	if (sourceData) {
+		sourceData.forEach(function(item) {
+			var allItem = "";
+			item.properties.forEach(function(property) {
+				if (property.selectedChildProperty) {
+					if (!childItems[property.property]) {
+						childItems[property.property] = [];
+					}
+					childItems[property.property].push(property);
+				} else {
+					allItem = (allItem == "" ? "" : (allItem + ",")) + fnGenerate(property);
 				}
-				childItems[property.property].push(property);
-			} else {
-				allItem = (allItem == "" ? "" : (allItem + ",")) + fnGenerate(property);
-			}
+			});
+
+			var condition = allItem == "" ? "" : (item.propertyName + "(" + allItem + ")");
+			objString = objString == "" ? condition : (objString + " and " + condition);
 		});
-
-		var condition = allItem == "" ? "" : (item.propertyName + "(" + allItem + ")");
-		objString = objString == "" ? condition : (objString + " and " + condition);
-	});
-
+	}
 	for ( var i in childItems) {
 		var allItem = "";
 		childItems[i].forEach(function(property) {
