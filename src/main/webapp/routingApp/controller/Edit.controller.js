@@ -291,7 +291,10 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		var isWhenPart = this.byId("ID_WhenContent").hasStyleClass("GMActivePage");
 		var oCurrentData = isWhenPart ? oData.whenPart : oData.thenPart;
 
-		var selectedIndex = oCurrentData.length;
+		if (!oCurrentData) {
+			oCurrentData = [];
+		}
+		var selectedIndex = oCurrentData.length
 		oCurrentData.forEach(function(e, a) {
 			if (e.propertyId === selectedItem.propertyId) {
 				selectedIndex = a;

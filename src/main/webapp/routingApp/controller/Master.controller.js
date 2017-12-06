@@ -70,13 +70,16 @@ sap.ui.define([
 			binding.filter(aFilters, "Application");
 		},
 		onApplyRuleEvent: function() {
+			var container = this.getOwnerComponent().byId("app");
+			container.setBusyIndicatorDelay(0);
+			container.setBusy(true);
 			postToServer("drools/rule/appliance",{},(data,status)=>{
 				if(!data.status){
 					this.showMsgStrip(data.error);
 				}else{
 					this.showMsgStrip("successful.",true);
 				}
-				
+				container.setBusy(false);
 			});
 		},
 		showMsgStrip: function(message,isRight) {

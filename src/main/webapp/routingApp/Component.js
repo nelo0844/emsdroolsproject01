@@ -12,22 +12,20 @@ sap.ui.define([
 
 			var oModel = new JSONModel();
 			// oModel.loadData("routingApp/data/data.json", null, true);
-			oModel.loadData("drools/allrules", null, true);
-			oModel.attachRequestCompleted(function() {
-				var oData = oModel.getData();
-				if(oData.data){
-					oData.data.forEach((item,index)=>{
-						if(item.whenString && item.whenString != ""){
-							item.whenPart = JSON.parse(item.whenString);
-						}
-						if(item.thenString && item.thenString != ""){
-							item.thenPart = JSON.parse(item.thenString);
-						}
-					});
-				}
-				oModel.setData({
-					rules: oData.data,
+			oModel.loadData("drools/allrules", null, false);
+			var oData = oModel.getData();
+			if(oData.data){
+				oData.data.forEach((item,index)=>{
+					if(item.whenString && item.whenString != ""){
+						item.whenPart = JSON.parse(item.whenString);
+					}
+					if(item.thenString && item.thenString != ""){
+						item.thenPart = JSON.parse(item.thenString);
+					}
 				});
+			}
+			oModel.setData({
+				rules: oData.data,
 			});
 			this.setModel(oModel, "globalModel");
 
