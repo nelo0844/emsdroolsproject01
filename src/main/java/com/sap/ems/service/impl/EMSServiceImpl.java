@@ -305,6 +305,8 @@ public class EMSServiceImpl implements EMSService {
 		Rule rule = ruleDtoToRule(ruleDto);
 		ruleDao.insertRule(rule);
 		ruleDto.setRuleId(rule.getId());
+		ruleDto.setWhenString(rule.getWhenString());
+		ruleDto.setThenString(rule.getThenString());
 		return ruleDto;
 	}
 
