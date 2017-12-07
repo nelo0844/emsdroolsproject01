@@ -313,6 +313,8 @@ public class EMSServiceImpl implements EMSService {
 	public RuleDto updateRule(RuleDto ruleDto) {
 		Rule rule = ruleDtoToRule(ruleDto);
 		ruleDao.updateRule(rule);
+		ruleDto.setWhenString(rule.getWhenString());
+		ruleDto.setThenString(rule.getThenString());
 		return ruleDto;
 	}
 
@@ -387,14 +389,17 @@ public class EMSServiceImpl implements EMSService {
 						result = result + ",\"selectedChildProperty\":" + "{";
 						result = result + "\"property\":\"" + selectedChildProperty.getProperty() + "\",";
 						result = result + "\"type\":\"" + selectedChildProperty.getType() + "\"";
-						result = result + ",\"technicalName\":\"" + Properties.get(k).getTechnicalName() + "\"";
+						result = result + ",\"technicalName\":\"" + selectedChildProperty.getTechnicalName() + "\"";
 						result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
 						result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"}";
 					} else {
-						result = result + ",\"technicalName\":\"" + Properties.get(k).getTechnicalName() + "\"";
-						result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
-						result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"";
+//						result = result + ",\"technicalName\":\"" + Properties.get(k).getTechnicalName() + "\"";
+//						result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
+//						result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"";
 					}
+					result = result + ",\"technicalName\":\"" + Properties.get(k).getTechnicalName() + "\"";
+					result = result + ",\"operation\":\"" + Properties.get(k).getOperation() + "\"";
+					result = result + ",\"value\":\"" + Properties.get(k).getValue() + "\"";
 					if (k == Properties.size() - 1) {
 						result = result + "}";
 					} else {
