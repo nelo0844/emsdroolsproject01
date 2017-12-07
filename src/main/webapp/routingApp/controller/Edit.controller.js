@@ -161,6 +161,7 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		var selectedObj = oBindingContext.getObject();
 		var firstChild = oBindingContext.getModel().getData();
 		var forSelectObj = {
+			technicalName: firstChild.technicalName,
 			property: firstChild.property,
 			selectedChildProperty: selectedObj
 		}
