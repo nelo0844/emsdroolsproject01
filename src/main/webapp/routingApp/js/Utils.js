@@ -1,3 +1,21 @@
+sap.ui.model.CompositeType.extend("sap.gm.customType", {
+	formatValue: function(oValue, oType) {
+		return oValue;
+	},
+	parseValue: function(oValue, oType, oCurrentValue) {
+		// parsing step takes place before validating step, value could be altered here
+		return oValue;
+	},
+	validateValue: function(oValue) {
+		// The following Regex is NOT a completely correct one and only used for demonstration purposes.
+		// RFC 5322 cannot even checked by a Regex and the Regex for RFC 822 is very long and complex.
+		var rexMail = /^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/;
+		if (!oValue.match(rexMail)) {
+			throw new ValidateException("'" + oValue + "' is not a valid email address");
+		}
+	}
+});
+
 function postToServer(url, data, fnSuccess) {
 	$.ajax({
 		type: 'POST',

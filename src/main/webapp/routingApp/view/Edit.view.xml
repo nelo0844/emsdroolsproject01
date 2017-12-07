@@ -37,8 +37,7 @@
 														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
 														placeholder="Enter Value ..." width="200px"
 														value="{
-															path: 'value', 
-															constraints:{type:{path: 'type'}}
+															path: 'value'
 														}"
 														valueStateText="E-Mail must be a valid email address." />
 													<Button class="sapUiTinyMarginBegin" text="Delete"

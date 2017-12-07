@@ -37,6 +37,9 @@
     height: 2rem;
     line-height: 2rem;
 }
+.GMSelectionItem {
+    border: none;
+}
 .GMSelectionItem>div{
     display: flex;
     align-items: center;

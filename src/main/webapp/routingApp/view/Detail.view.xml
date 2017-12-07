@@ -1,95 +1,96 @@
 <View xmlns="sap.m" xmlns:layout="sap.ui.layout" controllerName="sap.gm.controller.Detail"
 	xmlns:core="sap.ui.core">
-		<Page navButtonPress="onNavBack" height="100%" class="GMRightContent"
-			showNavButton="{device>/system/phone}">
-			<headerContent>
+	<Page navButtonPress="onNavBack" height="100%" class="GMRightContent"
+		showNavButton="{device>/system/phone}">
+		<headerContent>
 			<Toolbar>
-				<Title level="H2" text="Rule Name: {/ruleName}" class="sapUiSmallMargin"/>
-				<ToolbarSpacer/>
-				<Switch state="true" customTextOn="Normal" customTextOff="Expert" change="onChangeMode" class="sapUiSmallMarginBeginEnd">
+				<Title level="H2" text="Rule Name: {/ruleName}" class="sapUiSmallMargin" />
+				<ToolbarSpacer />
+				<Switch state="true" customTextOn="Normal" customTextOff="Expert"
+					change="onChangeMode" class="sapUiSmallMarginBeginEnd">
 					<layoutData>
 						<FlexItemData growFactor="2" />
 					</layoutData>
 				</Switch>
-				<CheckBox text="Enable" enabled="false" selected="{/enabled}" class="sapUiSmallMarginBeginEnd"/>
+				<CheckBox text="Enable" enabled="false" selected="{/enabled}"
+					class="sapUiSmallMarginBeginEnd" />
 			</Toolbar>
-				
-			</headerContent>
-			<content>
-				<Panel width="auto"  height="50%" accessibleRole="Region">
-					<headerToolbar>
-						<Toolbar height="3rem">
-							<Title text="When" />
-						</Toolbar>
-					</headerToolbar>
-					<content>
-						<Label text="{/whenDrl}" visible="{=${/mode}==='expert'}"/>
-						<List items="{/whenPart}" visible="{=${/mode}==='normal'}">
-							<items>
-								<CustomListItem>
-									<VBox class="sapUiSmallMargin">
-										<Label text="{propertyName}" />
-										<List items="{properties}">
-											<items>
-												<CustomListItem class="GMSelectionItem">
-													<Label text="{property}" />
-													<Label text=": {selectedChildProperty/property}" />
-													<Select forceSelection="true"
-														class="GMCustomeSelect sapUiTinyMarginBegin" items="{operationModel>/long}" enabled="false"
-														selectedKey="{operation}" change="onChangeOperationSection">
-														<core:Item key="{operationModel>value}"
-															text="{operationModel>functionName}" />
-													</Select>
-													<Input
-														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
-														placeholder="Enter Value ..." width="200px" value="{value}" enabled="false"
-														valueStateText="E-Mail must be a valid email address." />
-												</CustomListItem>
-											</items>
-										</List>
-									</VBox>
-								</CustomListItem>
-							</items>
-						</List>
-					</content>
-				</Panel>
-				<Panel width="auto" height="50%">
-					<headerToolbar>
-						<Toolbar height="3rem">
-							<Title text="Then" />
-						</Toolbar>
-					</headerToolbar>
-					<content>
-						<Label text="{/thenDrl}" visible="{=${/mode}==='expert'}"/>
-						<List items="{/thenPart}" visible="{=${/mode}==='normal'}">
-							<items>
-								<CustomListItem>
-									<VBox class="sapUiSmallMargin">
-										<Label text="{propertyName}" />
-										<List items="{properties}">
-											<items>
-												<CustomListItem class="GMSelectionItem">
-													<Label text="{property}" />
-													<Label text=">{selectedChildProperty/property}" />
-													<Input
-														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
-														placeholder="Enter Value ..." width="200px" value="{value}" enabled="false"
-														valueStateText="E-Mail must be a valid email address." />
-												</CustomListItem>
-											</items>
-										</List>
-									</VBox>
-								</CustomListItem>
-							</items>
-						</List>
-					</content>
-				</Panel>
-			</content>
-			<footer>
-				<Toolbar>
-					<Button text="Edit" type="Accept" press="onEditRuleEvent" />
-					<Button text="Remove" type="Accept" press="onRemoveRuleEvent" />
-				</Toolbar>
-			</footer>
-		</Page>
+
+		</headerContent>
+		<content>
+			<Panel width="auto" height="50%" accessibleRole="Region">
+				<headerToolbar>
+					<Toolbar height="3rem">
+						<Title text="When" />
+					</Toolbar>
+				</headerToolbar>
+				<content>
+					<Label text="{/whenDrl}" visible="{=${/mode}==='expert'}" />
+					<List items="{/whenPart}" visible="{=${/mode}==='normal'}">
+						<items>
+							<CustomListItem>
+								<VBox class="sapUiSmallMargin">
+									<Label text="{propertyName}" />
+									<List items="{properties}">
+										<items>
+											<CustomListItem class="GMSelectionItem">
+												<Label text="{property}" />
+												<Label text=": {selectedChildProperty/property}" />
+												<Select forceSelection="true"
+													class="GMCustomeSelect sapUiTinyMarginBegin" items="{operationModel>/long}"
+													enabled="false" selectedKey="{operation}" change="onChangeOperationSection">
+													<core:Item key="{operationModel>value}" text="{operationModel>functionName}" />
+												</Select>
+												<Input
+													class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
+													placeholder="Enter Value ..." width="200px" value="{value}"
+													enabled="false" valueStateText="E-Mail must be a valid email address." />
+											</CustomListItem>
+										</items>
+									</List>
+								</VBox>
+							</CustomListItem>
+						</items>
+					</List>
+				</content>
+			</Panel>
+			<Panel width="auto" height="50%">
+				<headerToolbar>
+					<Toolbar height="3rem">
+						<Title text="Then" />
+					</Toolbar>
+				</headerToolbar>
+				<content>
+					<Label text="{/thenDrl}" visible="{=${/mode}==='expert'}" />
+					<List items="{/thenPart}" visible="{=${/mode}==='normal'}">
+						<items>
+							<CustomListItem>
+								<VBox class="sapUiSmallMargin">
+									<Label text="{propertyName}" />
+									<List items="{properties}">
+										<items>
+											<CustomListItem class="GMSelectionItem">
+												<Label text="{property}" />
+												<Label text=">{selectedChildProperty/property}" />
+												<Input
+													class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
+													placeholder="Enter Value ..." width="200px" value="{value}"
+													enabled="false" valueStateText="E-Mail must be a valid email address." />
+											</CustomListItem>
+										</items>
+									</List>
+								</VBox>
+							</CustomListItem>
+						</items>
+					</List>
+				</content>
+			</Panel>
+		</content>
+		<footer>
+			<Toolbar>
+				<Button text="Edit" type="Accept" press="onEditRuleEvent" />
+				<Button text="Remove" type="Accept" press="onRemoveRuleEvent" />
+			</Toolbar>
+		</footer>
+	</Page>
 </View>

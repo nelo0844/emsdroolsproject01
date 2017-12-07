@@ -17,22 +17,15 @@ sap.ui.controller("sap.gm.controller.Edit", {
 			return oValue;
 		},
 		parseValue: function(oValue, oType, oCurrentValue) {
-			// parsing step takes place before validating step, value could be altered here
 			return oValue;
 		},
 		validateValue: function(oValue) {
-			// The following Regex is NOT a completely correct one and only used for demonstration purposes.
-			// RFC 5322 cannot even checked by a Regex and the Regex for RFC 822 is very long and complex.
 			var rexMail = /^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/;
 			if (!oValue.match(rexMail)) {
 				throw new ValidateException("'" + oValue + "' is not a valid email address");
 			}
 		}
-	}, this.abc),
-
-	abc: function(oValue, oType) {
-		Console.log("-----------------" + oValue);
-	},
+	}),
 
 	onInit: function() {
 		this.getOwnerComponent().getRouter().getRoute("ruleEdit").attachPatternMatched(this._onRouteMatchedEdit, this);
@@ -65,7 +58,9 @@ sap.ui.controller("sap.gm.controller.Edit", {
 			this.getView().bindElement("globalModel>/rules/" + bindingIndex);
 
 			var currentRule = this.getView().getBindingContext("globalModel").getObject();
+			currentRule = $.extend(true, {}, currentRule);
 			var oModel = new sap.ui.model.json.JSONModel();
+			oModel.setDefaultBindingMode("TwoWay");
 			if (currentRule) {
 				oModel.setData(currentRule);
 			} else {
@@ -212,7 +207,6 @@ sap.ui.controller("sap.gm.controller.Edit", {
 			var ruleString = generateRuleString(oData);
 			ruleString = $.extend(ruleString, oData)
 			postToServer("drools/rule", ruleString, function(data, status) {
-				// TODO 需要返回数据
 				var globalData = globalModel.getData();
 				globalData.rules.push(data.data);
 				globalModel.refresh(true);
@@ -221,15 +215,17 @@ sap.ui.controller("sap.gm.controller.Edit", {
 				});
 			});
 		} else {
-			var currentRule = this.getView().getBindingContext("globalModel").getObject();
+			// TODO globalModel
+			var currentRule = this.getView().getModel().getData();
 			var ruleString = generateRuleString(oData);
-			Object.assign(currentRule, ruleString);
-
+			currentRule = $.extend(currentRule, ruleString);
 			putToServer("drools/rule", currentRule, function(data, status) {
+				globalModel.setProperty(that.getView().getBindingContext("globalModel").getPath(), data.data);
+				globalModel.refresh();
 				that.getOwnerComponent().getRouter().navTo("ruleDetail", {
 					ruleId: that._ruleId
 				});
-				globalModel.refresh();
+
 			});
 		}
 	},
@@ -279,6 +275,9 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		var paths = path.split("/");
 		var child = oData[paths[1]][paths[2]][paths[3]];
 		child.splice(paths[4], 1);
+		if (child.length == 0) {
+			oData[paths[1]].splice(paths[2], 1);
+		}
 		oCurrentModel.refresh();
 	},
 
