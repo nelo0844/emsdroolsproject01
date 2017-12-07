@@ -66,7 +66,7 @@ public class Rule {
 	 * indicates that the rule is currently deployed in the rule engine
 	 */
 	private boolean isDeployed;
-	
+
 	public Rule() {
 
 	}
@@ -95,7 +95,7 @@ public class Rule {
 		this.isDirty = isDirty;
 		this.isDeployed = isDeployed;
 	}
-	
+
 	public Rule(long id, String name, String displayName, byte[] whenClause, byte[] thenClause, String whenString,
 			String thenString, String whenDrl, String thenDrl, Date validFrom, Date validTo, String delay,
 			Integer priority, String description, boolean isInternal, double version, byte[] model, boolean isEnable,
@@ -353,7 +353,7 @@ public class Rule {
 		// and thens
 		String when = this.getWhenDrl() == null ? "" : this.getWhenDrl();
 
-		rule += "when \n " + when + " \n" + "then \n";
+		rule += "when \n " + when + "; \n" + "then \n";
 
 		// if the rule is internal, the security manager doesn't have to be
 		// enabled.
@@ -362,9 +362,9 @@ public class Rule {
 		// }
 		String then = this.getThenDrl() == null ? "" : this.getThenDrl();
 
-		rule += then; // + "\n } catch (Exception e) {\n " +
-						// disableSecurityManager + "\n" + exceptionHandling + "
-						// \n}\n";
+		rule += then + ";"; // + "\n } catch (Exception e) {\n " +
+		// disableSecurityManager + "\n" + exceptionHandling + "
+		// \n}\n";
 
 		// if the rule is internal, the security manager doesn't have to be
 		// disabled, as it wasn't enabled anyway.
