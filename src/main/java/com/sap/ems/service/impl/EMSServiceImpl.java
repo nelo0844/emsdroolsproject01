@@ -374,6 +374,7 @@ public class EMSServiceImpl implements EMSService {
 			result = result + "{";
 			result = result + "\"propertyId\":" + List.get(i).getPropertyId() + ",";
 			result = result + "\"propertyName\":\"" + List.get(i).getPropertyName() + "\",";
+			result = result + "\"technicalName\":\"" + List.get(i).getTechnicalName() + "\",";
 			Properties = List.get(i).getProperties();
 			if (Properties != null) {
 				result = result + "\"properties\":" + "[";
