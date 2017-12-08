@@ -49,12 +49,20 @@ public class RuleEngineTest {
 		// this.insertSingleRule();
 
 		ruleEngine.applyRuleChanges();
-		Message message = new Message();
-		message.setMessage("Good Bye My Hello World");
-		message.setStatus(Message.GOODBYE);
+		/*
+		 * Message message = new Message();
+		 * message.setMessage("Good Bye My Hello World");
+		 * message.setStatus(Message.GOODBYE);
+		 * 
+		 * ruleEngine.getKession().insert(message);
+		 */
 
-		ruleEngine.getKession().insert(message);
 		ruleEngine.getKession().fireAllRules(1000000 * 2);
+
+	}
+
+	@Test
+	public void TestEntitlMentIncrement() {
 
 	}
 

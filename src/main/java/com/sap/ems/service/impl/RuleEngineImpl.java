@@ -153,7 +153,10 @@ public class RuleEngineImpl implements RuleEngine {
 	}
 
 	protected final String getRulePrefix() {
-		return "package com.sap.ems.service.impl\n" + "import com.sap.ems.service.impl.Message;\n";
+		return "package com.sap.ems.service.impl\n" + "import com.sap.ems.service.impl.Message;\n"
+				+ "import com.sap.ems.entity.SalesOrder;\n" + "import com.sap.ems.entity.SalesOrderItem;\n"
+				+ "import com.sap.ems.entity.Entitlement;\n" + "import com.sap.ems.intl.IEntitlementUpdate;\n"
+				+ "global IEntitlementUpdate entitlementUpdate;\n";
 
 	};
 
