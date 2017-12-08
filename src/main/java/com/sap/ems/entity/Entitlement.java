@@ -2,9 +2,7 @@ package com.sap.ems.entity;
 
 import java.util.UUID;
 
-import com.sap.ems.intl.IEntitlementUpdate;
-
-public class Entitlement implements IEntitlementUpdate {
+public class Entitlement {
 
 	private UUID guid;
 

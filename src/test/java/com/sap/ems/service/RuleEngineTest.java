@@ -58,7 +58,7 @@ public class RuleEngineTest {
 	@Test
 	public void TestEntitlMentAdjustment() {
 		SalesOrder salesOrder = new SalesOrder();
-		salesOrder.setCustomerId(30000);
+		salesOrder.setCustomerId(20000);
 		Entitlement entitlement = new Entitlement();
 
 		System.out.println("Before fire the Rules,  EntitleMent Status is : " + entitlement.getStatus());
