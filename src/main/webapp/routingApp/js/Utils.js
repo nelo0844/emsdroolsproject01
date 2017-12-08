@@ -48,12 +48,25 @@ function generateRuleString(Object) {
 	};
 }
 
-// generate when field
+// generate the When field
+/**
+ * status=="stop"
+ * 
+ * @param property
+ * @returns
+ */
 function generateWhenString(property) {
 	return (!property.selectedChildProperty ? property.technicalName : property.selectedChildProperty.technicalName) + property.operation + _tranformRuleValue(property);
 }
 
-// generate then field
+// generate the Then field
+/**
+ * $so.setStatus('up')
+ * 
+ * @param property
+ * @param objectName
+ * @returns
+ */
 function generateThenString(property,objectName) {
 	var propertyName = (!property.selectedChildProperty ? property.technicalName : property.selectedChildProperty.technicalName);
 	var methodName = propertyName.substr(0,1).toLocaleUpperCase()+propertyName.substr(1);
@@ -61,13 +74,12 @@ function generateThenString(property,objectName) {
 }
 
 
-
 /**
  * getInstantiatedObject
  * 
  * @description generate the name of object like SaleOrder && Entitlement
- * @param name
- * @returns
+ * @param name eg. SaleOrder
+ * @returns eg. $so
  */
 function getInstantiatedObject(name){
 	var nameArr = name.split("");
@@ -99,22 +111,17 @@ function readRuleWhenStructure(sourceData) {
 					allItem = (allItem == "" ? "" : (allItem + ",")) + generateWhenString(property);
 				}
 			});
-			var objectName = getInstantiatedObject(item.technicalName);
-			objectArr[item.technicalName] = objectName;
-			var condition = allItem == "" ? "" : (objectName+": "+item.technicalName + "(" + allItem + ")");
+			var condition = connectWhenString(allItem,item.technicalName,objectArr);
 			objString = objString == "" ? condition : (objString + " and " + condition);
 		});
 	}
 	
-	for ( var i in childItems) {
+	for ( var child in childItems) {
 		var allItem = "";
-		childItems[i].forEach(function(property) {
+		childItems[child].forEach(function(property) {
 			allItem = (allItem == "" ? "" : (allItem + ",")) + generateWhenString(property);
 		});
-		
-		var objectName = getInstantiatedObject(i);
-		var condition = objectName +": " + i + "(" + allItem + ")";
-		objectArr[i] = objectName;
+		var condition = connectWhenString(allItem,child,objectArr);
 		objString = objString == "" ? condition : (objString + " and " + condition);
 	}
 	
@@ -122,6 +129,12 @@ function readRuleWhenStructure(sourceData) {
 		content: objString,
 		structure: objectArr
 	};
+}
+
+function connectWhenString(allItems,technicalName,allObjects){
+	var objectName = getInstantiatedObject(technicalName);
+	allObjects[technicalName] = objectName;
+	return allItems == "" ? "" : (objectName+": "+technicalName + "(" + allItems + ")");
 }
 
 // generate the Then part
@@ -139,12 +152,7 @@ function readRuleThenStructure(sourceData, whenStructure) {
 					}
 					childItems[property.technicalName].push(property);
 				} else {
-					var objectName = whenStructure[item.technicalName];
-					if(!objectName){
-						objectName = getInstantiatedObject(item.technicalName);
-						needAddToWhenString.push(objectName+": "+ item.technicalName+"()");
-					}
-					allItem = (allItem == "" ? "" : (allItem + ";")) + generateThenString(property,objectName);
+					allItem = handTheUndefinedObject(allItem,property,item.technicalName,needAddToWhenString,whenStructure);
 				}
 			});
 
@@ -158,12 +166,7 @@ function readRuleThenStructure(sourceData, whenStructure) {
 	for ( var i in childItems) {
 		var allItem = "";
 		childItems[i].forEach(function(property) {
-			var objectName = whenStructure[i];
-			if(!objectName){
-				objectName = getInstantiatedObject(i);
-				needAddToWhenString.push(objectName+": "+ i+"()");
-			}
-			allItem = (allItem == "" ? "" : (allItem + ";")) + generateThenString(property,objectName);
+			allItem = handTheUndefinedObject(allItem,property,i,needAddToWhenString,whenStructure);
 		});
 		
 		objString = objString == "" ? allItem : (objString + " ; " + allItem);
@@ -173,6 +176,16 @@ function readRuleThenStructure(sourceData, whenStructure) {
 		needObjects: needAddToWhenString
 	};
 }
+
+function handTheUndefinedObject(allItem,property,technicalName,needAddToWhenString,whenStructure){
+	var objectName = whenStructure[technicalName];
+	if(!objectName){
+		objectName = getInstantiatedObject(technicalName);
+		needAddToWhenString.push(objectName+": "+ technicalName+"()");
+	}
+	return (allItem == "" ? "" : (allItem + ";")) + generateThenString(property,objectName);
+}
+
 /** **********private function************ */
 // set value by the value type
 function _tranformRuleValue(property) {
