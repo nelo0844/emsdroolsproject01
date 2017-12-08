@@ -12,7 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sap.ems.dao.RuleDao;
+import com.sap.ems.entity.Entitlement;
 import com.sap.ems.entity.Rule;
+import com.sap.ems.entity.SalesOrder;
 import com.sap.ems.service.impl.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,20 +51,25 @@ public class RuleEngineTest {
 		// this.insertSingleRule();
 
 		ruleEngine.applyRuleChanges();
-		/*
-		 * Message message = new Message();
-		 * message.setMessage("Good Bye My Hello World");
-		 * message.setStatus(Message.GOODBYE);
-		 * 
-		 * ruleEngine.getKession().insert(message);
-		 */
-
 		ruleEngine.getKession().fireAllRules(1000000 * 2);
 
 	}
 
 	@Test
-	public void TestEntitlMentIncrement() {
+	public void TestEntitlMentAdjustment() {
+		SalesOrder salesOrder = new SalesOrder();
+		salesOrder.setCustomerId(30000);
+		Entitlement entitlement = new Entitlement();
+
+		System.out.println("Before fire the Rules,  EntitleMent Status is : " + entitlement.getStatus());
+		// fireRuleEngine
+		ruleEngine.applyRuleChanges();
+		ruleEngine.setKsession();
+		ruleEngine.getKession().insert(salesOrder);
+		ruleEngine.getKession().insert(entitlement);
+		ruleEngine.getKession().fireAllRules(1000000 * 2);
+
+		System.out.println("After fire the Rules,  EntitleMent Status is : " + entitlement.getStatus());
 
 	}
 

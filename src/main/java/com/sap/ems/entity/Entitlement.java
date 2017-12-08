@@ -2,80 +2,82 @@ package com.sap.ems.entity;
 
 import java.util.UUID;
 
-public class Entitlement {
-	
+import com.sap.ems.intl.IEntitlementUpdate;
+
+public class Entitlement implements IEntitlementUpdate {
+
 	private UUID guid;
-	
+
 	private String reason;
-	
+
 	private String memory;
-	
+
 	private String C000000003;
-	
+
 	private String sourceSystem;
-	
+
 	private String refItemNo;
-	
+
 	private int channel;
-	
+
 	private long validFrom;
-	
+
 	private long validTo;
-	
+
 	private int storage;
-	
+
 	private long createdOn;
-	
+
 	private long changedOn;
-	
+
 	private String changedBy;
-	
+
 	private String createdBy;
-	
+
 	private String generationMethod;
-	
+
 	private String uom;
-	
+
 	private long customerId;
-	
+
 	private int simulationEntitlementNo;
-	
+
 	private boolean performanceAndGoals;
-	
+
 	private String refDocNo;
-	
+
 	private float quantity;
-	
+
 	private String comments;
-	
+
 	private String distributorId;
-	
+
 	private String refDocType;
-	
+
 	private String entitlementType;
-	
+
 	private int version;
-	
+
 	private long entitlementNo;
-	
+
 	private boolean performanceAndReward;
-	
+
 	private String modules;
-	
+
 	private String advancedEdition;
-	
+
 	private String entitlementMasterId;
-	
+
 	private String component;
-	
+
 	private String tenantURL;
-	
+
 	private long namedUsers;
-	
+
 	private String CLOUDSTORAGE;
-	
+
 	private boolean persistence;
-	
+
 	private String status;
 
 	public UUID getGuid() {
