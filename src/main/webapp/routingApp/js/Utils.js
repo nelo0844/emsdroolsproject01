@@ -38,28 +38,29 @@ function deleteFromServer(url, fnSuccess) {
  */
 function generateRuleString(Object) {
 	var whenString = readRuleWhenStructure(Object.whenPart);
+	var thenString = readRuleThenStructure(Object.thenPart, whenString.structure);
+	thenString.needObjects.forEach((item)=>{
+		whenString.content= whenString.content == "" ? item : whenString.content + " and " + item;
+	});
 	return {
 		whenDrl: whenString.content,
-		thenDrl: readRuleThenStructure(Object.thenPart, whenString.structure)
+		thenDrl: thenString.content
 	};
 }
 
 // generate when field
 function generateWhenString(property) {
-	return (!property.selectedChildProperty ? property.technicalName : property.selectedChildProperty.technicalName) + property.operation + tranformRuleValue(property);
+	return (!property.selectedChildProperty ? property.technicalName : property.selectedChildProperty.technicalName) + property.operation + _tranformRuleValue(property);
 }
 
 // generate then field
 function generateThenString(property,objectName) {
 	var propertyName = (!property.selectedChildProperty ? property.technicalName : property.selectedChildProperty.technicalName);
 	var methodName = propertyName.substr(0,1).toLocaleUpperCase()+propertyName.substr(1);
-	return objectName+".set"+methodName+"("+tranformRuleValue(property)+")";
+	return objectName+".set"+methodName+"("+_tranformRuleValue(property)+")";
 }
 
-// set value by the value type
-function tranformRuleValue(property) {
-	return (property.type || property.selectedChildProperty.type) == "java.lang.String" ? ("'" + property.value + "'") : property.value;
-}
+
 
 /**
  * getInstantiatedObject
@@ -126,7 +127,7 @@ function readRuleWhenStructure(sourceData) {
 // generate the Then part
 function readRuleThenStructure(sourceData, whenStructure) {
 	var objString = "";
-
+	var needAddToWhenString = [];
 	var childItems = {};
 	if (sourceData) {
 		sourceData.forEach(function(item) {
@@ -138,23 +139,42 @@ function readRuleThenStructure(sourceData, whenStructure) {
 					}
 					childItems[property.technicalName].push(property);
 				} else {
-					allItem = (allItem == "" ? "" : (allItem + ";")) + generateThenString(property,whenStructure[item.technicalName]);
+					var objectName = whenStructure[item.technicalName];
+					if(!objectName){
+						objectName = getInstantiatedObject(item.technicalName);
+						needAddToWhenString.push(objectName+": "+ item.technicalName+"()");
+					}
+					allItem = (allItem == "" ? "" : (allItem + ";")) + generateThenString(property,objectName);
 				}
 			});
 
 			
-			var condition = allItem == "" ? "" : allItem;
-			objString = objString == "" ? condition : (objString + " and " + condition);
+			if(allItem!=""){
+				objString = objString == "" ? allItem : (objString + ";" + allItem);
+			}
 		});
 	}
-	
 	
 	for ( var i in childItems) {
 		var allItem = "";
 		childItems[i].forEach(function(property) {
-			allItem = (allItem == "" ? "" : (allItem + ";")) + generateThenString(property,whenStructure[item.technicalName]);
+			var objectName = whenStructure[i];
+			if(!objectName){
+				objectName = getInstantiatedObject(i);
+				needAddToWhenString.push(objectName+": "+ i+"()");
+			}
+			allItem = (allItem == "" ? "" : (allItem + ";")) + generateThenString(property,objectName);
 		});
-		objString = objString == "" ? allItem : (objString + " and " + condition);
+		
+		objString = objString == "" ? allItem : (objString + " ; " + allItem);
 	}
-	return objString;
+	return {
+		content: objString,
+		needObjects: needAddToWhenString
+	};
+}
+/** **********private function************ */
+// set value by the value type
+function _tranformRuleValue(property) {
+	return (property.type || property.selectedChildProperty.type) == "java.lang.String" ? ("'" + property.value + "'") : property.value;
 }
