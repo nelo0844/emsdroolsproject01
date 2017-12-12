@@ -50,7 +50,11 @@ sap.ui.define([
 			var oOperationModel = new JSONModel();
 			oOperationModel.loadData("routingApp/data/operation.json", null, false);
 			this.setModel(oOperationModel, "operationModel");
-
+			
+			var notificationModel = new JSONModel();
+			notificationModel.setData({status: true});
+			this.setModel(notificationModel, "notificationModel");
+			
 			UIComponent.prototype.init.apply(this, arguments);
 
 			// Parse the current url and display the targets of the route that matches the hash

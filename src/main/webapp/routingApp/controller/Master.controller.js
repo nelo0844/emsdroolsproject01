@@ -74,36 +74,9 @@ sap.ui.define([
 			container.setBusyIndicatorDelay(0);
 			container.setBusy(true);
 			postToServer("drools/rule/appliance",{},(data,status)=>{
-				if(!data.status){
-					this.showMsgStrip(data.error);
-				}else{
-					this.showMsgStrip("successful.",true);
-				}
+				this.getOwnerComponent().getModel("notificationModel").setData(data);
 				container.setBusy(false);
 			});
-		},
-		showMsgStrip: function(message,isRight) {
-			var oMs = sap.ui.getCore().byId("msgStrip");
-
-			if (oMs) {
-				oMs.destroy();
-			}
-			this._generateMsgStrip(message,isRight);
-		},
-
-		_generateMsgStrip: function(message,isRight) {
-			var aTypes = [
-				"Information", "Warning", "Error", "Success"
-			], oVC = sap.ui.getCore().byId("__component0---app--oVerticalContent"),
-
-			oMsgStrip = new MessageStrip("msgStrip", {
-				text: message,
-				showCloseButton: true,
-				showIcon: true,
-				type: isRight?"Success":"Error"
-			});
-
-			oVC.addContent(oMsgStrip);
 		}
 	});
 
