@@ -36,14 +36,16 @@
 											<CustomListItem class="GMSelectionItem">
 												<Label text="{property}" />
 												<Label text=": {selectedChildProperty/property}" />
-												<Select forceSelection="true"
-													class="GMCustomeSelect sapUiTinyMarginBegin" items="{operationModel>/long}"
-													enabled="false" selectedKey="{operation}" change="onChangeOperationSection">
-													<core:Item key="{operationModel>value}" text="{operationModel>functionName}" />
-												</Select>
+												<Select 
+														class="GMCustomeSelect sapUiTinyMarginBegin"
+														items="{path:'operationList',templateShareable:true}" enabled="false"
+														selectedKey="{operation}" change="onChangeOperationSection">
+														<core:Item key="{value}" text="{functionName}" />
+													</Select>
 												<Input
 													class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
 													placeholder="Enter Value ..." width="200px" value="{value}"
+													visible="{path:'operation',formatter:'operationFormatter'}"
 													enabled="false" valueStateText="E-Mail must be a valid email address." />
 											</CustomListItem>
 										</items>

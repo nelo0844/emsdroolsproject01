@@ -47,7 +47,8 @@ sap.ui.define([
 			this.setModel(oSelectionModel, "selectionModel");
 
 			// operation model for all type
-			var oOperationModel = new JSONModel("routingApp/data/operation.json");
+			var oOperationModel = new JSONModel();
+			oOperationModel.loadData("routingApp/data/operation.json", null, false);
 			this.setModel(oOperationModel, "operationModel");
 
 			UIComponent.prototype.init.apply(this, arguments);

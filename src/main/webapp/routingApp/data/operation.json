@@ -41,24 +41,126 @@
             "value":"not in"
         }
     ],
-    "java.lang.String": [
-        {
-            "functionName": "SO ID",
-            "type": "long"
+    "boolean":[
+      {
+            "functionName": "equal",
+            "value":"=="
         },
         {
-            "functionName": "Customer ID",
-            "type": "long"
+            "functionName": "not equal to",
+            "value":"!="
+        },
+        {
+            "functionName": "is null",
+            "value":"== null"
+        },
+        {
+            "functionName": "is not null",
+            "value":"!= null"
         }
     ],
-    "java.util.Date": [
+    "strings": [
         {
-            "functionName": "SO ID",
-            "type": "long"
+            "functionName": "equal",
+            "value":"=="
         },
         {
-            "propertyName": "Customer ID",
-            "type": "long"
+            "functionName": "not equal to",
+            "value":"!="
+        },
+         {
+            "functionName": "less than",
+            "value":"<"
+        },
+         {
+            "functionName": "greater than",
+            "value":">"
+        },
+        {
+            "functionName": "less than or equal to",
+            "value":"<="
+        },
+        {
+            "functionName": "greater than or equal to",
+            "value":">="
+        },
+         {
+            "functionName": "matches",
+            "value":"matches"
+        },
+        {
+            "functionName": "soundslike",
+            "value":"soundslike"
+        },
+        {
+            "functionName": "is null",
+            "value":"== null"
+        },
+        {
+            "functionName": "is not null",
+            "value":"!= null"
+        },
+        {
+            "functionName": "is contained in the (comma separated) list",
+            "value":"in"
+        },
+        {
+            "functionName": "is not contained in the (comma separated) list",
+            "value":"not in"
+        }
+    ],
+    "date": [
+        {
+            "functionName": "equal",
+            "value":"=="
+        },
+        {
+            "functionName": "not equal to",
+            "value":"!="
+        },
+         {
+            "functionName": "less than",
+            "value":"<"
+        },
+         {
+            "functionName": "greater than",
+            "value":">"
+        },
+        {
+            "functionName": "less than or equal to",
+            "value":"<="
+        },
+        {
+            "functionName": "greater than or equal to",
+            "value":">="
+        },
+        {
+            "functionName": "is null",
+            "value":"== null"
+        },
+        {
+            "functionName": "is not null",
+            "value":"!= null"
+        },
+        {
+            "functionName": "is contained in the (comma separated) list",
+            "value":"in"
+        },
+        {
+            "functionName": "is not contained in the (comma separated) list",
+            "value":"not in"
+        },
+         {
+            "functionName": "after",
+            "value":"after"
+        },
+        {
+            "functionName": "before",
+            "value":"before"
+        },
+        {
+            "functionName": "coincides",
+            "value":"coincides"
         }
     ]
 }

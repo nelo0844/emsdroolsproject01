@@ -1,3 +1,65 @@
+function getDataByType(type,operationData) {
+		return typeFormatter(type, operationData.long, operationData.boolean, operationData.strings, operationData.date);
+	}
+	
+function initOperationList(currentRule,operationData) {
+		currentRule.whenPart.forEach((item)=>{
+			item.properties.forEach((child)=>{
+				child.operationList = getDataByType(child.type,operationData);
+			});
+		})
+
+		return currentRule;
+	}
+/**
+ * don't need the value for some operation type.
+ * 
+ * @param data
+ * @returns
+ */
+function operationFormatter(data) {
+	if (data && (data == '== null' || data == '!= null')) {
+		return false;
+	}
+	return true;
+}
+
+/**
+ * different type need binding different value
+ * 
+ * @param type
+ * @param long
+ * @param boolean
+ * @param string
+ * @param date
+ * @returns
+ */
+function typeFormatter(type, long, boolean, string, date) {
+	var returnValue = long;
+	switch (type) {
+		case 'long':
+		case 'float':
+		case 'double':
+		case 'int':
+			returnValue = long;
+			break;
+		case 'boolean':
+			returnValue = boolean;
+			break;
+		case 'java.lang.String':
+			returnValue = string;
+			break;
+		case 'java.util.Date':
+			returnValue = date;
+			break;
+		default:
+			returnValue = long;
+	}
+
+	return returnValue;
+}
+
+/** *****************************Ajax calls***************************************** */
 function postToServer(url, data, fnSuccess) {
 	$.ajax({
 		type: 'POST',
@@ -56,7 +118,12 @@ function generateRuleString(Object) {
  * @returns
  */
 function generateWhenString(property) {
-	return (!property.selectedChildProperty ? property.technicalName : property.selectedChildProperty.technicalName) + property.operation + _tranformRuleValue(property);
+	var operation = property.operation;
+	if(operation=='== null'|| operation=='!= null'){
+		return (!property.selectedChildProperty ? property.technicalName : property.selectedChildProperty.technicalName) + " " +property.operation;
+	}
+	
+	return (!property.selectedChildProperty ? property.technicalName : property.selectedChildProperty.technicalName) + " " +property.operation + " " + _tranformRuleValue(property);
 }
 
 // generate the Then field
@@ -189,5 +256,6 @@ function handTheUndefinedObject(allItem,property,technicalName,needAddToWhenStri
 /** **********private function************ */
 // set value by the value type
 function _tranformRuleValue(property) {
-	return (property.type || property.selectedChildProperty.type) == "java.lang.String" ? ("'" + property.value + "'") : property.value;
+	// return (property.type || property.selectedChildProperty.type) == "java.lang.String" ? ("'" + property.value + "'") : property.value;
+	return ("'" + property.value + "'");
 }

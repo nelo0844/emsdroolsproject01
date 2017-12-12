@@ -62,6 +62,9 @@ sap.ui.controller("sap.gm.controller.Edit", {
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.setDefaultBindingMode("TwoWay");
 			if (currentRule) {
+				// initialize value for when part and then part
+				currentRule = initOperationList(currentRule, this.getOwnerComponent().getModel("operationModel").getData());
+
 				oModel.setData(currentRule);
 			} else {
 				oModel.setData({
@@ -163,7 +166,8 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		var forSelectObj = {
 			technicalName: firstChild.technicalName,
 			property: firstChild.property,
-			selectedChildProperty: selectedObj
+			selectedChildProperty: selectedObj,
+			type: selectedObj.type
 		}
 
 		var selectedItem = this.getView().getModel("selectionModel").getData().selectedItem;
@@ -177,7 +181,7 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	 */
 
 	onChangeOperationSection: function(oEvent) {
-		var oBindingContext = oEvent.getParameter("selectedItem").getBindingContext("operationModel");
+		var oBindingContext = oEvent.getParameter("selectedItem").getBindingContext();
 		var selectedObj = oBindingContext.getObject();
 		var oModel = oBindingContext.getModel();
 		var oData = oModel.getData();
@@ -286,6 +290,10 @@ sap.ui.controller("sap.gm.controller.Edit", {
 	 * Internal functions
 	 */
 	_addSeletedItemToEditPage: function(selectedItem, selectedObj) {
+		// add operation array for current selected object
+
+		selectedObj.operationList = getDataByType(selectedObj.type, this.getOwnerComponent().getModel("operationModel").getData());
+
 		var oCurrentModel = this.getView().getModel();
 		var oData = oCurrentModel.getData();
 		var isWhenPart = this.byId("ID_WhenContent").hasStyleClass("GMActivePage");
@@ -321,5 +329,5 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		}
 
 		oCurrentModel.setData(oData);
-	}
+	},
 });

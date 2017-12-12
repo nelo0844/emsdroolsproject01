@@ -1,12 +1,24 @@
 <View xmlns="sap.m" xmlns:l="sap.ui.layout">
-	<Page title="EMS Rule Design" class="GMPage">
+	<Page title="EMS Rule Design" class="GMPage sapUiContentPadding">
+		<headerContent>
+			<MenuButton id="messageMenuBtn" icon="sap-icon://notification" class="sapUiSmallMargin">
+				<menu>
+					<Menu id="messageMenu" itemSelected="onMenuAction">
+						<items>
+							<MenuItem text="Edit" icon="sap-icon://edit" />
+							<MenuItem text="Save" icon="sap-icon://save" />
+							<MenuItem text="Open" icon="sap-icon://open-folder" />
+						</items>
+					</Menu>
+					</menu>
+			</MenuButton>
+		</headerContent>
+
 		<subHeader>
-			<Toolbar id="oVerticalContent"
-				width="100%">
+			<Toolbar id="oVerticalContent" width="100%">
 			</Toolbar>
 		</subHeader>
 		<content>
-			
 			<SplitApp id="rootControl">
 			</SplitApp>
 		</content>

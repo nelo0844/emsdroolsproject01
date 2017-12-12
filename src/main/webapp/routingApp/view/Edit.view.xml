@@ -4,7 +4,7 @@
 		<Page navButtonPress="onNavBack" showNavButton="{device>/system/phone}">
 			<headerContent>
 				<Toolbar>
-					<Title level="H2" text="Rule Name: {/ruleName}" class="sapUiSmallMargin"/>
+					<Title level="H2" text="Rule Name: {/ruleName}" class="sapUiSmallMargin" />
 					<ToolbarSpacer />
 					<CheckBox text="Enable" width="120px" selected="{/enabled}" />
 				</Toolbar>
@@ -23,15 +23,16 @@
 								<CustomListItem>
 									<VBox class="sapUiSmallMargin">
 										<Label text="{propertyName}" />
-										<List items="{properties}">
+										<List items="{path:'properties',templateShareable:true}">
 											<items>
 												<CustomListItem class="GMSelectionItem">
-													<Label text="{property}" />
+													<Label text="{property}" tooltip="type is {type}"/>
 													<Label text=": {selectedChildProperty/property}" />
-													<Select forceSelection="true"
-														class="GMCustomeSelect sapUiTinyMarginBegin" items="{operationModel>/long}"
+													<Select 
+														class="GMCustomeSelect sapUiTinyMarginBegin"
+														items="{path:'operationList',templateShareable:true}"
 														selectedKey="{operation}" change="onChangeOperationSection">
-														<core:Item key="{operationModel>value}" text="{operationModel>functionName}" />
+														<core:Item key="{value}" text="{functionName}" />
 													</Select>
 													<Input
 														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
@@ -39,6 +40,7 @@
 														value="{
 															path: 'value'
 														}"
+														visible="{path:'operation',formatter:'operationFormatter'}"
 														valueStateText="E-Mail must be a valid email address." />
 													<Button class="sapUiTinyMarginBegin" text="Delete"
 														type="Accept" press="onDeleteConditionEvent" />
@@ -64,7 +66,7 @@
 								<CustomListItem>
 									<VBox class="sapUiSmallMargin">
 										<Label text="{propertyName}" />
-										<List items="{properties}">
+										<List items="{path:'properties',templateShareable:true}">
 											<items>
 												<CustomListItem class="GMSelectionItem">
 													<Label text="{property}" />

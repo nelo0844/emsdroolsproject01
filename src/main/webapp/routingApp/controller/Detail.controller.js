@@ -31,6 +31,7 @@ sap.ui.define([
 				var oModel = new sap.ui.model.json.JSONModel();
 				if (currentRule) {
 					currentRule.mode = "normal";
+					currentRule = initOperationList(currentRule, this.getOwnerComponent().getModel("operationModel").getData());
 					oModel.setData(currentRule);
 				}
 
