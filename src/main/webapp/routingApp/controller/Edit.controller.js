@@ -208,30 +208,32 @@ sap.ui.controller("sap.gm.controller.Edit", {
 		var globalModel = this.getView().getModel("globalModel");
 		var oData = oCurrentModel.getData();
 
-		if (this._create) {
-			var ruleString = generateRuleString(oData);
-			ruleString = $.extend(ruleString, oData)
-			postToServer("drools/rule", ruleString, function(data, status) {
-				var globalData = globalModel.getData();
-				globalData.rules.push(data.data);
-				globalModel.refresh(true);
-				that.getOwnerComponent().getRouter().navTo("ruleDetail", {
-					ruleId: data.data.ruleId
+		if (this._checkCurrentForm()) {
+			if (this._create) {
+				var ruleString = generateRuleString(oData);
+				ruleString = $.extend(ruleString, oData)
+				postToServer("drools/rule", ruleString, function(data, status) {
+					var globalData = globalModel.getData();
+					globalData.rules.push(data.data);
+					globalModel.refresh(true);
+					that.getOwnerComponent().getRouter().navTo("ruleDetail", {
+						ruleId: data.data.ruleId
+					});
 				});
-			});
-		} else {
-			// TODO globalModel
-			var currentRule = this.getView().getModel().getData();
-			var ruleString = generateRuleString(oData);
-			currentRule = $.extend(currentRule, ruleString);
-			putToServer("drools/rule", currentRule, function(data, status) {
-				globalModel.setProperty(that.getView().getBindingContext("globalModel").getPath(), data.data);
-				globalModel.refresh();
-				that.getOwnerComponent().getRouter().navTo("ruleDetail", {
-					ruleId: that._ruleId
-				});
+			} else {
+				// TODO globalModel
+				var currentRule = this.getView().getModel().getData();
+				var ruleString = generateRuleString(oData);
+				currentRule = $.extend(currentRule, ruleString);
+				putToServer("drools/rule", currentRule, function(data, status) {
+					globalModel.setProperty(that.getView().getBindingContext("globalModel").getPath(), data.data);
+					globalModel.refresh();
+					that.getOwnerComponent().getRouter().navTo("ruleDetail", {
+						ruleId: that._ruleId
+					});
 
-			});
+				});
+			}
 		}
 	},
 
@@ -330,4 +332,23 @@ sap.ui.controller("sap.gm.controller.Edit", {
 
 		oCurrentModel.setData(oData);
 	},
+
+	_checkCurrentForm: function() {
+		var checkResult = true;
+		$("#" + this.getView().getId() + " .GMCustomeInput").each((index,item)=>{
+			var currentInput = sap.ui.getCore().byId(item.id);
+			currentInput.setValueState("Success");
+			var type = currentInput.getCustomData()[0].getValue();
+			
+			// 不同类型的string不一样的
+			var patt= typeRegExp(type);
+			
+			var check = patt.test(currentInput.getValue());
+			if(!check){
+				checkResult = false;
+				currentInput.setValueState("Error");
+			}
+		});
+		return checkResult;
+	}
 });

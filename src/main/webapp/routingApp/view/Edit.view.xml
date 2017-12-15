@@ -41,7 +41,11 @@
 															path: 'value'
 														}"
 														visible="{path:'operation',formatter:'operationFormatter'}"
-														valueStateText="E-Mail must be a valid email address." />
+														valueStateText="E-Mail must be a valid email address." >
+														<customData>
+															<core:CustomData key="type" value="{type}" writeToDom="true" />
+														</customData>
+														</Input>
 													<Button class="sapUiTinyMarginBegin" text="Delete"
 														type="Accept" press="onDeleteConditionEvent" />
 												</CustomListItem>
@@ -74,7 +78,11 @@
 													<Input
 														class="GMCustomeInput sapUiTinyMarginBegin sapUiTinyMarginBottom"
 														placeholder="Enter Value ..." width="200px" value="{value}"
-														valueStateText="E-Mail must be a valid email address." />
+														valueStateText="E-Mail must be a valid email address.">
+														<customData>
+															<core:CustomData key="type" value="{type}" writeToDom="true" />
+														</customData>
+														</Input>
 													<Button class="sapUiTinyMarginBegin" text="Delete"
 														type="Accept" press="onDeleteConditionEvent" />
 												</CustomListItem>

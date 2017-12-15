@@ -59,6 +59,31 @@ function typeFormatter(type, long, boolean, string, date) {
 	return returnValue;
 }
 
+function typeRegExp(type) {
+	var returnValue = new RegExp("[0-9]");
+	switch (type) {
+		case 'long':
+		case 'float':
+		case 'double':
+		case 'int':
+			returnValue = new RegExp("[0-9]");
+			break;
+		case 'boolean':
+			returnValue = new RegExp("true|false");
+			break;
+		case 'java.lang.String':
+			returnValue = new RegExp("");
+			break;
+		case 'java.util.Date':
+			returnValue = new RegExp("[0-9]");
+			break;
+		default:
+			returnValue = new RegExp("[0-9]");
+	}
+
+	return returnValue;
+}
+
 /** *****************************Ajax calls***************************************** */
 function postToServer(url, data, fnSuccess) {
 	$.ajax({
