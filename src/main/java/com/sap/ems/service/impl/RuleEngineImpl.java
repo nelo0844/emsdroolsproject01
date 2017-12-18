@@ -1,7 +1,5 @@
 package com.sap.ems.service.impl;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventObject;
@@ -30,6 +28,7 @@ import org.springframework.stereotype.Service;
 import com.sap.ems.dao.RuleDao;
 import com.sap.ems.dao.SessionPersistenceDao;
 import com.sap.ems.dto.EMSResult;
+import com.sap.ems.dto.RuleErrorMessage;
 import com.sap.ems.entity.Rule;
 import com.sap.ems.service.RuleEngine;
 
@@ -131,7 +130,17 @@ public class RuleEngineImpl implements RuleEngine {
 			Results results = kb.getResults();
 			// assertEquals(0, results.getMessages(Message.Level.ERROR).size());
 			if (results.getMessages(Message.Level.ERROR).size() != 0) {
-				emsResult.setError(results.getMessages().toString());
+
+				String[] aErrorMessage = results.getMessages(Message.Level.ERROR).toString().split("\n");
+
+				ArrayList<RuleErrorMessage> errorMessageList = new ArrayList<RuleErrorMessage>();
+
+				for (int i = 0; i < aErrorMessage.length; i++) {
+					errorMessageList.add(new RuleErrorMessage(aErrorMessage[i]));
+				}
+
+				emsResult.setData(errorMessageList);
+
 				return emsResult;
 			}
 

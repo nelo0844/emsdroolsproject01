@@ -1,5 +1,8 @@
 package com.sap.ems.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EMSResult<T> {
 
 	private boolean status;
@@ -30,16 +33,17 @@ public class EMSResult<T> {
 		return data;
 	}
 
-	public void setData(T data) {
-		this.data = data;
-	}
-
 	public String getError() {
 		return error;
 	}
 
 	public void setError(String error) {
 		this.error = error;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setData(ArrayList<RuleErrorMessage> errorMessageList) {
+		this.data = (T) errorMessageList;
 	}
 
 }
