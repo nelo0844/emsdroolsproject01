@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sap.ems.dto.EMSResult;
 import com.sap.ems.dto.RuleDto;
-import com.sap.ems.entity.Rule;
+import com.sap.ems.entity.Entitlement;
+import com.sap.ems.entity.SalesOrder;
 import com.sap.ems.service.EMSService;
 import com.sap.ems.service.RuleEngine;
 
@@ -113,6 +114,13 @@ public class EMSController {
 	@ResponseBody
 	public EMSResult<Integer> applyRule() {
 		EMSResult<Integer> result = ruleEngine.applyRuleChanges();
+		return result;
+	}
+
+	@RequestMapping(value = "/rule/apply", method = RequestMethod.POST, produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public EMSResult<Entitlement> applyAll(@RequestBody SalesOrder salesOrder) {
+		EMSResult<Entitlement> result = ruleEngine.applyAllRules(salesOrder);
 		return result;
 	}
 
