@@ -3,8 +3,9 @@
 	xmlns:core="sap.ui.core">
 	<MessagePopover
 		title="Notification"
-		items="{notificationModel>/error}"
+		items="{notificationModel>/data}"
 		class="sapUiContentPadding">
-		  <MessagePopoverItem type="Error" description="qwe"></MessagePopoverItem>
+		  <MessagePopoverItem type="Error" 	title= "Error message"
+				subtitle="{notificationModel>message}" description="{notificationModel>message}"></MessagePopoverItem>
 	</MessagePopover>
 </core:FragmentDefinition>
