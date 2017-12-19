@@ -1,7 +1,7 @@
 <View xmlns="sap.m" xmlns:l="sap.ui.layout" controllerName="sap.gm.controller.App">
 	<Page title="EMS Rule Design" class="GMPage">
 		<headerContent>
-		<Button id="messageMenuBtn" type="{=${notificationModel>/status}?'Accept':'Reject'}" icon="sap-icon://message-popup" text="{=${notificationModel>/error}.length}" 
+		<Button id="messageMenuBtn" type="{=${notificationModel>/status}?'Accept':'Reject'}" icon="sap-icon://message-popup" text="{=${notificationModel>/data}.length}" 
 				press="handlePopoverPress" />
 		</headerContent>
 		<content>
