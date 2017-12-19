@@ -8,7 +8,7 @@ public class RuleErrorMessage {
 	private String message;
 
 	public RuleErrorMessage(String message) {
-		this.ID = MessageType.Error;
+		this.ID = MessageType.ERROR;
 		this.message = message;
 	}
 
