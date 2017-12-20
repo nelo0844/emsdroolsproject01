@@ -3,6 +3,7 @@ package com.sap.ems.service.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventObject;
+import java.util.Iterator;
 import java.util.List;
 
 import org.kie.api.KieBase;
@@ -32,6 +33,7 @@ import com.sap.ems.dto.RuleErrorMessage;
 import com.sap.ems.entity.Entitlement;
 import com.sap.ems.entity.Rule;
 import com.sap.ems.entity.SalesOrder;
+import com.sap.ems.entity.SalesOrderItem;
 import com.sap.ems.service.RuleEngine;
 
 @Service
@@ -102,9 +104,14 @@ public class RuleEngineImpl implements RuleEngine {
 		this.applyRuleChanges();
 
 		Entitlement entitlement = new Entitlement();
+		Iterator<SalesOrderItem> iterator = salesOrder.getSalesOrderItem().iterator();
 
 		this.getKession().insert(salesOrder);
 		this.getKession().insert(entitlement);
+
+		while (iterator != null && iterator.hasNext()) {
+			this.getKession().insert(iterator.next());
+		}
 
 		this.getKession().fireAllRules();
 

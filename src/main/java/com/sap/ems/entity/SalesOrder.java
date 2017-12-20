@@ -1,6 +1,7 @@
 package com.sap.ems.entity;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import com.sap.ems.util.EntityToString;
 
@@ -18,9 +19,9 @@ public class SalesOrder {
 
 	private String parentId;
 
-	private SalesOrderItem salesOrderItem;
+	private ArrayList<SalesOrderItem> salesOrderItem;
 
-	public SalesOrderItem getSalesOrderItem() {
+	public ArrayList<SalesOrderItem> getSalesOrderItem() {
 		return salesOrderItem;
 	}
 
@@ -32,7 +33,7 @@ public class SalesOrder {
 		this.soId = soId;
 	}
 
-	public void setSalesOrderItem(SalesOrderItem salesOrderItem) {
+	public void setSalesOrderItem(ArrayList<SalesOrderItem> salesOrderItem) {
 		this.salesOrderItem = salesOrderItem;
 	}
 
