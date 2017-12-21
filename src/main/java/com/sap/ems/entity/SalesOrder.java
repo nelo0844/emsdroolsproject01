@@ -1,30 +1,39 @@
 package com.sap.ems.entity;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import com.sap.ems.util.EntityToString;
 
 public class SalesOrder {
-	
-	private long soId;
-	
-	private String customerName;
-	
-	private long customerId;
-	
-	private String referanceDocumentNo;
-	
-	private String documentNumber;
-	
-	private String parentId;
-	
-	private SalesOrderItem salesOrderItem;
 
-	public SalesOrderItem getSalesOrderItem() {
+	private long soId;
+
+	private String customerName;
+
+	private long customerId;
+
+	private String referanceDocumentNo;
+
+	private String documentNumber;
+
+	private String parentId;
+
+	private ArrayList<SalesOrderItem> salesOrderItem;
+
+	public ArrayList<SalesOrderItem> getSalesOrderItem() {
 		return salesOrderItem;
 	}
 
-	public void setSalesOrderItem(SalesOrderItem salesOrderItem) {
+	public long getSoId() {
+		return soId;
+	}
+
+	public void setSoId(long soId) {
+		this.soId = soId;
+	}
+
+	public void setSalesOrderItem(ArrayList<SalesOrderItem> salesOrderItem) {
 		this.salesOrderItem = salesOrderItem;
 	}
 
@@ -82,9 +91,9 @@ public class SalesOrder {
 				+ ", referanceDocumentNo=" + referanceDocumentNo + ", documentNumber=" + documentNumber + ", parentId="
 				+ parentId + "]";
 	}
-	
+
 	public String getString() {
 		return EntityToString.getString(this, this.getClass());
 	}
-	
+
 }

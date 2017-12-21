@@ -7,7 +7,9 @@ import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieSession;
 
 import com.sap.ems.dto.EMSResult;
+import com.sap.ems.entity.Entitlement;
 import com.sap.ems.entity.Rule;
+import com.sap.ems.entity.SalesOrder;
 
 public interface RuleEngine {
 
@@ -50,4 +52,6 @@ public interface RuleEngine {
 	 * @return
 	 */
 	ReleaseId generateReleaseId(int ruleVersion);
+
+	EMSResult<Entitlement> applyAllRules(SalesOrder salesOrder);
 }
