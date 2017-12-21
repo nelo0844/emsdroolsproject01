@@ -234,6 +234,7 @@ function readRuleThenStructure(sourceData, whenStructure) {
 	var objString = "";
 	var needAddToWhenString = [];
 	var childItems = {};
+	var updateParameter = {};
 	if (sourceData) {
 		sourceData.forEach(function(item) {
 			var allItem = "";
@@ -245,6 +246,7 @@ function readRuleThenStructure(sourceData, whenStructure) {
 					childItems[property.technicalName].push(property);
 				} else {
 					allItem = handTheUndefinedObject(allItem,property,item.technicalName,needAddToWhenString,whenStructure);
+					updateParameter[item.technicalName] = whenStructure[item.technicalName] ? whenStructure[item.technicalName] : getInstantiatedObject(item.technicalName);
 				}
 			});
 
@@ -259,10 +261,17 @@ function readRuleThenStructure(sourceData, whenStructure) {
 		var allItem = "";
 		childItems[i].forEach(function(property) {
 			allItem = handTheUndefinedObject(allItem,property,i,needAddToWhenString,whenStructure);
+			updateParameter[i] = whenStructure[i] ? whenStructure[i] : getInstantiatedObject(i);
 		});
 		
 		objString = objString == "" ? allItem : (objString + " ; " + allItem);
 	}
+	
+	// update
+	for ( var i in updateParameter) {
+		objString = objString == "" ? "" : (objString + " ; " + "update("+updateParameter[i]+")");
+	}
+	
 	return {
 		content: objString,
 		needObjects: needAddToWhenString
