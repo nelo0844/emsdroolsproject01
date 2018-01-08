@@ -267,10 +267,10 @@ function readRuleThenStructure(sourceData, whenStructure) {
 		objString = objString == "" ? allItem : (objString + " ; " + allItem);
 	}
 	
-	// update
-	for ( var i in updateParameter) {
-		objString = objString == "" ? "" : (objString + " ; " + "update("+updateParameter[i]+")");
-	}
+//	// update
+//	for ( var i in updateParameter) {
+//		objString = objString == "" ? "" : (objString + " ; " + "update("+updateParameter[i]+")");
+//	}
 	
 	return {
 		content: objString,

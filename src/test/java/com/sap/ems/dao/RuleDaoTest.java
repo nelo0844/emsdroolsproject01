@@ -68,7 +68,7 @@ public class RuleDaoTest {
 				validFrom, validTo, delay, priority, description, isInternal, version, model, isEnable, isDirty,
 				isDeployed);
 
-		ruleDao.insertRule(rule);
+		// ruleDao.insertRule(rule);
 
 		// ruleDao.insertRule(name, displayName, whenClause, thenClause,
 		// whenString, thenString, whenDrl, thenDrl,

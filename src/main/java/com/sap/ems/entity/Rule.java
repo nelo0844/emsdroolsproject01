@@ -347,7 +347,9 @@ public class Rule {
 		// "getSecurityManager()).disable(\""
 		// + securityManagerPass + "\");\n";
 
-		// rule += "no-loop true \n";
+		rule += "no-loop true \n";
+
+		// rule += "lock-on-active \n";
 
 		// when and then shouldn't add "null" to the code, but skip their whens
 		// and thens

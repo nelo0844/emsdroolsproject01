@@ -28,48 +28,50 @@ public class RuleEngineTest {
 
 	@Test
 	public void TestSingleRule() {
-		Rule rule = ruleDao.queryById(10000);
-		rule.setEnable(true);
-		System.out.println(rule.toString());
-
-		Collection<Rule> rules = new ArrayList<Rule>();
-		rules.add(rule);
-
-		ruleEngine.deployRuleSet(rules, 0, 0, true);
-
-		Message message = new Message();
-		message.setMessage("Good Bye My Hello World");
-		message.setStatus(Message.GOODBYE);
-
-		ruleEngine.setKsession();
-		ruleEngine.getKession().insert(message);
-		ruleEngine.getKession().fireAllRules(1000000 * 2);
+		// Rule rule = ruleDao.queryById(10000);
+		// rule.setEnable(true);
+		// System.out.println(rule.toString());
+		//
+		// Collection<Rule> rules = new ArrayList<Rule>();
+		// rules.add(rule);
+		//
+		// ruleEngine.deployRuleSet(rules, 0, 0, true);
+		//
+		// Message message = new Message();
+		// message.setMessage("Good Bye My Hello World");
+		// message.setStatus(Message.GOODBYE);
+		//
+		// ruleEngine.setKsession();
+		// ruleEngine.getKession().insert(message);
+		// ruleEngine.getKession().fireAllRules(1000000 * 2);
 	}
 
 	@Test
 	public void TestFireAllRule() {
 		// this.insertSingleRule();
 
-		ruleEngine.applyRuleChanges();
-		ruleEngine.getKession().fireAllRules(1000000 * 2);
+		// ruleEngine.applyRuleChanges();
+		// ruleEngine.getKession().fireAllRules(1000000 * 2);
 
 	}
 
 	@Test
 	public void TestEntitlMentAdjustment() {
-		SalesOrder salesOrder = new SalesOrder();
-		salesOrder.setCustomerId(20000);
-		Entitlement entitlement = new Entitlement();
-
-		System.out.println("Before fire the Rules,  EntitleMent Status is : " + entitlement.getStatus());
-		// fireRuleEngine
-		ruleEngine.applyRuleChanges();
-		ruleEngine.setKsession();
-		ruleEngine.getKession().insert(salesOrder);
-		ruleEngine.getKession().insert(entitlement);
-		ruleEngine.getKession().fireAllRules(1000000 * 2);
-
-		System.out.println("After fire the Rules,  EntitleMent Status is : " + entitlement.getStatus());
+		// SalesOrder salesOrder = new SalesOrder();
+		// salesOrder.setCustomerId(20000);
+		// Entitlement entitlement = new Entitlement();
+		//
+		// System.out.println("Before fire the Rules, EntitleMent Status is : "
+		// + entitlement.getStatus());
+		// // fireRuleEngine
+		// ruleEngine.applyRuleChanges();
+		// ruleEngine.setKsession();
+		// ruleEngine.getKession().insert(salesOrder);
+		// ruleEngine.getKession().insert(entitlement);
+		// ruleEngine.getKession().fireAllRules(1000000 * 2);
+		//
+		// System.out.println("After fire the Rules, EntitleMent Status is : " +
+		// entitlement.getStatus());
 
 	}
 
@@ -103,7 +105,7 @@ public class RuleEngineTest {
 				whenDrl, thenDrl, validFrom, validTo, delay, priority, description, isInternal, version, model,
 				isEnable, isDirty, isDeployed);
 
-		ruleDao.insertRule(rule);
+		// ruleDao.insertRule(rule);
 
 	}
 
